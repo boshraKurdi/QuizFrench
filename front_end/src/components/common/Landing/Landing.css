@@ -1,0 +1,21 @@
+.land {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 0;
+}
+
+.land button {
+    font-size: 30px;
+    border-radius: 0;
+}
+
+.btn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+[data-lang='Arabic'] .btn {
+    justify-content: center;
+}

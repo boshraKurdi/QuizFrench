@@ -1,0 +1,35 @@
+header nav {
+    border-bottom: 1px solid var(--main-color);
+    box-shadow: 0 0 17px 1px var(--main-color);
+}
+
+.toggle:focus {
+    box-shadow: 0 0 0 4px var(--main-color);
+}
+
+.cont {
+    display: flex;
+    justify-content: space-between;
+}
+
+.links {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #000;
+    transition: .3s;
+}
+
+.links a:hover {
+    color: var(--main-color);
+}
+
+.links a.active {
+    color: var(--main-color);
+}

@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --main-color: #FFCD00;
+  --dir: ltr;
+  --lang: --bs-body-font-family;
+}
+
+[data-lang='Arabic'] {
+  --dir: rtl;
+  --lang: arabic;
+}
+
+body {
+  direction: var(--dir);
+  font-family: var(--lang);
+}
+
+@font-face {
+  font-family: arabic;
+  src: url('./assets/fonts/alfont_com_BelalBoldBold-BWrl8.ttf');
+}
+
+@font-face {
+  font-family: Binko2Eng;
+  src: url('./assets/fonts/Leckerli_One/LeckerliOne-Regular.ttf');
+}
+
+@font-face {
+  font-family: BinkoAra;
+  src: url('./assets/fonts/Markazi_Text/static/MarkaziText-SemiBold.ttf');
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}

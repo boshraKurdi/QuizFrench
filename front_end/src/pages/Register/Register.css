@@ -1,0 +1,23 @@
+.reg {
+    padding: 100px 0;
+
+}
+
+.reg form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reg form input,
+.reg form button {
+    margin-top: 10px;
+}
+
+.reg form button {
+    width: 300px;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    padding: 5px;
+}
