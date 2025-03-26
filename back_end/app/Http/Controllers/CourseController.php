@@ -11,12 +11,14 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function quiz_level($id)
     {
         $quiz = Course::where('id', $id)->whereHas('quiz', function ($q) {
             $q->where('type', 'level');
         })
-            ->with('quiz');
+            ->with('quiz')
+            ->get();
         return response()->json(['data' => $quiz]);
     }
 

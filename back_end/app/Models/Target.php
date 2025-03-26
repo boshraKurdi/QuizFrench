@@ -10,9 +10,9 @@ class Target extends Model
     /** @use HasFactory<\Database\Factories\TargetFactory> */
     use HasFactory;
     protected $fillable = [
-        'user_id ',
+        'user_id',
         'course_id',
-        'dgree',
+        'degree',
         'type',
     ];
 }
