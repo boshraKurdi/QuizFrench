@@ -11,6 +11,10 @@ class UnitController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function get_unit_course_level()
+    {
+        $unit = Unit::where('');
+    }
     public function index()
     {
         //

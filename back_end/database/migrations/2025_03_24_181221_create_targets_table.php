@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Course::class)->constrained();
             $table->double('degree');
+            $table->double('level')->default(0);
             $table->string('type');
             $table->timestamps();
         });

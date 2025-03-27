@@ -26,6 +26,7 @@ class MediaSeeder extends Seeder
         $course_2 = Course::find(2);
         $course_2
             ->addMedia($image_c_2)
+            ->preservingOriginal()
             ->toMediaCollection('course');
         $course_3 = Course::find(3);
         $course_3

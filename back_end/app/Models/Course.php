@@ -20,7 +20,7 @@ class Course extends Model implements HasMedia
 
     public function levels()
     {
-        return $this->belongsToMany(Level::class, 'course_levels');
+        return $this->belongsToMany(Level::class, 'course_levels')->withPivot(['id']);
     }
 
     public function users()

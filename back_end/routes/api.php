@@ -16,11 +16,13 @@ Route::group(['prefix' => 'auth'], function () {
 });
 Route::group(['prefix' => 'home'], function () {
     Route::get('GetCourses', [CourseController::class, 'index']);
-    Route::get('ShowCourse/{course}', [CourseController::class, 'show']);
+    Route::get('ShowCourse/{id}', [CourseController::class, 'show']);
 });
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'course'], function () {
         Route::get('QuizLevel/{id}', [CourseController::class, 'quiz_level']);
+        Route::get('GetUnits/{id}', [CourseController::class, 'get_unit_course_level']);
+        Route::get('GetLessons/{id}', [CourseController::class, 'get_lesson']);
     });
     Route::group(['prefix' => 'progress'], function () {
         Route::post('AddProgress', [TargetController::class, 'store']);

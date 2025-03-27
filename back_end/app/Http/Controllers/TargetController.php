@@ -23,20 +23,43 @@ class TargetController extends Controller
      */
     public function store(StoreTargetRequest $request)
     {
-        Target::create([
-            'user_id' => auth()->id(),
-            'course_id' => $request->course_id,
-            'type' => $request->type,
-            'degree' => $request->degree
-        ]);
-        if ($request->degree > 5) {
-            $message = app()->getLocale() == 'en' ? "Votre travail acharné commence à porter ses fruits, continuez !💪🏻" : "عملك الجاد بدأ يؤتي ثماره، استمر في التقدم!💪🏻";
-        } else if ($request->degree == 10) {
-            $message = app()->getLocale() == 'en' ? "Bravo! Votre réussite est le fruit de votre travail acharné, continuez à briller !🥳" : "مبروك! إنجازك هو ثمرة اجتهادك، استمر في التألق!🥳";
-        } else {
-            $message = app()->getLocale() == 'en' ? "Chaque échec est un pas vers le succès, apprenez et recommencez !😢" : "كل فشل هو خطوة نحو النجاح، تعلم وابدأ من جديد!😢";
+        $level = 0;
+        $check = Target::where('user_id', auth()->id())
+            ->where('course_id', $request->course_id)
+            ->where('type', $request->type)
+            ->count();
+        if (!$check) {
+            $target = Target::create([
+                'user_id' => auth()->id(),
+                'course_id' => $request->course_id,
+                'type' => $request->type,
+                'degree' => $request->degree
+            ]);
+            if ($request->type === 'level') {
+                if ($request->degree > 5) {
+                    $level = 2;
+                } else if ($request->degree == 10) {
+                    $level = 3;
+                } else {
+                    $level = 1;
+                }
+                Target::where('id', $target->id)->update([
+                    'level' => $level
+                ]);
+            }
         }
-        return response()->json(['message' => $message]);
+        if ($request->degree > 5) {
+
+            $message = app()->getLocale() == 'fa' ? "Votre travail acharné commence à porter ses fruits, continuez !💪🏻" : "عملك الجاد بدأ يؤتي ثماره، استمر في التقدم!💪🏻";
+        } else if ($request->degree == 10) {
+            $message = app()->getLocale() == 'fa' ? "Bravo! Votre réussite est le fruit de votre travail acharné, continuez à briller !🥳" : "مبروك! إنجازك هو ثمرة اجتهادك، استمر في التألق!🥳";
+        } else {
+            $message = app()->getLocale() == 'fa' ? "Chaque échec est un pas vers le succès, apprenez et recommencez !😢" : "كل فشل هو خطوة نحو النجاح، تعلم وابدأ من جديد!😢";
+        }
+
+
+
+        return response()->json(['message' => $message, 'level' => $level]);
     }
 
     /**
