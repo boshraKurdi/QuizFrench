@@ -5,7 +5,9 @@
 }
 
 :root {
-  --main-color: #FFCD00;
+  /* --main-color: #FFCD00;*/
+  /* --main-color: #8a4a54;*/
+  --main-color: #40bbe7;
   --dir: ltr;
   --lang: --bs-body-font-family;
 }

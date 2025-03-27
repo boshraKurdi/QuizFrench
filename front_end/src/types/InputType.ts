@@ -5,4 +5,6 @@ export type TInput = {
     placeholder: string,
     required?: boolean,
     style?: CSSProperties,
+    reg?: any,
+    onChange?: (e: any) => void
 }

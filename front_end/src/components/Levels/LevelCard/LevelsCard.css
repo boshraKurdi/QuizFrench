@@ -1,0 +1,7 @@
+.levelCard h4 {
+    color: var(--main-color);
+}
+
+.levelCard p {
+    color: #000;
+}

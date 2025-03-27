@@ -1,0 +1,7 @@
+.topicsCard {
+    width: 400px;
+}
+
+.topicsCard h4 {
+    color: var(--main-color);
+}

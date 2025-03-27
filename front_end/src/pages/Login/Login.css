@@ -1,6 +1,14 @@
 .login {
-    padding: 100px 0;
+    padding: 150px 0;
 
+}
+
+.inp {
+    position: relative;
+}
+
+.error {
+    color: rgb(252, 50, 50);
 }
 
 .login form {
@@ -17,6 +25,7 @@
 
 .login form button {
     width: 300px;
+    color: #fff;
     background-color: var(--main-color);
     border-radius: 5px;
     padding: 5px;

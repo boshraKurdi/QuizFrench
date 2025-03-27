@@ -7,6 +7,20 @@ header nav {
     box-shadow: 0 0 0 4px var(--main-color);
 }
 
+.prof {
+    width: 40px;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.prof img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
+
 .cont {
     display: flex;
     justify-content: space-between;
@@ -24,6 +38,21 @@ header nav {
     text-decoration: none;
     color: #000;
     transition: .3s;
+}
+
+.links .drop {
+    margin: 0;
+}
+
+.links .drop:hover {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+@media (max-width:767px) {
+    .links a {
+        margin: 0;
+    }
 }
 
 .links a:hover {

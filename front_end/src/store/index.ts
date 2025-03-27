@@ -10,9 +10,10 @@ import {
     REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-// import auth from "./auth/authSlice";
-// import books from "./booksSlice/booksSlice";
+import auth from "./auth/authSlice";
+import course from "./course/courseSlice";
 import language from "./language/language";
+
 // import favorite from "./Favorite/favoriteSlice";
 // import theme from "./themeSlice/themeSlice";
 // import chapters from "./chaptersSlice/chaptersSlice";
@@ -55,9 +56,10 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
     language,
+    course,
     // theme: theme,
     // categories,
-    // auth: persistReducer(authPersistConfig, auth),
+    auth: persistReducer(authPersistConfig, auth),
     // books,
     // favorite,
     // chapters,

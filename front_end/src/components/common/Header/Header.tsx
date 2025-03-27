@@ -5,8 +5,10 @@ import Button from "@components/feedback/Button/Button"
 import { useAppDispatch, useAppSelector } from "@hooks/app"
 import { NavLink, useNavigate } from "react-router-dom"
 import { changeLanguageToArabic, changeLanguageToFrench } from "@store/language/language"
+import { actLogout } from "@store/auth/authSlice"
 const Header = () => {
     const { language } = useAppSelector(state => state.language)
+    const { userData } = useAppSelector(state => state.auth)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const turnFrenchHandler = () => {
@@ -14,6 +16,11 @@ const Header = () => {
     }
     const turnArabicHandler = () => {
         dispatch(changeLanguageToArabic())
+    }
+    const logoutHandler = () => {
+        dispatch(actLogout()).unwrap()
+            .then(() => navigate('/'))
+
     }
     return (
         <header>
@@ -28,16 +35,16 @@ const Header = () => {
                             <NavLink to="/">
                                 {language === "French" ? "Accueil" : "الرئيسية"}
                             </NavLink>
-                            <NavLink to="/level">
-                                {language === "French" ? "Niveaux" : "المستوى"}
+                            <NavLink to="/courses">
+                                {language === "French" ? "Cours" : "الكورسات"}
                             </NavLink>
                             <NavDropdown title={language === "French" ? "langue" : "اللغة"} id="basic-nav-dropdown">
-                                <NavDropdown.Item >
+                                <NavDropdown.Item className="drop" >
                                     <p onClick={turnFrenchHandler}>
                                         {language === "French" ? "French" : "فرنسي"}
                                     </p>
                                 </NavDropdown.Item>
-                                <NavDropdown.Item >
+                                <NavDropdown.Item className="drop">
                                     <p onClick={turnArabicHandler}>
                                         {language === "French" ? "arabe" : " عربي"}
 
@@ -45,7 +52,10 @@ const Header = () => {
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
                             </NavDropdown>
-                            <Button onclick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>
+                            {userData ? <div onClick={logoutHandler} className="prof">
+                                <img src="" alt="" />
+                            </div> :
+                                <Button onclick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
