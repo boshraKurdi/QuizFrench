@@ -19,12 +19,13 @@ const actLogout = createAsyncThunk(
         // const { auth } = getState() as RootState
 
         try {
-            const res = await axios.post<TResponse>("auth/logout/", {
+            const res = await axios.post<TResponse>("auth/logout",{} ,{
                 headers: {
-                    "Authorization": `Bearer ${cookie.get('token')}`,
+                    "Authorization": `Bearer ${cookie.get("token")}`,
                 },
             }
             );
+            cookie.remove("token");
             return res.data;
         } catch (error) {
             console.log(error)
