@@ -1,13 +1,18 @@
 import { useAppDispatch, useAppSelector } from "@hooks/app"
 import CourseCard from "../CourseCard/CourseCard";
 import { useEffect } from "react";
-import { actGetCourses } from "@store/course/courseSlice";
+import { actCLearCourse, actGetCourses } from "@store/course/courseSlice";
 
 const CoursesList = () => {
     const { courses } = useAppSelector(state => state.course);
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(actGetCourses())
+        const coursePromise = dispatch(actGetCourses())
+        return () => {
+            coursePromise.abort()
+            dispatch(actCLearCourse())
+
+        }
     }, [])
     const CoursesCards = courses?.data.map((course) => <CourseCard key={course.id} {...course} />)
     return (

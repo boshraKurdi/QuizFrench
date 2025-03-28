@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/app"
 import { NavLink, useNavigate } from "react-router-dom"
 import { changeLanguageToArabic, changeLanguageToFrench } from "@store/language/language"
 import { actLogout } from "@store/auth/authSlice"
+import Cookie from 'cookie-universal';
 const Header = () => {
     const { language } = useAppSelector(state => state.language)
     const { userData } = useAppSelector(state => state.auth)
@@ -22,6 +23,7 @@ const Header = () => {
             .then(() => navigate('/'))
 
     }
+    const cookie = Cookie()
     return (
         <header>
             <Navbar expand="lg" className="bg-body-tertiary">
@@ -52,7 +54,7 @@ const Header = () => {
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
                             </NavDropdown>
-                            {userData ? <div onClick={logoutHandler} className="prof">
+                            {cookie.get('token') ? <div onClick={logoutHandler} className="prof">
                                 <img src="" alt="" />
                             </div> :
                                 <Button onclick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}

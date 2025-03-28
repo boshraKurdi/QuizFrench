@@ -13,6 +13,9 @@ import storage from "redux-persist/lib/storage";
 import auth from "./auth/authSlice";
 import course from "./course/courseSlice";
 import language from "./language/language";
+import quiz from './quiz/quizSlice';
+import unit from './unit/unitSlice';
+import lesson from './lesson/lessonSlice';
 
 // import favorite from "./Favorite/favoriteSlice";
 // import theme from "./themeSlice/themeSlice";
@@ -57,6 +60,9 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
     language,
     course,
+    quiz,
+    unit,
+    lesson,
     // theme: theme,
     // categories,
     auth: persistReducer(authPersistConfig, auth),

@@ -1,20 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
-import { TCourse } from "@customtypes/courseType";
+import { TUnit } from "@customtypes/unitType";
 
-type TResponse = TCourse;
-const actShowCourse = createAsyncThunk(
-    "course/actShowCourse",
+type TResponse = TUnit;
+const actGetUnits = createAsyncThunk(
+    "unit/actGetUnits",
     async (id: number, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.get<TResponse>(`/home/ShowCourse/${id}`,
+            const res = await axios.get<TResponse>(`/course/GetUnits/${id}`,
                 {
                     headers: { 'Content-Type': 'application/json' },
                 }
             );
+            console.log(res.data)
             return res.data;
         } catch (error) {
             console.log(error)
@@ -23,4 +24,4 @@ const actShowCourse = createAsyncThunk(
     }
 );
 
-export default actShowCourse;
+export default actGetUnits;
