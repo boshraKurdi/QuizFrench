@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\CourseLevel;
+use App\Models\Level;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,7 @@ class UnitFactory extends Factory
             'description' => $this->faker->text,
             'title_ar' => $this->faker->title,
             'description_ar' => $this->faker->text,
-            'course_level_id' => CourseLevel::inRandomOrder()->first()->id,
+            'level_id' => Level::inRandomOrder()->first()->id,
         ];
     }
 }

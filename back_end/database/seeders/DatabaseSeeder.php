@@ -17,14 +17,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CourseSeeder::class,
             QuizcourseSeeder::class,
-            LevelSeeder::class,
-            CourseLevelSeeder::class,
             UnitSeeder::class,
             QuizunitSeeder::class,
             LessonSeeder::class,
             VocabularySeeder::class,
             QuizlessonSeeder::class,
-            TargetSeeder::class,
             TopicSeeder::class,
             MediaSeeder::class
         ]);

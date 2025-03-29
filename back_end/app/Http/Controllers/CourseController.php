@@ -47,16 +47,16 @@ class CourseController extends Controller
      */
     public function get_unit_course_level($id)
     {
-        $courseId = DB::table('course_levels')
-            ->join('courses', 'course_levels.course_id', '=', 'courses.id')
-            ->where('course_levels.id', $id)
+        $courseId = DB::table('levels')
+            ->join('courses', 'levels.course_id', '=', 'courses.id')
+            ->where('levels.id', $id)
             ->value('courses.id');
         $check = Target::where('user_id', auth()->id())
             ->where('course_id', $courseId)
             ->where('type', 'unit')
             ->count();
         $userUnit = $check ? $check + 1 : 1;
-        $units = Unit::where('course_level_id', $id)->get();
+        $units = Unit::where('level_id', $id)->get();
         if ($units) {
             foreach ($units as $index => $unit) {
 
@@ -69,8 +69,8 @@ class CourseController extends Controller
     {
         $courseId = DB::table('lessons')
             ->join('units', 'lessons.unit_id', '=', 'units.id')
-            ->join('course_levels', 'units.course_level_id', '=', 'course_levels.id')
-            ->join('courses', 'course_levels.course_id', '=', 'courses.id')
+            ->join('levels', 'units.level_id', '=', 'levels.id')
+            ->join('courses', 'levels.course_id', '=', 'courses.id')
             ->where('lessons.id', $id)
             ->value('courses.id');
         $check = Target::where('user_id', auth()->id())

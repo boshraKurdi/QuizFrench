@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Course;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,7 @@ return new class extends Migration
             $table->string('title_ar');
             $table->string('description_ar');
             $table->string('title');
+            $table->foreignIdFor(Course::class)->constrained();
             $table->string('description');
             $table->timestamps();
         });

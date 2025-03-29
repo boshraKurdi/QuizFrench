@@ -19,6 +19,6 @@ class Level extends Model
 
     public function course()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsTo(Course::class);
     }
 }

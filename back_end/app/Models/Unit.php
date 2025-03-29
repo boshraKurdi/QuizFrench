@@ -18,9 +18,9 @@ class Unit extends Model
         'course_level_id'
     ];
 
-    public function couser_level()
+    public function level()
     {
-        return $this->belongsTo(CourseLevel::class);
+        return $this->belongsTo(Level::class);
     }
 
     public function lesson()

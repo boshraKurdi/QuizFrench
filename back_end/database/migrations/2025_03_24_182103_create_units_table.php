@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\CourseLevel;
+use App\Models\Level;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('title_ar');
             $table->string('description_ar');
-            $table->foreignIdFor(CourseLevel::class)->constrained();
+            $table->foreignIdFor(Level::class)->constrained();
             $table->timestamps();
         });
     }

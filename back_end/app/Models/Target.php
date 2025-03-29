@@ -12,6 +12,7 @@ class Target extends Model
     protected $fillable = [
         'user_id',
         'course_id',
+        'check',
         'level',
         'degree',
         'type',
