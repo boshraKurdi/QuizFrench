@@ -1,6 +1,6 @@
 import Button from '@components/feedback/Button/Button'
 import './Landing.css'
-import france from '@assets/imgs/france2.jpg'
+import france from '@assets/imgs/French-2035x2048-1.png'
 import { useAppSelector } from '@hooks/app'
 import { useNavigate } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
@@ -12,11 +12,12 @@ const Landing = () => {
             <Container className='land'>
                 <div className="text">
                     <h2>
-                        {language === "French" ? "  APPRENEZ le français avec nous de la manière la plus simple !" : "تعلم الفرنسية معنا بأسهل طريقة!"}
+                        {language === "French" ? "  Apprenez le français avec nous de la manière la plus simple !" : "تعلم الفرنسية معنا بأسهل طريقة!"}
                     </h2>
-                    <div className='btn'>
+                    <div className='btns'>
                         <Button onclick={() => navigate('/login')}>{language === "French" ? "commencer" : "ابدأ"}</Button>
-                    </div>                </div>
+                    </div>
+                </div>
 
                 <div className="pic">
                     <img src={france} alt="" />

@@ -1,4 +1,4 @@
-import { useAppSelector } from "@hooks/app";
+import { useAppDispatch, useAppSelector } from "@hooks/app";
 import { setGameState } from "@store/quiz/quizSlice";
 import './Menu.css'
 function Menu() {
@@ -6,13 +6,14 @@ function Menu() {
     //     GameStateContext
     // );
     const { userData } = useAppSelector(state => state.auth);
+    const dispatch = useAppDispatch()
     return (
         <div className="Menu">
             <label>Your Name:</label>
             <div className="name">{userData?.user.name}</div>
             <button
                 onClick={() => {
-                    setGameState("playing");
+                    dispatch(setGameState("playing"));
                 }}
             >
                 Start Quiz

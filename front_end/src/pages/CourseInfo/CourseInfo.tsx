@@ -51,7 +51,7 @@ const CourseInfo = () => {
                         <div className="btn">
                             <Button>{language === "French" ? "Test de niveau" : "اختبار تحديد المستوى"}</Button>
                         </div> : ""} */}
-                    <div onClick={showTest} className="btn">
+                    <div onClick={showTest} className="btns">
                         <Button onclick={goToTest}>{language === "French" ? "Test de niveau" : "اختبار تحديد المستوى"}</Button>
                     </div>
                 </div>

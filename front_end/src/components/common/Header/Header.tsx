@@ -5,7 +5,7 @@ import Button from "@components/feedback/Button/Button"
 import { useAppDispatch, useAppSelector } from "@hooks/app"
 import { NavLink, useNavigate } from "react-router-dom"
 import { changeLanguageToArabic, changeLanguageToFrench } from "@store/language/language"
-import { actLogout } from "@store/auth/authSlice"
+import { actLogout, authLogout } from "@store/auth/authSlice"
 import Cookie from 'cookie-universal';
 const Header = () => {
     const { language } = useAppSelector(state => state.language)
@@ -20,7 +20,11 @@ const Header = () => {
     }
     const logoutHandler = () => {
         dispatch(actLogout()).unwrap()
-            .then(() => navigate('/'))
+            .then(() => {
+                navigate('/')
+                cookie.remove('token')
+                dispatch(authLogout())
+            })
 
     }
     const cookie = Cookie()

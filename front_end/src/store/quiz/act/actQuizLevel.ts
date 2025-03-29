@@ -8,14 +8,15 @@ const cookie = Cookie()
 const actQuizLevel = createAsyncThunk(
     "quiz/actQuizLevel",
     async (id: number, thunk) => {
-        const { rejectWithValue } = thunk;
+        const { rejectWithValue, signal } = thunk;
 
         try {
             const res = await axios.get<TResponse>(`/course/QuizLevel/${id}`,
                 {
+                    signal,
                     headers: {
-                        'Content-Type': 'application/json'
-                        , Authorization: 'Bearer' + cookie.get('token')
+                        // 'Content-Type': 'application/json'
+                        Authorization: `Bearer ${cookie.get('token')}`
                     },
                 }
             );

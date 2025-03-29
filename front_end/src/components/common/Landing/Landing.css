@@ -10,12 +10,17 @@
     border-radius: 0;
 }
 
-.btn {
+.btns {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-[data-lang='Arabic'] .btn {
+[data-lang='Arabic'] .btns {
     justify-content: center;
+}
+
+.land .pic img {
+    width: 400px;
+    height: 400px;
 }

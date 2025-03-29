@@ -43,10 +43,25 @@
     color: var(--main-color);
 }
 
-.showCourse .btn {
+.showCourse .btns {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (min-width:767px) and (max-width:991px) {
+    .showCourse .right {
+        width: 350px;
+
+    }
+
+    .showCourse .right p {
+        width: 250px;
+    }
+
+    .showCourse .left {
+        width: 300px;
+    }
 }
 
 @media screen and (max-width:767px) {
