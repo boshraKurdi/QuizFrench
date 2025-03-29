@@ -41,12 +41,12 @@ const CourseInfo = () => {
                     </div>
                     <div className="bottom">
                         <HeadingTitle>{language === "French" ? "Niveaux" : "المستويات"}</HeadingTitle>
-                        <LevelsList levels={course?.data.levels} />
+                        <LevelsList levels={course?.data?.levels!} />
                     </div>
                 </div>
                 <div className="right">
                     <h2>{language === 'French' ? "Sujets:" : "المحاور:"}</h2>
-                    <TopicsList topics={course?.data.topics} />
+                    <TopicsList topics={course?.data.topics!} />
                     {/* {!cookie.get('token') ?
                         <div className="btn">
                             <Button>{language === "French" ? "Test de niveau" : "اختبار تحديد المستوى"}</Button>

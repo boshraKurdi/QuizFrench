@@ -9,6 +9,8 @@ const Register = lazy(() => import('@pages/Register/Register'));
 const Courses = lazy(() => import('@pages/Courses/Courses'));
 const CourseInfo = lazy(() => import('@pages/CourseInfo/CourseInfo'));
 const QuizTest = lazy(() => import('@pages/QuizTest/QuizTest'));
+const Level = lazy(() => import('@pages/Level/Level'));
+const Lesson = lazy(() => import('@pages/Lesson/Lesson'));
 function App() {
   const { language } = useAppSelector(state => state.language)
   document.body.dataset.lang = language;
@@ -42,6 +44,13 @@ function App() {
       path: '/courses/:id/show/quiz',
       element: <SuspendPage> <QuizTest /></SuspendPage>
 
+    }, {
+      path: '/courses/:id/level/:idLevel',
+      element: <SuspendPage> <Level /></SuspendPage>
+
+    }, {
+      path: '/courses/:id/level/:idLevel/lesson/:idLesson',
+      element: <SuspendPage> <Lesson /></SuspendPage>
     }
       //   path: '/Binko/home',
       //   element: <SuspendPage> <Home /></SuspendPage>

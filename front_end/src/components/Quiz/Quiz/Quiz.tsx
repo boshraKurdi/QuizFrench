@@ -1,8 +1,9 @@
 import "./Quiz.css";
 import { useEffect, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "@hooks/app";
-import { actQuizLevel, setGameState, setScore } from "@store/quiz/quizSlice";
+import { actAddProgress, actQuizLevel, setGameState, setScore } from "@store/quiz/quizSlice";
 import { useParams } from "react-router-dom";
 import './Quiz.css'
 // 
@@ -31,7 +32,10 @@ function Quiz() {
     };
 
     const nextQuestion = () => {
-
+        const options = document.querySelectorAll('.ans');
+        options.forEach(op => {
+            op.classList.remove('active')
+        });
         if (quizes?.data[0]?.quiz[currentQuestion].answer_right == optionChosen) {
             dispatch(setScore(score + 1));
 
@@ -46,10 +50,10 @@ function Quiz() {
 
         }
         dispatch(setGameState("finished"));
-        console.log(gameState)
     };
     return (
         <div>
+
             {quizes?.data.length ? <>
                 <h1>{language === 'French' ? `${quizes?.data[0]?.title} Quiz` : `اختبار ${quizes?.data[0]?.title_ar} `} </h1>
                 <div className="Quiz">
