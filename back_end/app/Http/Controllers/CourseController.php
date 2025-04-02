@@ -124,6 +124,8 @@ class CourseController extends Controller
             ->where('type', 'level')
             ->first();
         $userLevel = $check ? $check->level : 1;
+        $buttonLevelQuiz  = $check ? false : true;
+        $course->buttonLevelQuiz = $buttonLevelQuiz;
         if ($course) {
             foreach ($course->levels as $index => $level) {
 

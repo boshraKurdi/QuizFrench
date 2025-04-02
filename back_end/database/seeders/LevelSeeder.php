@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Level;
+use App\Models\Quizlesson;
+use App\Models\Quizunit;
 use App\Models\Unit;
 use App\Models\Vocabulary;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -121,6 +123,110 @@ class LevelSeeder extends Seeder
                         'description' => $unit[2],
                         'description_ar' => $unit[3]
                     ]);
+                    $quizUnitQuestions = [
+                        [
+                            "Quel est le son de la lettre 'A' en français ?",
+                            "ما هو صوت الحرف 'A' في الفرنسية ؟",
+                            "Ah",
+                            "Ouh",
+                            "Eh",
+                            "Uh",
+                            "Ah"
+                        ],
+                        [
+                            "Quelle est la différence entre 'é' et 'è' ?",
+                            "ما الفرق بين 'é' و 'è' ؟",
+                            "Aucune différence",
+                            "Le son 'é' est plus fermé",
+                            "Le son 'è' est plus ouvert",
+                            "Les deux sons sont identiques",
+                            "Le son 'è' est plus ouvert"
+                        ],
+                        [
+                            "Quel son fait la combinaison 'ou' en français ?",
+                            "ما الصوت الذي تنتجه الحروف 'ou' بالفرنسية ؟",
+                            "O",
+                            "Ou",
+                            "E",
+                            "U",
+                            "Ou"
+                        ],
+                        [
+                            "Comment se prononce 'gn' en français ?",
+                            "كيف يتم نطق 'gn' بالفرنسية ؟",
+                            "Comme 'n'",
+                            "Comme 'g'",
+                            "Comme 'ñ' en espagnol",
+                            "Comme 'ng'",
+                            "Comme 'ñ' en espagnol"
+                        ],
+                        [
+                            "Quel son fait 'ch' en français ?",
+                            "ما الصوت الذي تنتجه 'ch' في الفرنسية ؟",
+                            "Sh",
+                            "K",
+                            "Tch",
+                            "G",
+                            "Sh"
+                        ],
+                        [
+                            "Quel est le son de la lettre 'A' en français ?",
+                            "ما هو صوت الحرف 'A' في الفرنسية ؟",
+                            "Ah",
+                            "Ouh",
+                            "Eh",
+                            "Uh",
+                            "Ah"
+                        ],
+                        [
+                            "Quelle est la différence entre 'é' et 'è' ?",
+                            "ما الفرق بين 'é' و 'è' ؟",
+                            "Aucune différence",
+                            "Le son 'é' est plus fermé",
+                            "Le son 'è' est plus ouvert",
+                            "Les deux sons sont identiques",
+                            "Le son 'è' est plus ouvert"
+                        ],
+                        [
+                            "Quel son fait la combinaison 'ou' en français ?",
+                            "ما الصوت الذي تنتجه الحروف 'ou' بالفرنسية ؟",
+                            "O",
+                            "Ou",
+                            "E",
+                            "U",
+                            "Ou"
+                        ],
+                        [
+                            "Comment se prononce 'gn' en français ?",
+                            "كيف يتم نطق 'gn' بالفرنسية ؟",
+                            "Comme 'n'",
+                            "Comme 'g'",
+                            "Comme 'ñ' en espagnol",
+                            "Comme 'ng'",
+                            "Comme 'ñ' en espagnol"
+                        ],
+                        [
+                            "Quel son fait 'ch' en français ?",
+                            "ما الصوت الذي تنتجه 'ch' في الفرنسية ؟",
+                            "Sh",
+                            "K",
+                            "Tch",
+                            "G",
+                            "Sh"
+                        ]
+                    ];
+
+                    foreach ($quizUnitQuestions as $q) {
+                        Quizunit::create([
+                            'unit_id' => $unitModel->id,
+                            'question' => $q[0],
+                            'answer_1' => $q[2],
+                            'answer_2' => $q[3],
+                            'answer_3' => $q[4],
+                            'answer_4' => $q[5],
+                            'answer_right' => $q[6]
+                        ]);
+                    }
                     for ($i = 1; $i <= 4; $i++) {
                         $lesson = Lesson::create([
                             'unit_id' => $unitModel->id,
@@ -132,6 +238,111 @@ class LevelSeeder extends Seeder
                             'objective_ar' => 'بنهاية الذي يجب ان تكون قد تعلمت على الاحرف الصوتية وفرق بينها وبين الاحرف الساكنة',
                             'video_url' => "https://youtube.com/watch?v=qRGnhd5aFVQ&si=z3YZZR8nXw17saHs",
                         ]);
+
+                        $quizLessonQuestions = [
+                            [
+                                "Quelle est la voyelle qui se prononce comme 'ee' en anglais ?",
+                                "ما هو الحرف الصوتي الذي يُنطق مثل 'ee' في الإنجليزية ؟",
+                                "A",
+                                "E",
+                                "I",
+                                "U",
+                                "I"
+                            ],
+                            [
+                                "Quelle lettre est souvent muette en fin de mot en français ?",
+                                "أي حرف غالبًا ما يكون صامتًا في نهاية الكلمة الفرنسية ؟",
+                                "E",
+                                "T",
+                                "M",
+                                "D",
+                                "E"
+                            ],
+                            [
+                                "Comment prononce-t-on 'ç' en français ?",
+                                "كيف يتم نطق 'ç' في الفرنسية ؟",
+                                "Comme 's'",
+                                "Comme 'k'",
+                                "Comme 'ch'",
+                                "Comme 'g'",
+                                "Comme 's'"
+                            ],
+                            [
+                                "Quel est l'exemple correct d'un mot avec une voyelle nasale ?",
+                                "ما هو المثال الصحيح لكلمة تحتوي على حرف علة أنفي ؟",
+                                "Bon",
+                                "Chat",
+                                "Merci",
+                                "Petit",
+                                "Bon"
+                            ],
+                            [
+                                "Quelle lettre change de prononciation devant 'e', 'i' et 'y' ?",
+                                "أي حرف يتغير نطقه أمام 'e', 'i' و 'y' ؟",
+                                "C",
+                                "G",
+                                "H",
+                                "J",
+                                "G"
+                            ],
+                            [
+                                "Quelle est la voyelle qui se prononce comme 'ee' en anglais ?",
+                                "ما هو الحرف الصوتي الذي يُنطق مثل 'ee' في الإنجليزية ؟",
+                                "A",
+                                "E",
+                                "I",
+                                "U",
+                                "I"
+                            ],
+                            [
+                                "Quelle lettre est souvent muette en fin de mot en français ?",
+                                "أي حرف غالبًا ما يكون صامتًا في نهاية الكلمة الفرنسية ؟",
+                                "E",
+                                "T",
+                                "M",
+                                "D",
+                                "E"
+                            ],
+                            [
+                                "Comment prononce-t-on 'ç' en français ?",
+                                "كيف يتم نطق 'ç' في الفرنسية ؟",
+                                "Comme 's'",
+                                "Comme 'k'",
+                                "Comme 'ch'",
+                                "Comme 'g'",
+                                "Comme 's'"
+                            ],
+                            [
+                                "Quel est l'exemple correct d'un mot avec une voyelle nasale ?",
+                                "ما هو المثال الصحيح لكلمة تحتوي على حرف علة أنفي ؟",
+                                "Bon",
+                                "Chat",
+                                "Merci",
+                                "Petit",
+                                "Bon"
+                            ],
+                            [
+                                "Quelle lettre change de prononciation devant 'e', 'i' et 'y' ?",
+                                "أي حرف يتغير نطقه أمام 'e', 'i' و 'y' ؟",
+                                "C",
+                                "G",
+                                "H",
+                                "J",
+                                "G"
+                            ]
+                        ];
+
+                        foreach ($quizLessonQuestions as $q) {
+                            Quizlesson::create([
+                                'lesson_id' => $lesson->id,
+                                'question' => $q[0],
+                                'answer_1' => $q[2],
+                                'answer_2' => $q[3],
+                                'answer_3' => $q[4],
+                                'answer_4' => $q[5],
+                                'answer_right' => $q[6]
+                            ]);
+                        }
 
                         // إضافة المفردات لكل درس
                         for ($j = 1; $j <= 5; $j++) {

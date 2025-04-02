@@ -11,6 +11,11 @@ class QuizlessonController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function quiz_lesson($id)
+    {
+        $quiz = Quizlesson::where('lesson_id', $id)->get();
+        return response()->json(['data' => $quiz]);
+    }
     public function index()
     {
         //

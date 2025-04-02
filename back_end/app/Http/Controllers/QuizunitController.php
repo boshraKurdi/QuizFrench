@@ -11,6 +11,12 @@ class QuizunitController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function quiz_unit($id)
+    {
+        $quiz = Quizunit::where('unit_id', $id)->get();
+        return response()->json(['data' => $quiz]);
+    }
     public function index()
     {
         //

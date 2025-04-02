@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\QuizlessonController;
+use App\Http\Controllers\QuizunitController;
 use App\Http\Controllers\TargetController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +25,12 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('QuizLevel/{id}', [CourseController::class, 'quiz_level']);
         Route::get('GetUnits/{id}', [CourseController::class, 'get_unit_course_level']);
         Route::get('GetLessons/{id}', [CourseController::class, 'get_lesson']);
+    });
+    Route::group(['prefix' => 'unit'], function () {
+        Route::get('QuizUnit/{id}', [QuizunitController::class, 'quiz_unit']);
+    });
+    Route::group(['prefix' => 'lesson'], function () {
+        Route::get('QuizLesson/{id}', [QuizlessonController::class, 'quiz_lesson']);
     });
     Route::group(['prefix' => 'progress'], function () {
         Route::post('AddProgress', [TargetController::class, 'store']);
