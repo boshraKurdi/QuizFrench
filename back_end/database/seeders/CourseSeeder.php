@@ -30,9 +30,9 @@ class CourseSeeder extends Seeder
                     ['title' => 'Les sons difficiles', 'title_ar' => 'الأصوات الصعبة', 'description' => "Pratiquez la prononciation des sons français les plus compliqués.", 'description_ar' => "تمرن على نطق الأصوات الفرنسية الصعبة."]
                 ],
                 'levels' => [
-                    ['title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Introduction aux sons de base et à la prononciation française.", 'description_ar' => "مقدمة في الأصوات الأساسية والنطق في الفرنسية."],
-                    ['title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Perfectionnement de la prononciation et des liaisons.", 'description_ar' => "تحسين النطق وقواعد الربط."],
-                    ['title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Maîtrise des nuances phonétiques et des accents régionaux.", 'description_ar' => "إتقان الفروق الصوتية واللهجات الإقليمية."]
+                    ['number' => 1, 'title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Introduction aux sons de base et à la prononciation française.", 'description_ar' => "مقدمة في الأصوات الأساسية والنطق في الفرنسية."],
+                    ['number' => 2, 'title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Perfectionnement de la prononciation et des liaisons.", 'description_ar' => "تحسين النطق وقواعد الربط."],
+                    ['number' => 3, 'title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Maîtrise des nuances phonétiques et des accents régionaux.", 'description_ar' => "إتقان الفروق الصوتية واللهجات الإقليمية."]
                 ],
                 'questions' => [
                     ['question' => "Quelle est la bonne prononciation de 'bonjour' ?", 'answer_1' => "bon-jour", 'answer_2' => "bo-jour", 'answer_3' => "ban-jour", 'answer_4' => "boun-jour", 'answer_right' => "bon-jour", 'type' => 'level'],
@@ -60,9 +60,9 @@ class CourseSeeder extends Seeder
                     ['title' => 'Les prépositions', 'title_ar' => 'حروف الجر', 'description' => "Comprenez l'utilisation correcte des prépositions en français.", 'description_ar' => "افهم الاستخدام الصحيح لحروف الجر في الفرنسية."]
                 ],
                 'levels' => [
-                    ['title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Les bases de la grammaire française pour commencer à écrire et parler.", 'description_ar' => "أساسيات قواعد اللغة الفرنسية لبدء الكتابة والتحدث."],
-                    ['title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Analyse des structures grammaticales plus complexes.", 'description_ar' => "تحليل التراكيب النحوية الأكثر تعقيدًا."],
-                    ['title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Maîtrise de la grammaire avancée et des subtilités linguistiques.", 'description_ar' => "إتقان القواعد المتقدمة والفروق اللغوية الدقيقة."]
+                    ['number' => 1, 'title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Les bases de la grammaire française pour commencer à écrire et parler.", 'description_ar' => "أساسيات قواعد اللغة الفرنسية لبدء الكتابة والتحدث."],
+                    ['number' => 2, 'title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Analyse des structures grammaticales plus complexes.", 'description_ar' => "تحليل التراكيب النحوية الأكثر تعقيدًا."],
+                    ['number' => 3, 'title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Maîtrise de la grammaire avancée et des subtilités linguistiques.", 'description_ar' => "إتقان القواعد المتقدمة والفروق اللغوية الدقيقة."]
                 ],
                 'questions' => [
                     ['question' => "Quel est l'article défini de 'école' ?", 'answer_1' => "Le", 'answer_2' => "La", 'answer_3' => "Un", 'answer_4' => "Des", 'answer_right' => "La", 'type' => 'level'],
@@ -90,9 +90,9 @@ class CourseSeeder extends Seeder
                     ['title' => 'Les expressions idiomatiques', 'title_ar' => 'التعبيرات الاصطلاحية', 'description' => "Découvrez des expressions courantes pour parler naturellement.", 'description_ar' => "اكتشف التعبيرات الشائعة للتحدث بشكل طبيعي."]
                 ],
                 'levels' => [
-                    ['title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Apprendre à se présenter et parler de sujets simples.", 'description_ar' => "تعلم تقديم نفسك والتحدث عن مواضيع بسيطة."],
-                    ['title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Développement des compétences pour des conversations fluides.", 'description_ar' => "تطوير المهارات لمحادثات أكثر سلاسة."],
-                    ['title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Maîtrise des débats et discussions complexes.", 'description_ar' => "إتقان النقاشات والمحادثات المعقدة."]
+                    ['number' => 1, 'title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Apprendre à se présenter et parler de sujets simples.", 'description_ar' => "تعلم تقديم نفسك والتحدث عن مواضيع بسيطة."],
+                    ['number' => 2, 'title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Développement des compétences pour des conversations fluides.", 'description_ar' => "تطوير المهارات لمحادثات أكثر سلاسة."],
+                    ['number' => 3, 'title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Maîtrise des débats et discussions complexes.", 'description_ar' => "إتقان النقاشات والمحادثات المعقدة."]
                 ],
                 'questions' => [
                     ['question' => "Quel est l'article défini de 'école' ?", 'answer_1' => "Le", 'answer_2' => "La", 'answer_3' => "Un", 'answer_4' => "Des", 'answer_right' => "La", 'type' => 'level'],
@@ -120,9 +120,9 @@ class CourseSeeder extends Seeder
                     ['title' => 'Lecture et prononciation', 'title_ar' => 'القراءة والنطق', 'description' => "Pratiquez la lecture à haute voix pour améliorer votre prononciation.", 'description_ar' => "تمرن على القراءة بصوت عالٍ لتحسين نطقك."]
                 ],
                 'levels' => [
-                    ['title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Lecture de textes courts et compréhension des mots de base.", 'description_ar' => "قراءة نصوص قصيرة وفهم الكلمات الأساسية."],
-                    ['title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Analyse de textes plus longs et compréhension du contexte.", 'description_ar' => "تحليل نصوص أطول وفهم السياق."],
-                    ['title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Lecture et interprétation de textes littéraires complexes.", 'description_ar' => "قراءة وتفسير النصوص الأدبية المعقدة."]
+                    ['number' => 1, 'title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Lecture de textes courts et compréhension des mots de base.", 'description_ar' => "قراءة نصوص قصيرة وفهم الكلمات الأساسية."],
+                    ['number' => 2, 'title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Analyse de textes plus longs et compréhension du contexte.", 'description_ar' => "تحليل نصوص أطول وفهم السياق."],
+                    ['number' => 3, 'title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Lecture et interprétation de textes littéraires complexes.", 'description_ar' => "قراءة وتفسير النصوص الأدبية المعقدة."]
                 ],
                 'questions' => [
                     ['question' => "Quel est l'article défini de 'école' ?", 'answer_1' => "Le", 'answer_2' => "La", 'answer_3' => "Un", 'answer_4' => "Des", 'answer_right' => "La", 'type' => 'level'],
@@ -150,9 +150,9 @@ class CourseSeeder extends Seeder
                     ['title' => 'Les expressions courantes', 'title_ar' => 'التعبيرات الشائعة', 'description' => "Apprenez les expressions idiomatiques françaises courantes.", 'description_ar' => "تعلم التعبيرات الاصطلاحية الشائعة في الفرنسية."]
                 ],
                 'levels' => [
-                    ['title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Écoute de phrases simples et exercices de reconnaissance des sons.", 'description_ar' => "الاستماع إلى جمل بسيطة وتمارين تمييز الأصوات."],
-                    ['title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Compréhension de conversations courantes et dialogues.", 'description_ar' => "فهم المحادثات اليومية والحوارات."],
-                    ['title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Analyse des accents variés et des discours rapides.", 'description_ar' => "تحليل اللهجات المختلفة والخطابات السريعة."]
+                    ['number' => 1, 'title' => 'Débutant', 'title_ar' => 'مبتدئ', 'description' => "Écoute de phrases simples et exercices de reconnaissance des sons.", 'description_ar' => "الاستماع إلى جمل بسيطة وتمارين تمييز الأصوات."],
+                    ['number' => 2, 'title' => 'Intermédiaire', 'title_ar' => 'متوسط', 'description' => "Compréhension de conversations courantes et dialogues.", 'description_ar' => "فهم المحادثات اليومية والحوارات."],
+                    ['number' => 3, 'title' => 'Avancé', 'title_ar' => 'متقدم', 'description' => "Analyse des accents variés et des discours rapides.", 'description_ar' => "تحليل اللهجات المختلفة والخطابات السريعة."]
                 ],
                 'questions' => [
                     ['question' => "Quel est l'article défini de 'école' ?", 'answer_1' => "Le", 'answer_2' => "La", 'answer_3' => "Un", 'answer_4' => "Des", 'answer_right' => "La", 'type' => 'level'],

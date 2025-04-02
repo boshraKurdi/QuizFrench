@@ -15,8 +15,10 @@ return new class extends Migration
         Schema::create('vocabularies', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Lesson::class)->constrained();
-            $table->string('title');
-            $table->string('title_ar');
+            $table->string('word');
+            $table->string('translation');
+            $table->string('example_sentence');
+            $table->text('audio_url')->nullable();
             $table->timestamps();
         });
     }

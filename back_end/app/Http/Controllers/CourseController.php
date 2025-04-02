@@ -47,6 +47,9 @@ class CourseController extends Controller
      */
     public function get_unit_course_level($id)
     {
+        $level = DB::table('levels')
+            ->where('levels.id', $id)
+            ->first();
         $courseId = DB::table('levels')
             ->join('courses', 'levels.course_id', '=', 'courses.id')
             ->where('levels.id', $id)
@@ -55,18 +58,32 @@ class CourseController extends Controller
             ->where('course_id', $courseId)
             ->where('type', 'unit')
             ->count();
+        $check_level = Target::where('user_id', auth()->id())
+            ->where('course_id', $courseId)
+            ->where('type', 'level')
+            ->first();
+        $check_level_number =  $check_level ? $check_level->level : 0;
         $userUnit = $check ? $check + 1 : 1;
         $units = Unit::where('level_id', $id)->get();
         if ($units) {
             foreach ($units as $index => $unit) {
-
-                $unit->is_locked = ($index + 1) > $userUnit;
+                if ($check_level_number > $level->number) {
+                    $unit->is_locked = false;
+                } else {
+                    $unit->is_locked = ($index + 1) > $userUnit;
+                }
             }
         }
         return response()->json(['data' => $units]);
     }
     public function get_lesson($id)
     {
+        $level = DB::table('levels')
+            ->where('levels.id', $id)
+            ->first();
+        $unit = DB::table('units')
+            ->where('level_id', $id)
+            ->first();
         $courseId = DB::table('lessons')
             ->join('units', 'lessons.unit_id', '=', 'units.id')
             ->join('levels', 'units.level_id', '=', 'levels.id')
@@ -77,12 +94,24 @@ class CourseController extends Controller
             ->where('course_id', $courseId)
             ->where('type', 'lesson')
             ->count();
+        $check_level = Target::where('user_id', auth()->id())
+            ->where('course_id', $courseId)
+            ->where('type', 'level')
+            ->first();
+        $check_unit = Target::where('user_id', auth()->id())
+            ->where('course_id', $courseId)
+            ->where('type', 'unit')
+            ->count();
+        $check_level_number =  $check_level ? $check_level->level : 0;
         $userLesson = $check ? $check + 1 : 1;
-        $lessons = Lesson::where('unit_id', $id)->get();
+        $lessons = Lesson::where('unit_id', $id)->with('vocabulary')->get();
         if ($lessons) {
             foreach ($lessons as $index => $lesson) {
-
-                $lesson->is_locked = ($index + 1) > $userLesson;
+                if ($check_level_number > $level->number || $check_unit >= $unit->number) {
+                    $lesson->is_locked = false;
+                } else {
+                    $lesson->is_locked = ($index + 1) > $userLesson;
+                }
             }
         }
         return response()->json(['data' => $lessons]);

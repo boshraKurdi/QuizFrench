@@ -16,9 +16,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignIdFor(Unit::class)->constrained();
-            $table->string('description');
+            $table->string('content');
             $table->string('title_ar');
-            $table->string('description_ar');
+            $table->string('content_ar');
+            $table->string('objective');
+            $table->string('objective_ar');
+            $table->text('video_url')->nullable();
             $table->timestamps();
         });
     }

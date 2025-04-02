@@ -13,11 +13,11 @@ class MediaSeeder extends Seeder
      */
     public function run(): void
     {
-        $image_c_2 = storage_path('images\listen.webp');
-        $image_c_5 = storage_path('images\read.webp');
-        $image_c_1 = storage_path('images\system.webp');
-        $image_c_3 = storage_path('images\sound.webp');
-        $image_c_4 = storage_path('images\chat.webp');
+        $image_c_5 = storage_path('images\listen.webp');
+        $image_c_4 = storage_path('images\read.webp');
+        $image_c_2 = storage_path('images\system.webp');
+        $image_c_1 = storage_path('images\sound.webp');
+        $image_c_3 = storage_path('images\chat.webp');
         $course_1 = Course::find(1);
         $course_1
             ->addMedia($image_c_1)

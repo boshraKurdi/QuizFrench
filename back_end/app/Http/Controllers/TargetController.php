@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Target;
 use App\Http\Requests\StoreTargetRequest;
 use App\Http\Requests\UpdateTargetRequest;
+use App\Models\Level;
 use Illuminate\Support\Facades\Auth;
 
 class TargetController extends Controller
@@ -23,7 +24,10 @@ class TargetController extends Controller
      */
     public function store(StoreTargetRequest $request)
     {
-        $level = 0;
+        $level = ['Débutant', 'Intermédiaire', 'Avancé'];
+        $level_ar = ['مبتدئ', 'متوسط', 'متقدم'];
+        $level_num = 0;
+        $level_id = 0;
         $status =  app()->getLocale() == 'fa' ? 'réussi' : "ناجح";
         $check = Target::where('user_id', auth()->id())
             ->where('course_id', $request->course_id)
@@ -53,15 +57,22 @@ class TargetController extends Controller
                     'degree' => $request->degree
                 ]);
                 if ($request->degree > 3) {
-                    $level = 2;
+                    $level_num = 2;
+                    $level = app()->getLocale() == 'fa' ? $level[1] : $level_ar[1];
                 } else if ($request->degree > 7) {
-                    $level = 3;
+                    $level_num = 3;
+                    $level = app()->getLocale() == 'fa' ? $level[2] : $level_ar[2];
                 } else {
-                    $level = 1;
+                    $level_num = 1;
+                    $level = app()->getLocale() == 'fa' ? $level[0] : $level_ar[0];
                 }
+                $mylevel = Level::whereHas('course', function ($q) use ($request) {
+                    $q->where('courses.id', $request->course_id);
+                })->where('number', $level_num)->first();
+                $level_id = $mylevel ? $mylevel->id : 0;
 
                 Target::where('id', $target->id)->update([
-                    'level' => $level
+                    'level' => $level_num
                 ]);
             }
         }
@@ -79,8 +90,9 @@ class TargetController extends Controller
 
 
         return response()->json(['message' => $message, 'data' => [
-            'level' => $level,
-            'status' => $status
+            'level' =>  $level_id ? $level : 0,
+            'status' => $status,
+            'level_id' => $level_id
         ]]);
     }
 

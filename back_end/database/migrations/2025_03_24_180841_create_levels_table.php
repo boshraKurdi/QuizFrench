@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
+            $table->integer('number');
             $table->string('title_ar');
             $table->string('description_ar');
             $table->string('title');

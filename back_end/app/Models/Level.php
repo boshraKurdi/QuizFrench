@@ -11,6 +11,7 @@ class Level extends Model
     use HasFactory;
 
     protected $fillable = [
+        'number',
         'title',
         'title_ar',
         'description_ar',
