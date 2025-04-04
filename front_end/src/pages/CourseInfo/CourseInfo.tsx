@@ -56,7 +56,7 @@ const CourseInfo = () => {
 
                         } : {
                             backgroundColor: '#acc7dd'
-                        }} onclick={goToTest} disabled={course?.data.buttonLevelQuiz}>{!course?.data.buttonLevelQuiz && language === 'French' ? 'tu as déjà passé ce test' : !course?.data.buttonLevelQuiz && language === 'Arabic' ? 'لقد خضت هذا الاختبار من قبل' : language === "French" ? "Test de niveau"
+                        }} onclick={goToTest} disabled={!course?.data.buttonLevelQuiz}>{!course?.data.buttonLevelQuiz && language === 'French' ? 'tu as déjà passé ce test' : !course?.data.buttonLevelQuiz && language === 'Arabic' ? 'لقد خضت هذا الاختبار من قبل' : language === "French" ? "Test de niveau"
                             : "اختبار تحديد المستوى"}</Button>
                     </div>
                 </div>
