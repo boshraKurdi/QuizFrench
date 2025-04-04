@@ -1,4 +1,9 @@
 export type TProgress = {
     message: string,
-    level: number
+    data: {
+        level: number,
+        status?: string,
+        level_id: number
+
+    }
 } 

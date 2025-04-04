@@ -45,11 +45,6 @@
     transition: .3s;
 }
 
-.Quiz .questions {
-    display: flex;
-    flex-direction: column;
-}
-
 .Quiz .ans:hover {
     color: var(--main-color);
     font-size: 16.5px;
@@ -59,4 +54,9 @@
     background-color: #7694d5;
     color: #fff;
     font-size: 16.5px;
+}
+
+.Quiz .questions {
+    display: flex;
+    flex-direction: column;
 }

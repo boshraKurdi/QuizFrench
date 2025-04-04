@@ -9,10 +9,12 @@ const LevelCard = (props: TLevel) => {
     const navigate = useNavigate()
     const indx = parseInt(id as string)
     return (
-        <div onClick={() => navigate(`/courses/${indx}/level/${props.id}`)} className={props?.is_locked ? `levelCard` : `levelCard active`}>
+        <div onClick={() =>
+            navigate(`/courses/${indx}/levels/${props.id}`)}
+            className={props?.is_locked ? `levelCard` : `levelCard active`}>
             <div className="text">
                 <h4>{props.num! + 1}. {language === "French" ? props.title : props.title_ar}</h4>
-                <p>{language === "French" ? props.description_ar : props.description_ar}</p>
+                <p>{language === "French" ? props.description : props.description_ar}</p>
             </div>
             {props?.is_locked &&
                 <div className="lock">

@@ -1,7 +1,8 @@
 import { CSSProperties } from "react"
 
 export type TButton = {
-    children: string,
+    children: React.ReactNode,
     style?: CSSProperties,
-    onclick?: () => void
+    onclick?: () => void,
+    disabled?: boolean
 }

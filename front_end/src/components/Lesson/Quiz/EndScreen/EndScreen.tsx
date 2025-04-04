@@ -4,23 +4,26 @@
 import { Toaster, toast } from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "@hooks/app";
-import { actAddProgress, actQuizLevel, setGameState, setScore } from "@store/quiz/quizSlice";
+import { actAddProgress, setGameState, setScore } from "@store/quiz/quizSlice";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './EndScreen.css';
+import actGetQuizLesson from "@store/lesson/act/actGetQuizLesson";
 const EndScreen = () => {
 
-    const { score, quizes, result } = useAppSelector(state => state.quiz)
+    const { score, result } = useAppSelector(state => state.quiz)
+    const { quizes } = useAppSelector(state => state.unit)
     const { userData } = useAppSelector(state => state.auth)
     const { language } = useAppSelector(state => state.language)
     const dispatch = useAppDispatch()
 
-    const { id } = useParams();
+    const { id, idLesson } = useParams();
     const indx = parseInt(id as string)
+    const lessonIndx = parseInt(idLesson as string)
     const data = {
         course_id: indx,
         degree: score,
-        type: 'level'
+        type: 'lesson'
     }
     const navigate = useNavigate()
     useEffect(() => {
@@ -32,14 +35,15 @@ const EndScreen = () => {
                 else
                     toast.error(res?.message!);
             })
-        dispatch(actQuizLevel(indx))
+        dispatch(actGetQuizLesson(lessonIndx))
 
     }, [])
     useEffect(() => {
 
     }, [])
     const goToLevel = () => {
-        navigate(`/courses/${indx}/level/${result?.data.level_id}`)
+        // navigate(`/courses/${indx}/unit/${result?.data.level_id}`)
+        navigate(-1)
     }
     // const restartQuiz = () => {
     //     setScore(0);
@@ -52,13 +56,13 @@ const EndScreen = () => {
             <h1>{language === 'French' ? 'Quiz terminé' : "انتهى الاختبار"}</h1>
             <h3>{userData?.user.name}</h3>
             <h3>{result?.data.status}</h3>
-            <h3>{language === 'French' ? 'ton niveau est ' : "مستواك هو "}{result?.data.level}</h3>
+            {/* <h3>{language === 'French' ? 'ton niveau est ' : "مستواك هو "}{result?.data.level}</h3> */}
             <h3>
                 {language === 'French' ? 'votre résultat: ' : 'نتيجتك:'}
-                {score + "/" + quizes?.data[0].quiz.length!}
+                {score + "/" + quizes?.data.length!}
 
             </h3>
-            <button onClick={goToLevel}>{language === 'French' ? 'va à ton niveau' : 'اذهب الى مستواك'}</button>
+            <button onClick={goToLevel}>{language === 'French' ? 'retour aux leçons ' : 'العودة الى الدروس '}</button>
         </div>
     );
 };

@@ -1,0 +1,37 @@
+.showLesson {
+    padding: 100px 0;
+}
+
+.showLesson h1 {
+    color: var(--main-color);
+    margin-bottom: 30px;
+}
+
+.showLesson a {
+    text-decoration: underline;
+}
+
+.showLesson h3 {
+    color: var(--main-color);
+    margin-bottom: 30px;
+}
+
+.showLesson table {
+    text-align: center;
+}
+
+.showLesson table button {
+    margin: 10px 0;
+    width: 100px;
+}
+
+.showLesson .btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.showLesson .btns button {
+    width: 200px;
+}

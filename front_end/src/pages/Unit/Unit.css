@@ -1,0 +1,33 @@
+.unitInfo {
+    padding: 100px 0;
+
+}
+
+/* 
+.levelInfo .cont {
+    display: flex;
+    justify-content: space-between;
+} */
+
+.unitInfo .left,
+.unitInfo .right {
+    padding: 10px;
+    border: 1px solid var(--main-color);
+    box-shadow: 0 0 2px 2px var(--main-color);
+}
+
+.unitInfo h3,
+.unitInfo h2 {
+    color: var(--main-color);
+}
+
+.unitInfo .btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.unitInfo .btns button {
+    width: 200px;
+}

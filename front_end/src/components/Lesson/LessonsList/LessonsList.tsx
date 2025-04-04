@@ -1,15 +1,15 @@
 import './LessonsList.css'
-import { TUnit } from "@customtypes/unitType"
-import UnitCard from "../LessonCard/LessonCard"
+import LessonCard from "../LessonCard/LessonCard"
 import { useAppSelector } from "@hooks/app"
-const UnitsList = ({ units }: { units: TUnit }) => {
+import { TLesson } from '@customtypes/lessonType'
+const LessonsList = ({ lessons }: { lessons: TLesson }) => {
     const { language } = useAppSelector(state => state.language)
-    const Cards = units?.data.map(to => <li key={to.id}><UnitCard {...to} /></li>)
+    const Cards = lessons?.data.map(le => <li key={le.id}><LessonCard {...le} /></li>)
     return (
         <ul className='topicsList'>
-            {units?.data.length ? Cards : language === 'French' ? "Il n'y a pas encore de Unités" : "لم يتم اضافة المحاور بعد"}
+            {lessons?.data.length ? Cards : language === 'French' ? "Il n'y a pas encore de leçons" : "لم يتم اضافة المحاور بعد"}
         </ul>
     )
 }
 
-export default UnitsList
+export default LessonsList

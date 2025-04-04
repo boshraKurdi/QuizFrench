@@ -1,21 +1,21 @@
-.unitCard h4 {
+.lessonCard h4 {
     color: #608cf3;
 }
 
-.unitCard p {
+.lessonCard p {
     color: #43454b;
 }
 
-.unitCard.active:hover {
+.lessonCard.active:hover {
     background-color: #839be4;
 }
 
-.unitCard.active {
+.lessonCard.active {
     cursor: pointer;
     background-color: transparent;
 }
 
-.unitCard {
+.lessonCard {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,10 +25,10 @@
     background-color: #c1c8eb;
 }
 
-.unitCard.active p {
+.lessonCard.active p {
     color: #000;
 }
 
-.unitCard.active h4 {
+.lessonCard.active h4 {
     color: var(--main-color);
 }

@@ -6,6 +6,7 @@ export type TCourse = {
         description: string,
         title_ar: string,
         description_ar: string,
+        buttonLevelQuiz: boolean,
         levels: [{
             id: number,
             title: string,
