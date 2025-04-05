@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title_ar');
             $table->string('description_ar');
             $table->string('title');
-            $table->foreignIdFor(Course::class)->constrained();
+            $table->foreignIdFor(Course::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('description');
             $table->timestamps();
         });

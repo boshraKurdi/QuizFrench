@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Course::class)->constrained();
+            $table->foreignIdFor(Course::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('title');
             $table->string('title_ar');
             $table->string('description');

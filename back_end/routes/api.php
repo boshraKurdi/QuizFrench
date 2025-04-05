@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\QuizlessonController;
 use App\Http\Controllers\QuizunitController;
 use App\Http\Controllers\TargetController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,5 +35,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
     Route::group(['prefix' => 'progress'], function () {
         Route::post('AddProgress', [TargetController::class, 'store']);
+    });
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('profile', [UserController::class, 'profile']);
+        Route::post('update', [UserController::class, 'update']);
+        Route::delete('delete', [UserController::class, 'delete']);
     });
 });

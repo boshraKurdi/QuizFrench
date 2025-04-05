@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignIdFor(Unit::class)->constrained();
+            $table->foreignIdFor(Unit::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('content');
             $table->string('title_ar');
             $table->string('content_ar');

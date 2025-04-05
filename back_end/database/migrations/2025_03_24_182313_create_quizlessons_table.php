@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('quizlessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Lesson::class)->constrained();
+            $table->foreignIdFor(Lesson::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->text('question');
             $table->string('answer_1');
             $table->string('answer_2');

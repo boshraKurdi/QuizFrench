@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('targets', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Course::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor(Course::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->double('degree');
             $table->integer('check');
             $table->double('level')->default(0);

@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('quizunits', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Unit::class)->constrained();
+            $table->foreignIdFor(Unit::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->text('question');
             $table->string('answer_1');
             $table->string('answer_2');

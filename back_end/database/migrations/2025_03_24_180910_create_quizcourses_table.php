@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('quizcourses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Course::class)->constrained();
+            $table->foreignIdFor(Course::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('type');
             $table->text('question');
             $table->string('answer_1');

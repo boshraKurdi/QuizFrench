@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Target::class)->constrained();
+            $table->foreignIdFor(Target::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->double('average');
             $table->timestamps();
         });

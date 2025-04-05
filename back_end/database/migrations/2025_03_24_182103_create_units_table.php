@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('title_ar');
             $table->string('description_ar');
-            $table->foreignIdFor(Level::class)->constrained();
+            $table->foreignIdFor(Level::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

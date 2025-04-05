@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('vocabularies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Lesson::class)->constrained();
+            $table->foreignIdFor(Lesson::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('word');
             $table->string('translation');
             $table->string('example_sentence');
