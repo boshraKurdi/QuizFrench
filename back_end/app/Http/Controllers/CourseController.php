@@ -104,7 +104,7 @@ class CourseController extends Controller
             ->count();
         $check_level_number =  $check_level ? $check_level->level : 0;
         $userLesson = $check ? $check + 1 : 1;
-        $lessons = Lesson::where('unit_id', $id)->with('vocabulary')->get();
+        $lessons = Lesson::where('unit_id', $id)->with(['vocabulary', 'vocabulary.media'])->get();
         if ($lessons) {
             foreach ($lessons as $index => $lesson) {
                 if ($check_level_number > $level->number || $check_unit >= $unit->number) {

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\Vocabulary;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,15 @@ class MediaSeeder extends Seeder
      */
     public function run(): void
     {
+        $audio = storage_path('audoi\pronunciation_fr_leçon.mp3');
+        $vocabularies = Vocabulary::all();
+        foreach ($vocabularies as $vo) {
+            $vocabular = Vocabulary::find($vo->id);
+            $vocabular
+                ->addMedia($audio)
+                ->preservingOriginal()
+                ->toMediaCollection('vocabularies');
+        }
         $image_c_5 = storage_path('images\listen.webp');
         $image_c_4 = storage_path('images\read.webp');
         $image_c_2 = storage_path('images\system.webp');
