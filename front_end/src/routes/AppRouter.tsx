@@ -8,6 +8,7 @@ const Home = lazy(() => import('@pages/Home/Home'));
 const Register = lazy(() => import('@pages/Register/Register'));
 const Courses = lazy(() => import('@pages/Courses/Courses'));
 const CourseInfo = lazy(() => import('@pages/CourseInfo/CourseInfo'));
+const Profile = lazy(() => import('@pages/Profile/Profile'));
 const QuizTest = lazy(() => import('@pages/QuizTest/QuizTest'));
 const Level = lazy(() => import('@pages/Level/Level'));
 const Unit = lazy(() => import('@pages/Unit/Unit'));
@@ -37,6 +38,11 @@ function App() {
     }, {
       path: '/courses',
       element: <SuspendPage> <Courses /></SuspendPage>
+
+    }
+      , {
+      path: '/profile',
+      element: <SuspendPage> <Profile /></SuspendPage>
 
     }
       , {

@@ -1,0 +1,19 @@
+.leftSide {
+    margin: 0 100px;
+}
+
+.leftSide .btns button {
+    background-color: rgb(214, 37, 37);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+@media screen and (max-width:767px) {
+    /* .leftSide {
+        margin: 0;
+    } */
+
+    .leftSide .bottom {
+        margin: 0 40px;
+    }
+}

@@ -1,0 +1,25 @@
+import LeftSide from '@components/Profile/LeftSide/LeftSide'
+import RightSide from '@components/Profile/RightSide/RightSide'
+import { useAppDispatch, useAppSelector } from '@hooks/app'
+import { actGetProfile } from '@store/user/userSlice'
+import { useEffect } from 'react'
+import { Container } from 'react-bootstrap'
+import './Profile.css'
+const Profile = () => {
+    const { user } = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(actGetProfile())
+    }, [])
+    console.log(user)
+    return (
+        <div className='profile'>
+            <Container className='cont'>
+                <LeftSide {...user!} />
+                <RightSide {...user!} />
+            </Container>
+        </div>
+    )
+}
+
+export default Profile

@@ -1,0 +1,83 @@
+.rightSide .form-details {
+    position: relative;
+    top: 70px;
+}
+
+.p-dialog-header,
+.p-dialog-content {
+    padding: 20px;
+}
+
+.p-dialog-content span {
+    font-size: 22px;
+    margin: 0 10px;
+
+}
+
+.p-dialog-footer {
+    text-align: center;
+    padding: 10px;
+}
+
+.p-dialog-footer button:nth-of-type(1) {
+    color: var(--main-color);
+}
+
+.p-dialog-footer button:nth-of-type(2) {
+    padding: 2px;
+    margin: 0 20px;
+    background-color: var(--main-color);
+}
+
+.inp {
+    position: relative;
+}
+
+.error {
+    color: rgb(252, 50, 50);
+}
+
+.rightSide form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightSide form input,
+.rightSide form button {
+    margin-top: 10px;
+}
+
+.rightSide form button {
+    width: 300px;
+    color: #fff;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.rightSide .btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+.rightSide .btns button {
+    background-color: rgb(214, 37, 37);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+@media screen and (max-width:767px) {
+    .rightSide {
+        margin-top: 20px;
+    }
+
+    .rightSide .form-details {
+        position: relative;
+        top: 0;
+    }
+}

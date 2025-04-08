@@ -16,6 +16,7 @@ import language from "./language/language";
 import quiz from './quiz/quizSlice';
 import unit from './unit/unitSlice';
 import lesson from './lesson/lessonSlice';
+import user from './user/userSlice';
 
 // import favorite from "./Favorite/favoriteSlice";
 // import theme from "./themeSlice/themeSlice";
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
     quiz,
     unit,
     lesson,
+    user,
     // theme: theme,
     // categories,
     auth: persistReducer(authPersistConfig, auth),

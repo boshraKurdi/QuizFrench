@@ -5,8 +5,8 @@ import Button from "@components/feedback/Button/Button"
 import { useAppDispatch, useAppSelector } from "@hooks/app"
 import { NavLink, useNavigate } from "react-router-dom"
 import { changeLanguageToArabic, changeLanguageToFrench } from "@store/language/language"
-import { actLogout, authLogout } from "@store/auth/authSlice"
 import Cookie from 'cookie-universal';
+import ProfileIcon from '@assets/svgs/profile-user-svgrepo-com.svg?react'
 const Header = () => {
     const { language } = useAppSelector(state => state.language)
     const { userData } = useAppSelector(state => state.auth)
@@ -18,14 +18,9 @@ const Header = () => {
     const turnArabicHandler = () => {
         dispatch(changeLanguageToArabic())
     }
-    const logoutHandler = () => {
-        dispatch(actLogout()).unwrap()
-            .then(() => {
-                navigate('/')
-                cookie.remove('token')
-                dispatch(authLogout())
-            })
+    const profile = () => {
 
+        navigate('/profile')
     }
     const cookie = Cookie()
     return (
@@ -58,9 +53,10 @@ const Header = () => {
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
                             </NavDropdown>
-                            {cookie.get('token') ? <div onClick={logoutHandler} className="prof">
-                                <img src="" alt="" />
-                            </div> :
+                            {cookie.get('token') ?
+                                <div onClick={profile} className="prof">
+                                    <ProfileIcon style={{ width: "30px", height: "30px" }} />
+                                </div> :
                                 <Button onclick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}
                         </Nav>
                     </Navbar.Collapse>
