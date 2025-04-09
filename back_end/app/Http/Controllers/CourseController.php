@@ -39,7 +39,16 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+        $store = Course::create([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description
+        ]);
+        if ($request->media) {
+            $store->addMediaFromRequest('media')->toMediaCollection('courses');
+        }
+        return response()->json(['message' => 'add course successfully!']);
     }
 
     /**
@@ -134,13 +143,26 @@ class CourseController extends Controller
         }
         return response()->json(['data' => $course]);
     }
+    public function showCourse(Course $course)
+    {
+        return response()->json(['data' => $course->load(['media'])]);
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        $course->update([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description
+        ]);
+        if ($request->media) {
+            $course->addMediaFromRequest('media')->toMediaCollection('courses');
+        }
+        return response()->json(['message' => 'update course successfully!']);
     }
 
     /**
@@ -148,6 +170,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return response()->json(['message' => 'delete course successfully!']);
     }
 }

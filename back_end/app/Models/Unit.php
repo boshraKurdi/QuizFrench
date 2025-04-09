@@ -16,7 +16,7 @@ class Unit extends Model
         'title_ar',
         'description_ar',
         'description',
-        'course_level_id'
+        'level_id'
     ];
 
     public function level()

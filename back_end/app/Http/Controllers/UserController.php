@@ -116,8 +116,8 @@ class UserController extends Controller
                 $my_level_in_course = $levels_count;
             }
 
-            array_push($levels, ["$c->title" => $my_level_in_course]);
-            array_push($rate, ["$c->title" => $rate_all]);
+            array_push($levels, [app()->getLocale() == 'fa' ? "$c->title" : "$c->title_ar" => $my_level_in_course]);
+            array_push($rate, [app()->getLocale() == 'fa' ? "$c->title" : "$c->title_ar" => $rate_all]);
         }
 
 

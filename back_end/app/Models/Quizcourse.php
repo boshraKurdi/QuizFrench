@@ -11,7 +11,7 @@ class Quizcourse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'question ',
+        'question',
         'answer_1',
         'answer_2',
         'answer_3',

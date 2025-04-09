@@ -12,6 +12,13 @@ class Vocabulary extends Model implements HasMedia
     /** @use HasFactory<\Database\Factories\VocabularyFactory> */
     use HasFactory, InteractsWithMedia;
 
+    protected $fillable = [
+        'translation',
+        'word',
+        'example_sentence',
+        'lesson_id'
+    ];
+
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);

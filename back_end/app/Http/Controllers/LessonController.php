@@ -13,7 +13,8 @@ class LessonController extends Controller
      */
     public function index()
     {
-        //
+        $lessons = Lesson::with(['quiz', 'vocabulary'])->get();
+        return response()->json(['data' => $lessons]);
     }
 
     /**
@@ -21,7 +22,17 @@ class LessonController extends Controller
      */
     public function store(StoreLessonRequest $request)
     {
-        //
+        Lesson::create([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'content' => $request->content,
+            'content_ar' => $request->content_ar,
+            'objective' => $request->objective,
+            'objective_ar' => $request->objective_ar,
+            'video_url' => $request->video_url,
+            'unit_id' => $request->unit_id,
+        ]);
+        return response()->json(['message' => 'add lesson successfully!']);
     }
 
     /**
@@ -29,7 +40,7 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        //
+        return response()->json(['data' => $lesson->load(['quiz', 'vocabulary'])]);
     }
 
     /**
@@ -37,7 +48,17 @@ class LessonController extends Controller
      */
     public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
-        //
+        $lesson->update([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'content' => $request->content,
+            'content_ar' => $request->content_ar,
+            'objective' => $request->objective,
+            'objective_ar' => $request->objective_ar,
+            'video_url' => $request->video_url,
+            'unit_id' => $request->unit_id,
+        ]);
+        return response()->json(['message' => 'update lesson successfully!']);
     }
 
     /**
@@ -45,6 +66,7 @@ class LessonController extends Controller
      */
     public function destroy(Lesson $lesson)
     {
-        //
+        $lesson->delete();
+        return response()->json(['message' => 'delete lesson successfully!']);
     }
 }

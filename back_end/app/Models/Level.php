@@ -15,7 +15,8 @@ class Level extends Model
         'title',
         'title_ar',
         'description_ar',
-        'description'
+        'description',
+        'course_id'
     ];
 
     public function course()

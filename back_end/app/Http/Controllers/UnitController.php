@@ -17,7 +17,8 @@ class UnitController extends Controller
     }
     public function index()
     {
-        //
+        $units = Unit::with(['level', 'lesson', 'quiz'])->get();
+        return response()->json(['data' => $units]);
     }
 
     /**
@@ -25,7 +26,15 @@ class UnitController extends Controller
      */
     public function store(StoreUnitRequest $request)
     {
-        //
+        Unit::create([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description,
+            'level_id' => $request->level_id,
+            'number' => $request->number
+        ]);
+        return response()->json(['message' => 'add unit successfully!']);
     }
 
     /**
@@ -33,7 +42,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        //
+        return response()->json(['data' => $unit->load(['level', 'lesson', 'quiz'])]);
     }
 
     /**
@@ -41,7 +50,15 @@ class UnitController extends Controller
      */
     public function update(UpdateUnitRequest $request, Unit $unit)
     {
-        //
+        $unit->update([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description,
+            'level_id' => $request->level_id,
+            'number' => $request->number
+        ]);
+        return response()->json(['message' => 'update unit successfully!']);
     }
 
     /**
@@ -49,6 +66,7 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        //
+        $unit->delete();
+        return response()->json(['message' => 'delete unit successfully!']);
     }
 }

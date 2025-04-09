@@ -13,7 +13,8 @@ class LevelController extends Controller
      */
     public function index()
     {
-        //
+        $levels = Level::with('course')->get();
+        return response()->json(['data' => $levels]);
     }
 
     /**
@@ -21,7 +22,15 @@ class LevelController extends Controller
      */
     public function store(StoreLevelRequest $request)
     {
-        //
+        Level::create([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description,
+            'course_id' => $request->course_id,
+            'number' => $request->number
+        ]);
+        return response()->json(['message' => 'add level successfully!']);
     }
 
     /**
@@ -29,7 +38,7 @@ class LevelController extends Controller
      */
     public function show(Level $level)
     {
-        //
+        return response()->json(['data' => $level->load(['course'])]);
     }
 
     /**
@@ -37,7 +46,15 @@ class LevelController extends Controller
      */
     public function update(UpdateLevelRequest $request, Level $level)
     {
-        //
+        $level->update([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description,
+            'course_id' => $request->course_id,
+            'number' => $request->number
+        ]);
+        return response()->json(['message' => 'update level successfully!']);
     }
 
     /**
@@ -45,6 +62,7 @@ class LevelController extends Controller
      */
     public function destroy(Level $level)
     {
-        //
+        $level->delete();
+        return response()->json(['message' => 'delete level successfully!']);
     }
 }

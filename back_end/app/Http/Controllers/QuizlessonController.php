@@ -16,9 +16,10 @@ class QuizlessonController extends Controller
         $quiz = Quizlesson::where('lesson_id', $id)->get();
         return response()->json(['data' => $quiz]);
     }
-    public function index()
+    public function index($id)
     {
-        //
+        $quiz = Quizlesson::where('lesson_id', $id)->with('lesson')->get();
+        return response()->json(['data' => $quiz]);
     }
 
     /**
@@ -26,7 +27,16 @@ class QuizlessonController extends Controller
      */
     public function store(StoreQuizlessonRequest $request)
     {
-        //
+        Quizlesson::create([
+            'question' => $request->question,
+            'answer_1' => $request->answer_1,
+            'answer_2' => $request->answer_2,
+            'answer_3' => $request->answer_3,
+            'answer_4' => $request->answer_4,
+            'answer_right' => $request->answer_right,
+            'lesson_id' => $request->lesson_id
+        ]);
+        return response()->json(['message' => 'add question successfully!']);
     }
 
     /**
@@ -34,7 +44,7 @@ class QuizlessonController extends Controller
      */
     public function show(Quizlesson $quizlesson)
     {
-        //
+        return response()->json(['data' => $quizlesson->load('lesson')]);
     }
 
     /**
@@ -42,7 +52,16 @@ class QuizlessonController extends Controller
      */
     public function update(UpdateQuizlessonRequest $request, Quizlesson $quizlesson)
     {
-        //
+        $quizlesson->update([
+            'question' => $request->question,
+            'answer_1' => $request->answer_1,
+            'answer_2' => $request->answer_2,
+            'answer_3' => $request->answer_3,
+            'answer_4' => $request->answer_4,
+            'answer_right' => $request->answer_right,
+            'lesson_id' => $request->lesson_id
+        ]);
+        return response()->json(['message' => 'update question successfully!']);
     }
 
     /**
@@ -50,6 +69,7 @@ class QuizlessonController extends Controller
      */
     public function destroy(Quizlesson $quizlesson)
     {
-        //
+        $quizlesson->delete();
+        return response()->json(['message' => 'delete question successfully!']);
     }
 }

@@ -11,7 +11,7 @@ class StoreVocabularyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreVocabularyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'word' => "required|string|max:256",
+            'example_sentence' => "required|string|max:256",
+            "translation" => "required|string",
+            'lesson_id' => "required|exists:lessons,id"
         ];
     }
 }

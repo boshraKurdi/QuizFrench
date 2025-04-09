@@ -11,9 +11,10 @@ class TopicController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $index = Topic::where('course_id', $id)->with('course')->get();
+        return response()->json(['data' => $index]);
     }
 
     /**
@@ -21,7 +22,14 @@ class TopicController extends Controller
      */
     public function store(StoreTopicRequest $request)
     {
-        //
+        Topic::create([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description,
+            'course_id' => $request->course_id,
+        ]);
+        return response()->json(['message' => 'add topic successfully!']);
     }
 
     /**
@@ -29,7 +37,7 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        //
+        return response()->json(['data' => $topic->load(['course'])]);
     }
 
     /**
@@ -37,7 +45,14 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        //
+        Topic::create([
+            'title' => $request->title,
+            'title_ar' => $request->title_ar,
+            'description_ar' => $request->description_ar,
+            'description' => $request->description,
+            'course_id' => $request->course_id,
+        ]);
+        return response()->json(['message' => 'update topic successfully!']);
     }
 
     /**
@@ -45,6 +60,7 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        //
+        $topic->delete();
+        return response()->json(['message' => 'delete topic successfully!']);
     }
 }

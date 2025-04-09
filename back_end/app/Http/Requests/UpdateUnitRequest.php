@@ -11,7 +11,7 @@ class UpdateUnitRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateUnitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'number' => "required",
+            'title' => "required|string|max:256",
+            'title_ar' => "required|string|max:256",
+            "description_ar" => "required|string",
+            "description" => "required|string",
+            'level_id' => "required|exists:levels,id"
         ];
     }
 }

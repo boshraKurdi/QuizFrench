@@ -11,7 +11,7 @@ class UpdateQuizunitRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdateQuizunitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'question' => "required|string|max:256",
+            'answer_1' => "required|string|max:256",
+            'answer_2' => "required|string|max:256",
+            'answer_3' => "required|string|max:256",
+            'answer_4' => "required|string|max:256",
+            'answer_right' => "required|string|max:256",
+            'unit_id' => "required|exists:units,id"
         ];
     }
 }

@@ -10,7 +10,7 @@ class Quizlesson extends Model
     /** @use HasFactory<\Database\Factories\QuizlessonFactory> */
     use HasFactory;
     protected $fillable = [
-        'question ',
+        'question',
         'answer_1',
         'answer_2',
         'answer_3',

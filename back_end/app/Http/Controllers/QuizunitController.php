@@ -17,9 +17,10 @@ class QuizunitController extends Controller
         $quiz = Quizunit::where('unit_id', $id)->get();
         return response()->json(['data' => $quiz]);
     }
-    public function index()
+    public function index($id)
     {
-        //
+        $quiz = Quizunit::where('unit_id', $id)->with('unit')->get();
+        return response()->json(['data' => $quiz]);
     }
 
     /**
@@ -27,7 +28,16 @@ class QuizunitController extends Controller
      */
     public function store(StoreQuizunitRequest $request)
     {
-        //
+        Quizunit::create([
+            'question' => $request->question,
+            'answer_1' => $request->answer_1,
+            'answer_2' => $request->answer_2,
+            'answer_3' => $request->answer_3,
+            'answer_4' => $request->answer_4,
+            'answer_right' => $request->answer_right,
+            'unit_id' => $request->unit_id
+        ]);
+        return response()->json(['message' => 'add question successfully!']);
     }
 
     /**
@@ -35,7 +45,7 @@ class QuizunitController extends Controller
      */
     public function show(Quizunit $quizunit)
     {
-        //
+        return response()->json(['data' => $quizunit->load('unit')]);
     }
 
     /**
@@ -43,7 +53,16 @@ class QuizunitController extends Controller
      */
     public function update(UpdateQuizunitRequest $request, Quizunit $quizunit)
     {
-        //
+        $quizunit->update([
+            'question' => $request->question,
+            'answer_1' => $request->answer_1,
+            'answer_2' => $request->answer_2,
+            'answer_3' => $request->answer_3,
+            'answer_4' => $request->answer_4,
+            'answer_right' => $request->answer_right,
+            'unit_id' => $request->unit_id
+        ]);
+        return response()->json(['message' => 'update question successfully!']);
     }
 
     /**
@@ -51,6 +70,7 @@ class QuizunitController extends Controller
      */
     public function destroy(Quizunit $quizunit)
     {
-        //
+        $quizunit->delete();
+        return response()->json(['message' => 'delete question successfully!']);
     }
 }
