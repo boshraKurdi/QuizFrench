@@ -28,6 +28,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $user->getRoleNames();
         return response()->json([
             'status' => 'success',
             'user' => $user,
