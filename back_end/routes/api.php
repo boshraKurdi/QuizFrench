@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 Route::group(['middleware' => ['role:admin']], function () {
     Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('index', [UserController::class, 'dashboardStats']);
         Route::group(['prefix' => 'course'], function () {
             Route::get('index', [CourseController::class, 'index']);
             Route::get('show/{course}', [CourseController::class, 'showCourse']);

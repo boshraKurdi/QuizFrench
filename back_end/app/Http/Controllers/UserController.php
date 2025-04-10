@@ -9,6 +9,8 @@ use App\Models\Target;
 use App\Models\Unit;
 use App\Models\User;
 use App\Services\Calculate;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -149,6 +151,120 @@ class UserController extends Controller
         User::where('id', auth()->id())->delete();
         return response()->json([
             'message' => app()->getLocale() == 'fa' ? "Profil supprimé avec succès" : "تم حذف الملف الشخصي بنجاح"
+        ]);
+    }
+
+    public function dashboardStats()
+    {
+        $total_users = User::count();
+        $active_today = User::whereDate('last_login', Carbon::today())->count();
+        $active_week = User::whereBetween('last_login', [Carbon::now()->subWeek(), Carbon::now()])->count();
+        $active_month = User::whereMonth('last_login', Carbon::now()->month)->count();
+
+        $total_courses = Course::count();
+        $total_units = Unit::count();
+        $total_lessons = Lesson::count();
+
+        $tests_level = Target::where('type', 'level')->count();
+        $tests_unit = Target::where('type', 'unit')->count();
+        $tests_lesson = Target::where('type', 'lesson')->count();
+        $tests_total = $tests_level + $tests_unit + $tests_lesson;
+
+        $course_completion = Course::with('levels.unit')->get()->map(function ($course) {
+            $users = User::all(); // إذا في فلترة يفضل نحصرهم هنا
+            $completed = 0;
+
+            foreach ($users as $user) {
+                $level = Target::where('user_id', $user->id)
+                    ->where('type', 'level')
+                    ->where('course_id', $course->id)
+                    ->first();
+
+                if ($level && $level->level == 3) {
+                    $completed++;
+                }
+            }
+
+            return [
+                'course' => $course->title,
+                'completed_users' => $completed
+            ];
+        });
+
+        $inactive_users = User::doesntHave('targets')->count();
+
+        $average_progress = Target::select('user_id', 'course_id')
+            ->distinct()
+            ->get()
+            ->map(function ($target) {
+                $user = $target->user_id;
+                $course = $target->course_id;
+
+                $total_units = Unit::whereIn('level_id', function ($q) use ($course) {
+                    $q->select('id')->from('levels')->where('course_id', $course);
+                })->pluck('id');
+
+                $completed_units = Target::where('user_id', $user)
+                    ->where('type', 'unit')
+                    ->whereIn('check', $total_units)
+                    ->count();
+
+                $total = count($total_units);
+                return $total > 0 ? ($completed_units / $total) * 100 : 0;
+            })
+            ->avg();
+
+
+        $getDailyTestsStats = DB::table('targets')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->whereIn('type', ['unit', 'lesson', 'level']) // أو حسب نوع الاختبارات
+            ->where('created_at', '>=', Carbon::now()->subDays(6)) // آخر 7 أيام
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        $getWeeklyTestsStats = DB::table('targets')
+            ->select(
+                DB::raw('YEARWEEK(created_at, 1) as week'),
+                DB::raw('COUNT(*) as total')
+            )
+            ->whereIn('type', ['unit', 'lesson', 'level'])
+            ->where('created_at', '>=', Carbon::now()->subWeeks(7))
+            ->groupBy('week')
+            ->orderBy('week', 'asc')
+            ->get();
+
+        $getUserGrowthPerMonth = DB::table('users')
+            ->select(
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
+                DB::raw('count(*) as total')
+            )
+            ->where('created_at', '>=', Carbon::now()->subMonths(11))
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        return response()->json([
+            'total_users' => $total_users,
+            'active_today' => $active_today,
+            'active_week' => $active_week,
+            'active_month' => $active_month,
+
+            'total_courses' => $total_courses,
+            'total_units' => $total_units,
+            'total_lessons' => $total_lessons,
+
+            'total_tests' => $tests_total,
+            'level_tests' => $tests_level,
+            'unit_tests' => $tests_unit,
+            'lesson_tests' => $tests_lesson,
+
+            'course_completion' => $course_completion,
+            'inactive_users' => $inactive_users,
+            'average_progress' => round($average_progress, 2),
+
+            'get_daily_tests_stats' => $getDailyTestsStats,
+            'get_user_grow_th_per_month' => $getUserGrowthPerMonth
         ]);
     }
 }

@@ -28,6 +28,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $user->last_login = now();
         $user->getRoleNames();
         return response()->json([
             'status' => 'success',
