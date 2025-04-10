@@ -216,32 +216,22 @@ class UserController extends Controller
 
 
         $getDailyTestsStats = DB::table('targets')
-            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->select(DB::raw('DATE(created_at) as x'), DB::raw('count(*) as y'))
             ->whereIn('type', ['unit', 'lesson', 'level']) // أو حسب نوع الاختبارات
             ->where('created_at', '>=', Carbon::now()->subDays(6)) // آخر 7 أيام
-            ->groupBy('date')
-            ->orderBy('date', 'asc')
+            ->groupBy('x')
+            ->orderBy('x', 'asc')
             ->get();
 
-        $getWeeklyTestsStats = DB::table('targets')
-            ->select(
-                DB::raw('YEARWEEK(created_at, 1) as week'),
-                DB::raw('COUNT(*) as total')
-            )
-            ->whereIn('type', ['unit', 'lesson', 'level'])
-            ->where('created_at', '>=', Carbon::now()->subWeeks(7))
-            ->groupBy('week')
-            ->orderBy('week', 'asc')
-            ->get();
 
         $getUserGrowthPerMonth = DB::table('users')
             ->select(
-                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
-                DB::raw('count(*) as total')
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as x"),
+                DB::raw('count(*) as y')
             )
             ->where('created_at', '>=', Carbon::now()->subMonths(11))
-            ->groupBy('month')
-            ->orderBy('month', 'asc')
+            ->groupBy('x')
+            ->orderBy('x', 'asc')
             ->get();
 
         return response()->json([
