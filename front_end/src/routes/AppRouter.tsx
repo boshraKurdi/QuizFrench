@@ -15,6 +15,8 @@ const Unit = lazy(() => import('@pages/Unit/Unit'));
 const Lesson = lazy(() => import('@pages/Lesson/Lesson'));
 const QuizUnit = lazy(() => import('@pages/QuizUnit/QuizUnit'));
 const QuizLesson = lazy(() => import('@pages/QuizLesson/QuizLesson'));
+const Dashboard = lazy(() => import('@pages/Admin/Dashboard/Dashboard'));
+const Main = lazy(() => import('@pages/Admin/Main/Main'));
 QuizUnit
 function App() {
   const { language } = useAppSelector(state => state.language)
@@ -74,20 +76,19 @@ function App() {
       path: '/courses/:id/levels/:idLevel/units/:idUnit/lessons/:idLesson/quiz',
       element: <SuspendPage> <QuizLesson /></SuspendPage>
     }
-      //   path: '/Binko/home',
-      //   element: <SuspendPage> <Home /></SuspendPage>
-      // }, {
-      //   path: 'profile/:id',
-      //   element: <SuspendPage><UpdateBook /></SuspendPage>
-      // },
-      // {
-      //   path: 'booksSearch',
-      //   element: <SuspendPage><BooksSearch /></SuspendPage>
-    ]
-  }
+      , {
+      path: 'dashboard',
+      element: <SuspendPage ><Dashboard /></SuspendPage>,
+      children: [{
+        index: true, element: <Main />,
+      }
+      ]
 
-  ]
-  );
+    }
+
+    ]
+  }])
+    ;
 
   return <RouterProvider router={router} />
 

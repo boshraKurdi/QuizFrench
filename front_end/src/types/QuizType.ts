@@ -42,3 +42,16 @@ export type TQuizUnit = {
         }
     ]
 }
+export type TQuizProps = {
+    id: number,
+    course_id?: number,
+    unit_id?: number,
+    lesson_id?: number,
+    type: string,
+    question: string,
+    answer_1: string,
+    answer_2: string,
+    answer_3: string,
+    answer_4: string,
+    answer_right: string,
+}
