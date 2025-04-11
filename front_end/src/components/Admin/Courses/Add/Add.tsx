@@ -41,6 +41,7 @@ function Add(props: { setUserAdded: () => void }) {
 
                     <div style={{ position: "relative" }}>
                         <input
+                            name="media"
                             type="file"
                             className='form-control'
                             placeholder='Enter Password'

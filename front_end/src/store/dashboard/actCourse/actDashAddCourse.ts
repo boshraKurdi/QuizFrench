@@ -14,7 +14,7 @@ const actDashAddCourses = createAsyncThunk(
             const res = await axios.post<TResponse>(`dashboard/course/store`, formData
                 , {
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${cookie.get('token')}`
                     },
                 }
