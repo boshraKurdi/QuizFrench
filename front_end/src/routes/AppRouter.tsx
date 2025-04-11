@@ -17,6 +17,9 @@ const QuizUnit = lazy(() => import('@pages/QuizUnit/QuizUnit'));
 const QuizLesson = lazy(() => import('@pages/QuizLesson/QuizLesson'));
 const Dashboard = lazy(() => import('@pages/Admin/Dashboard/Dashboard'));
 const Main = lazy(() => import('@pages/Admin/Main/Main'));
+const Operations = lazy(() => import('@pages/Admin/Operations/Operations'));
+const Settings = lazy(() => import('@pages/Admin/Settings/Settings'));
+const Statestics = lazy(() => import('@pages/Admin/Statestics/Statestics'));
 QuizUnit
 function App() {
   const { language } = useAppSelector(state => state.language)
@@ -76,14 +79,58 @@ function App() {
       path: '/courses/:id/levels/:idLevel/units/:idUnit/lessons/:idLesson/quiz',
       element: <SuspendPage> <QuizLesson /></SuspendPage>
     }
-      , {
-      path: 'dashboard',
-      element: <SuspendPage ><Dashboard /></SuspendPage>,
-      children: [{
-        index: true, element: <Main />,
-      }
-      ]
 
+
+    ]
+  }, {
+    path: '/dashboard',
+    element: <SuspendPage ><Dashboard /></SuspendPage>,
+    children: [{
+      index: true, element: <Main />,
+    }, {
+      path: 'operations',
+      element: <SuspendPage ><Operations /></SuspendPage>,
+    },
+    {
+      path: 'main',
+      element: <SuspendPage ><Main /></SuspendPage>,
+    },
+    {
+      path: 'settings',
+      element: <SuspendPage ><Settings /></SuspendPage>,
+    },
+    {
+      path: 'states',
+      element: <SuspendPage ><Statestics /></SuspendPage>,
+    }
+      , {
+      path: 'courses/:id/show',
+      element: <SuspendPage> <CourseInfo /></SuspendPage>
+
+    }, {
+      path: 'courses',
+      element: <SuspendPage> <Courses /></SuspendPage>
+
+    }
+      , {
+      path: 'courses/:id/levels/:idLevel',
+      element: <SuspendPage> <Level /></SuspendPage>
+
+    }, {
+      path: 'courses/:id/levels/:idLevel/units/:idUnit',
+      element: <SuspendPage> <Unit /></SuspendPage>
+    }
+      , {
+      path: 'courses/:id/levels/:idLevel/units/:idUnit/quiz',
+      element: <SuspendPage> <QuizUnit /></SuspendPage>
+    }
+      , {
+      path: 'courses/:id/levels/:idLevel/units/:idUnit/lessons/:idLesson',
+      element: <SuspendPage> <Lesson /></SuspendPage>
+    }
+      , {
+      path: 'courses/:id/levels/:idLevel/units/:idUnit/lessons/:idLesson/quiz',
+      element: <SuspendPage> <QuizLesson /></SuspendPage>
     }
 
     ]

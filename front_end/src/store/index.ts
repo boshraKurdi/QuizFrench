@@ -17,7 +17,7 @@ import quiz from './quiz/quizSlice';
 import unit from './unit/unitSlice';
 import lesson from './lesson/lessonSlice';
 import user from './user/userSlice';
-
+import dashboard from './dashboard/dashboard'
 // import favorite from "./Favorite/favoriteSlice";
 // import theme from "./themeSlice/themeSlice";
 // import chapters from "./chaptersSlice/chaptersSlice";
@@ -65,6 +65,7 @@ const rootReducer = combineReducers({
     unit,
     lesson,
     user,
+    dashboard,
     // theme: theme,
     // categories,
     auth: persistReducer(authPersistConfig, auth),

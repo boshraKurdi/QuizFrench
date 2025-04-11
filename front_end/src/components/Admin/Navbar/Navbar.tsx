@@ -1,98 +1,76 @@
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import './Navbar.css'
+import Button from "@components/feedback/Button/Button"
+import { useAppDispatch, useAppSelector } from "@hooks/app"
+import { NavLink, useNavigate } from "react-router-dom"
+import { changeLanguageToArabic, changeLanguageToFrench } from "@store/language/language"
+import Cookie from 'cookie-universal';
+import ProfileIcon from '@assets/svgs/profile-user-svgrepo-com.svg?react'
+const Header = ({ show, showHandler }: { show: boolean, showHandler: () => void }) => {
+    const { language } = useAppSelector(state => state.language)
+    const { userData } = useAppSelector(state => state.auth)
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const turnFrenchHandler = () => {
+        dispatch(changeLanguageToFrench())
+    }
+    const turnArabicHandler = () => {
+        dispatch(changeLanguageToArabic())
+    }
+    const profile = () => {
 
-import { Menubar } from 'primereact/menubar';
-import { InputText } from 'primereact/inputtext';
-import { MenuItem } from 'primereact/menuitem';
-import { Badge } from 'primereact/badge';
-import { Avatar } from 'primereact/avatar';
-type TItem = {
-    badge: boolean,
-    shortcut: boolean,
-    icon: string,
-    label: string,
-    items?: TItem[],
-}
-export default function TemplateDemo() {
-    const itemRenderer = (item: TItem) => (
-        <a className="flex align-items-center p-menuitem-link">
-            <span className={item.icon} />
-            <span className="mx-2">{item.label}</span>
-            {item.badge && <Badge className="ml-auto" value={item.badge} />}
-            {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
-        </a>
-    );
-    const items: MenuItem[] = [
-        {
-            label: 'Home',
-            icon: 'pi pi-home'
-        },
-        {
-            label: 'Features',
-            icon: 'pi pi-star'
-        },
-        {
-            label: 'Projects',
-            icon: 'pi pi-search',
-            items: [
-                {
-                    label: 'Core',
-                    icon: 'pi pi-bolt',
-                    shortcut: '⌘+S',
-                    template: itemRenderer
-                },
-                {
-                    label: 'Blocks',
-                    icon: 'pi pi-server',
-                    shortcut: '⌘+B',
-                    template: itemRenderer
-                },
-                {
-                    label: 'UI Kit',
-                    icon: 'pi pi-pencil',
-                    shortcut: '⌘+U',
-                    template: itemRenderer
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Templates',
-                    icon: 'pi pi-palette',
-                    items: [
-                        {
-                            label: 'Apollo',
-                            icon: 'pi pi-palette',
-                            badge: 2,
-                            template: itemRenderer
-                        },
-                        {
-                            label: 'Ultima',
-                            icon: 'pi pi-palette',
-                            badge: 3,
-                            template: itemRenderer
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            label: 'Contact',
-            icon: 'pi pi-envelope',
-            badge: 3,
-            template: itemRenderer
-        }
-    ];
-
-    const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img>;
-    const end = (
-        <div className="flex align-items-center gap-2">
-            <InputText placeholder="Search" type="text" className="w-8rem sm:w-auto" />
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
-        </div>
-    );
-
+        navigate('/profile')
+    }
+    const cookie = Cookie()
     return (
-        <div className="card">
-            <Menubar model={items} start={start} end={end} />
-        </div>
+        <Navbar expand="lg" className="bg-body-tertiary">
+            <Container className="cont">
+                <Navbar.Brand href="#home" className="iconLink">
+                    <div className="iconLogo">
+                        <div className="icon">
+                            <i onClick={showHandler} className={show ? "pi pi-spin pi-cog" : "pi pi-cog"} style={{
+                                margin: "-5px 3px",
+                                fontSize: "2rem"
+                            }}></i>
+
+                        </div>
+                        <h3 className="admin-brand">Admin <p>
+                            Dashboard</p></h3>
+                    </div>
+                </Navbar.Brand>
+                <Navbar.Toggle className="toggle" aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto links">
+                        <NavLink to="/dashboard">
+                            {language === "French" ? "Accueil" : "الرئيسية"}
+                        </NavLink>
+                        <NavLink to="/dashboard/courses">
+                            {language === "French" ? "Cours" : "الكورسات"}
+                        </NavLink>
+                        <NavDropdown title={language === "French" ? "langue" : "اللغة"} id="basic-nav-dropdown">
+                            <NavDropdown.Item className="drop" >
+                                <p onClick={turnFrenchHandler}>
+                                    {language === "French" ? "French" : "فرنسي"}
+                                </p>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item className="drop">
+                                <p onClick={turnArabicHandler}>
+                                    {language === "French" ? "arabe" : " عربي"}
+
+                                </p>
+                            </NavDropdown.Item>
+                            <NavDropdown.Divider />
+                        </NavDropdown>
+                        {cookie.get('token') ?
+                            <div onClick={profile} className="prof">
+                                <ProfileIcon style={{ width: "30px", height: "30px" }} />
+                            </div> :
+                            <Button onclick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 }
+
+export default Header

@@ -11,7 +11,6 @@ const Profile = () => {
     useEffect(() => {
         dispatch(actGetProfile())
     }, [])
-    console.log(user)
     return (
         <div className='profile'>
             <Container className='cont'>

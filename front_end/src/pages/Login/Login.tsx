@@ -54,7 +54,14 @@ const Login = () => {
                 .then((res) => {
                     const token = res.authorisation.token;
                     cookie.set('token', token);
-                    navigate('/')
+                    if (res?.user.roles[0].name === 'admin') {
+                        console.log('admin')
+                        navigate('/dashboard')
+                    } else {
+                        navigate('/')
+                        console.log('user')
+
+                    }
                 })
             setEmail('')
             setPassword('')

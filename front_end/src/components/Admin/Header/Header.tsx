@@ -1,12 +1,9 @@
 import './Header.css'
 import Navbar from '../Navbar/Navbar';
-import { Container } from 'react-bootstrap';
-const Header = () => {
+const Header = ({ show, showHandler }: { show: boolean, showHandler: () => void }) => {
     return (
         <header>
-            <Container>
-                <Navbar />
-            </Container>
+            <Navbar show={show} showHandler={showHandler} />
         </header>
     )
 }

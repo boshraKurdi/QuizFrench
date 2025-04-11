@@ -1,0 +1,84 @@
+.side {
+    padding: 20px 0;
+    height: 100vh;
+    width: 348px;
+    position: fixed;
+    z-index: 1;
+    transition: .3s;
+    background-color: #dcdcfb;
+}
+
+.side.hide {
+    width: 0;
+}
+
+.side-min {
+    width: 20px;
+}
+
+
+.side.hide .links-menu,
+.side.hide i,
+.side.hide .logo,
+.side.hide .details {
+    display: none;
+}
+
+.side .logo {
+    transition: .3s;
+    width: 196px;
+    position: relative;
+    height: 52px;
+    margin: 0;
+}
+
+[data-lang="Arabic"] .side .logo {
+    margin-right: 40px;
+}
+
+.side .details {
+    /* text-align: center; */
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.side h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.side .links-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.side .links-menu .menu-item {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.side .links-menu .menu-item a {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    display: block;
+    height: 40px;
+    padding: 10px;
+}
+
+.side .links-menu .menu-item a.active {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.side i {
+    color: var(--main-color);
+    font-size: 23px;
+    position: absolute;
+    right: 19px;
+    cursor: pointer;
+
+}

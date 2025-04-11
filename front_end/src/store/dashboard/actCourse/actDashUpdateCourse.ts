@@ -6,11 +6,11 @@ type TResponse = ""
 const cookie = Cookie()
 const actDashUpdateCourse = createAsyncThunk(
     "dashboard/actDashUpdateCourse",
-    async (formData: FormData, thunk) => {
+    async (form: { id: number, formData: FormData }, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.post<TResponse>(`dashboard/course/update/${formData.get('id')}`, formData
+            const res = await axios.post<TResponse>(`dashboard/course/update/${form.id}`, form.formData
                 , {
                     headers: {
                         'Content-Type': 'application/json',

@@ -1,0 +1,58 @@
+.op {
+    padding: 100px 20px;
+}
+
+.op button {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.op .addNewUser button i {
+    margin: 0 10px;
+}
+
+.op h1,
+.op h3 {
+    text-align: center;
+}
+
+.op th {
+    color: #fff;
+    padding: 7px 40px;
+    /* text-align: center; */
+    /* background-color: #afabf1;*/
+    background-color: var(--main-color);
+    border: 1px solid;
+}
+
+.op td {
+    padding: 7px 40px;
+    border: 1px solid var(--main-color);
+}
+
+.p-dialog-header,
+.p-dialog-content {
+    padding: 20px;
+}
+
+.p-dialog-content span {
+    font-size: 22px;
+    margin: 0 10px;
+
+}
+
+.p-dialog-footer {
+    text-align: center;
+    padding: 10px;
+}
+
+.p-dialog-footer button:nth-of-type(1) {
+    color: var(--main-color);
+}
+
+.p-dialog-footer button:nth-of-type(2) {
+    padding: 2px;
+    margin: 0 20px;
+    background-color: var(--main-color);
+}

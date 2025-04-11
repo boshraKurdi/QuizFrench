@@ -1,7 +1,7 @@
 // import { useContext } from "react";
 // import { GameStateContext } from "../helpers/Contexts";
 // import { Questions } from "../helpers/Questions";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "@hooks/app";
 import { actAddProgress, setGameState, setScore } from "@store/quiz/quizSlice";
@@ -51,8 +51,7 @@ const EndScreen = () => {
     // };
     return (
         <div className="EndScreen">
-            <Toaster position="top-center"
-                reverseOrder={false} />
+
             <h1>{language === 'French' ? 'Quiz terminé' : "انتهى الاختبار"}</h1>
             <h3>{userData?.user.name}</h3>
             <h3>{result?.data.status}</h3>
