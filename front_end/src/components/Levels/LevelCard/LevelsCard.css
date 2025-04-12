@@ -29,6 +29,22 @@
     color: #000;
 }
 
+.levelCard .btns-op {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.levelCard button {
+    width: 80px;
+    margin: 0 10px;
+    height: 30px;
+}
+
+.levelCard button:last-of-type {
+    background-color: rgb(197, 60, 60);
+}
+
 .levelCard.active h4 {
     color: var(--main-color);
 }

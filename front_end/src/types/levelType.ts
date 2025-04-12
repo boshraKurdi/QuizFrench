@@ -1,7 +1,9 @@
 export type TLevel = {
-    id: number,
+    id?: number,
+    course_id?: number,
     title: string,
     title_ar: string,
+    number?: number,
     description_ar: string
     description: string,
     is_locked?: boolean,

@@ -38,8 +38,9 @@ const EndScreen = () => {
     useEffect(() => {
 
     }, [])
+    console.log(result)
     const goToLevel = () => {
-        navigate(`/courses/${indx}/level/${result?.data.level_id}`)
+        navigate(`/courses/${indx}/levels/${result?.data.level_id}`)
     }
     // const restartQuiz = () => {
     //     setScore(0);

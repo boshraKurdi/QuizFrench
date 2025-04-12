@@ -112,11 +112,13 @@ function Quiz() {
                     <div className="btns">
                         {currentQuestion == quizes?.data[0]?.quiz.length! - 1 ? (
                             <button onClick={finishQuiz} id="nextQuestion">
-                                terminer le quiz
+                                {language === "French" ? "terminer le quiz" : "انهاء الاختبار"}
                             </button>
                         ) : (
                             <button onClick={nextQuestion} id="nextQuestion">
-                                question suivante
+
+                                {language === "French" ? " question suivante" : "السؤال التالي"}
+
                             </button>
                         )}
                     </div>

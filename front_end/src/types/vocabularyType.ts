@@ -1,6 +1,13 @@
+export type TVocData = {
+    word: string,
+    translation: string,
+    example_sentence: string
+    media: string
+}
 export type TVoc = {
-    audio: string,
-    name: string,
-    name_ar: string,
-    example: string
+    word: string,
+    translation: string,
+    example_sentence: string
+    media: string,
+    lesson_id: number
 }
