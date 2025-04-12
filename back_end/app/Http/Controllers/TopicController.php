@@ -45,7 +45,7 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        Topic::create([
+        $topic->update([
             'title' => $request->title,
             'title_ar' => $request->title_ar,
             'description_ar' => $request->description_ar,

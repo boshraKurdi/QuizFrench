@@ -13,7 +13,7 @@ const CoursesList = () => {
             dispatch(actCLearCourse())
 
         }
-    }, [])
+    }, [dispatch])
     const CoursesCards = courses?.data.map((course) => <CourseCard key={course.id} {...course} />)
     return (
         <div className="CourseList">
