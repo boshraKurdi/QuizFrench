@@ -22,7 +22,7 @@ class QuizcourseController extends Controller
      */
     public function store(StoreQuizcourseRequest $request)
     {
-        Quizcourse::create([
+        $store = Quizcourse::create([
             'question' => $request->question,
             'answer_1' => $request->answer_1,
             'answer_2' => $request->answer_2,
@@ -32,7 +32,7 @@ class QuizcourseController extends Controller
             'type' => 'level',
             'course_id' => $request->course_id
         ]);
-        return response()->json(['message' => 'add question successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add question successfully!']);
     }
 
     /**

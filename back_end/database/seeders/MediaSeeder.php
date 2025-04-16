@@ -3,9 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\Quizcourse;
+use App\Models\Quizlesson;
+use App\Models\Quizunit;
 use App\Models\Vocabulary;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MediaSeeder extends Seeder
 {
@@ -15,7 +19,41 @@ class MediaSeeder extends Seeder
     public function run(): void
     {
         $audio = storage_path('audoi\pronunciation_fr_leçon.mp3');
+        $audio_quiz = storage_path('audoi\quiz.mp3');
         $vocabularies = Vocabulary::all();
+        $courses = Quizcourse::where('course_id', 5)->get();
+        foreach ($courses as $course) {
+            $quizcourse = Quizcourse::where('course_id', 5)->first();
+            $quizcourse
+                ->addMedia($audio_quiz)
+                ->preservingOriginal()
+                ->toMediaCollection('quizcourses');
+        }
+        $lessons = DB::table('lessons')
+            ->join('units', 'lessons.unit_id', '=', 'units.id')
+            ->join('levels', 'units.level_id', '=', 'levels.id')
+            ->join('courses', 'levels.course_id', '=', 'courses.id')
+            ->where('courses.id', 5)
+            ->get();
+        foreach ($lessons as $lesson) {
+            $quizlesson = Quizlesson::where('lesson_id', $lesson->id)->first();
+            $quizlesson
+                ->addMedia($audio_quiz)
+                ->preservingOriginal()
+                ->toMediaCollection('quizlessons');
+        }
+        $units = DB::table('units')
+            ->join('levels', 'units.level_id', '=', 'levels.id')
+            ->join('courses', 'levels.course_id', '=', 'courses.id')
+            ->where('courses.id', 5)
+            ->get();
+        foreach ($units as $unit) {
+            $quizunit = Quizunit::where('unit_id', $unit->id)->first();
+            $quizunit
+                ->addMedia($audio_quiz)
+                ->preservingOriginal()
+                ->toMediaCollection('quizunits');
+        }
         foreach ($vocabularies as $vo) {
             $vocabular = Vocabulary::find($vo->id);
             $vocabular

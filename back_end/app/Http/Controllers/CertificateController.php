@@ -29,7 +29,7 @@ class CertificateController extends Controller
      */
     public function show(Certificate $certificate)
     {
-        //
+        return response()->json(['data' => $certificate->load(['target.course'])]);
     }
 
     /**

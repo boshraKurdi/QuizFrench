@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Quizlesson extends Model
+
+class Quizlesson extends Model implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\QuizlessonFactory> */
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
     protected $fillable = [
         'question',
         'answer_1',
@@ -22,5 +25,10 @@ class Quizlesson extends Model
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('quizlessons');
     }
 }

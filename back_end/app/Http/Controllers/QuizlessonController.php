@@ -13,12 +13,12 @@ class QuizlessonController extends Controller
      */
     public function quiz_lesson($id)
     {
-        $quiz = Quizlesson::where('lesson_id', $id)->get();
+        $quiz = Quizlesson::with('media')->where('lesson_id', $id)->get();
         return response()->json(['data' => $quiz]);
     }
     public function index($id)
     {
-        $quiz = Quizlesson::where('lesson_id', $id)->with('lesson')->get();
+        $quiz = Quizlesson::with('media')->where('lesson_id', $id)->with('lesson')->get();
         return response()->json(['data' => $quiz]);
     }
 
@@ -27,7 +27,7 @@ class QuizlessonController extends Controller
      */
     public function store(StoreQuizlessonRequest $request)
     {
-        Quizlesson::create([
+        $store = Quizlesson::create([
             'question' => $request->question,
             'answer_1' => $request->answer_1,
             'answer_2' => $request->answer_2,
@@ -36,7 +36,7 @@ class QuizlessonController extends Controller
             'answer_right' => $request->answer_right,
             'lesson_id' => $request->lesson_id
         ]);
-        return response()->json(['message' => 'add question successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add question successfully!']);
     }
 
     /**

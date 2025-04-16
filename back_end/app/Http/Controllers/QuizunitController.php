@@ -14,12 +14,12 @@ class QuizunitController extends Controller
 
     public function quiz_unit($id)
     {
-        $quiz = Quizunit::where('unit_id', $id)->get();
+        $quiz = Quizunit::with('media')->where('unit_id', $id)->get();
         return response()->json(['data' => $quiz]);
     }
     public function index($id)
     {
-        $quiz = Quizunit::where('unit_id', $id)->with('unit')->get();
+        $quiz = Quizunit::with('media')->where('unit_id', $id)->with('unit')->get();
         return response()->json(['data' => $quiz]);
     }
 
@@ -28,7 +28,7 @@ class QuizunitController extends Controller
      */
     public function store(StoreQuizunitRequest $request)
     {
-        Quizunit::create([
+        $store = Quizunit::create([
             'question' => $request->question,
             'answer_1' => $request->answer_1,
             'answer_2' => $request->answer_2,
@@ -37,7 +37,7 @@ class QuizunitController extends Controller
             'answer_right' => $request->answer_right,
             'unit_id' => $request->unit_id
         ]);
-        return response()->json(['message' => 'add question successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add question successfully!']);
     }
 
     /**

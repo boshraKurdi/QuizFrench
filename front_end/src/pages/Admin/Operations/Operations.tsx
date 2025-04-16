@@ -38,33 +38,39 @@ function Operations() {
     const navigate = useNavigate();
     useEffect(() => {
         dispatch(actDashGetCourses())
-        getAllUsers();
 
-    }, [])
+    }, [dispatch])
 
-    const getAllUsers = async () => {
-        const course: TCourse[] = courses?.data.map((course) => {
-            return ({
+    useEffect(() => {
+        if (courses?.data) {
+            const course: TCourse[] = courses.data.map((course) => ({
                 id: course.id,
                 title: course.title,
                 description: course.description,
-                image: <img src={`${course?.media[0]?.original_url}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
-
-            })
-        })!
-        const courseAra: TCourseAra[] = courses?.data.map((course) => {
-            return ({
+                image: (
+                    <img
+                        src={`${course?.media[0]?.original_url}`}
+                        style={{ marginTop: '10px', width: '50px', height: '50px' }}
+                    />
+                ),
+            }));
+    
+            const courseAra: TCourseAra[] = courses.data.map((course) => ({
                 id: course.id,
                 العنوان: course.title,
                 الوصف: course.description,
-                الصورة: <img src={`${course?.media[0]?.original_url}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
-
-
-            })
-        })!
-        const data = language === 'Arabic' ? courseAra : course
-        setUsersList(data);
-    }
+                الصورة: (
+                    <img
+                        src={`${course?.media[0]?.original_url}`}
+                        style={{ marginTop: '10px', width: '50px', height: '50px' }}
+                    />
+                ),
+            }));
+    
+            const data = language === 'Arabic' ? courseAra : course;
+            setUsersList(data);
+        }
+    }, [courses, language]);
     console.log(courses)
     const actionsTemplate = (rowDate: TCourse) => {
         return (

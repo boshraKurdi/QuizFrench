@@ -9,4 +9,12 @@ class Certificate extends Model
 {
     /** @use HasFactory<\Database\Factories\CertificateFactory> */
     use HasFactory;
+    protected $fillable = [
+        'target_id',
+        'average'
+    ];
+    public function target()
+    {
+        return $this->belongsTo(Target::class);
+    }
 }

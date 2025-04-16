@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LevelController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('profile', [UserController::class, 'profile']);
         Route::post('update', [UserController::class, 'update']);
         Route::delete('delete', [UserController::class, 'delete']);
+        Route::get('certificate/{certificate}', [CertificateController::class, 'show']);
     });
 });
 Route::group(['middleware' => ['role:admin']], function () {

@@ -17,4 +17,9 @@ class Target extends Model
         'degree',
         'type',
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

@@ -22,7 +22,7 @@ class CourseController extends Controller
         $quiz = Course::where('id', $id)->whereHas('quiz', function ($q) {
             $q->where('type', 'level');
         })
-            ->with('quiz')
+            ->with('quiz.media')
             ->get();
 
         return response()->json(['data' => $quiz]);
@@ -48,7 +48,7 @@ class CourseController extends Controller
         if ($request->media) {
             $store->addMediaFromRequest('media')->toMediaCollection('courses');
         }
-        return response()->json(['message' => 'add course successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add course successfully!']);
     }
 
     /**
@@ -162,7 +162,7 @@ class CourseController extends Controller
         if ($request->media) {
             $course->addMediaFromRequest('media')->toMediaCollection('courses');
         }
-        return response()->json(['message' => 'update course successfully!']);
+        return response()->json(['data' => $course, 'message' => 'update course successfully!']);
     }
 
     /**

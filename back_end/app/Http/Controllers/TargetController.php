@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Target;
 use App\Http\Requests\StoreTargetRequest;
 use App\Http\Requests\UpdateTargetRequest;
+use App\Models\Certificate;
 use App\Models\Level;
+use App\Models\Unit;
 use Illuminate\Support\Facades\Auth;
 
 class TargetController extends Controller
@@ -28,6 +30,7 @@ class TargetController extends Controller
         $level_ar = ['مبتدئ', 'متوسط', 'متقدم'];
         $level_num = 0;
         $level_id = 0;
+        $certificate = 0;
         $status =  app()->getLocale() == 'fa' ? 'réussi' : "ناجح";
         $check = Target::where('user_id', auth()->id())
             ->where('course_id', $request->course_id)
@@ -76,6 +79,28 @@ class TargetController extends Controller
                 ]);
             }
         }
+        if ($request->type == 'unit') {
+            $unit_completed = Target::where('user_id', auth()->id())
+                ->where('type', 'unit')
+                ->where('course_id', $request->course_id)
+                ->count();
+
+            $unit_count = Unit::whereHas('level.course', function ($q) use ($request) {
+                $q->where('courses.id', $request->course_id);
+            })
+                ->count();
+            $unit_score_total = Target::where('user_id', auth()->id())
+                ->where('type', 'unit')
+                ->where('course_id', $request->course_id)
+                ->sum('degree');
+            if ($unit_completed === $unit_count) {
+                $c = Certificate::create([
+                    'target_id' => $target->id,
+                    'average' => intval($unit_score_total / $unit_count) * 10
+                ]);
+                $certificate = $c->load(['target.course']);
+            }
+        }
 
         if ($request->degree > 5) {
 
@@ -89,10 +114,12 @@ class TargetController extends Controller
 
 
 
+
         return response()->json(['message' => $message, 'data' => [
             'level' =>  $level_id ? $level : 0,
             'status' => $status,
-            'level_id' => $level_id
+            'level_id' => $level_id,
+            'certificate' => $certificate
         ]]);
     }
 
