@@ -35,3 +35,38 @@
 .showLesson .btns button {
     width: 200px;
 }
+
+.showLesson .btns-ad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.showLesson .btns-ad button {
+    height: 50px;
+    background-color: rgb(76, 165, 76);
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.showLesson .btns-ad button i {
+    margin: 0 10px;
+}
+
+.showLesson .btns-op button {
+    width: 80px;
+    margin: 4px 10px;
+    height: 30px;
+}
+
+.showLesson .btns-op button:last-of-type {
+    background-color: rgb(197, 60, 60);
+}
+
+.showLesson.active h4 {
+    color: var(--main-color);
+}

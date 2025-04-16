@@ -13,12 +13,14 @@ export type TUnit = {
     ]
 }
 export type TUnitProps = {
-    id: number,
+    id?: number,
+    level_id?: number,
     title: string,
     description: string,
     title_ar: string,
     description_ar: string,
-    course_level_id: number,
-    is_locked: boolean,
-    num?: string
+    course_level_id?: number,
+    is_locked?: boolean,
+    num?: string,
+    number?: string
 }

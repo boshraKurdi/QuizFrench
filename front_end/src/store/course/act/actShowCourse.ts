@@ -18,7 +18,6 @@ const actShowCourse = createAsyncThunk(
                     },
                 }
             );
-            console.log(res.data)
             return res.data;
         } catch (error) {
             console.log(error)

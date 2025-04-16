@@ -31,3 +31,24 @@
 .unitInfo .btns button {
     width: 200px;
 }
+
+.unitInfo .btns-ad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.unitInfo .btns-ad button {
+    height: 50px;
+    background-color: rgb(76, 165, 76);
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.unitInfo .btns-ad button i {
+    margin: 0 10px;
+}

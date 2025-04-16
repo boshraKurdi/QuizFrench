@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TVoc } from "@customtypes/vocabularyType";
-type TResponse = TVoc
 const cookie = Cookie()
 const actDashAddVoc = createAsyncThunk(
     "dashboard/actDashAddVoc",
@@ -11,10 +9,10 @@ const actDashAddVoc = createAsyncThunk(
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.post<TResponse>(`dashboard/vocabulary/store`, form
+            const res = await axios.post(`dashboard/vocabulary/store`, form
                 , {
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${cookie.get('token')}`
                     },
                 }

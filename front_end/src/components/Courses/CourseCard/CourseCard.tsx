@@ -9,7 +9,7 @@ const CourseCard = (props: TCoursesProps) => {
     return (
         <div className="courseCard">
             <div className="left">
-                <img src={props?.media[0].original_url} alt="" />
+                <img src={props?.media[0]?.original_url} alt="" />
             </div>
             <div className="right">
                 <h3>{language === 'French' ? props.title : props.title_ar}</h3>

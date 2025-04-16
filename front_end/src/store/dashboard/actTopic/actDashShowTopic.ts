@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TTopic } from "@customtypes/topicType";
-type TResponse = TTopic
+import { TTopicData } from "@customtypes/topicType";
+type TResponse = TTopicData
 const cookie = Cookie()
 const actDashShowTopic = createAsyncThunk(
     "dashboard/actDashShowTopic",

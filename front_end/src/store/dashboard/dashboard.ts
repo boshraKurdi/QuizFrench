@@ -4,7 +4,7 @@ import { isString } from "@customtypes/isString";
 import { TCourses } from "@customtypes/coursesType";
 import { TCourse } from "@customtypes/courseType";
 import { TLevel } from "@customtypes/levelType";
-import { TTopic } from "@customtypes/topicType";
+import { TTopic, TTopicData } from "@customtypes/topicType";
 import { TUnit, TUnitProps } from "@customtypes/unitType";
 import { TLesson, TLessonProps } from "@customtypes/lessonType";
 import { TVoc } from "@customtypes/vocabularyType";
@@ -65,7 +65,7 @@ interface IAuthState {
     topics: TTopic[] | null,
     vocabularies: TVoc[] | null,
     vocabulary: TVoc | null,
-    topic: TTopic | null,
+    topic: TTopicData | null,
     lessons: TLesson | null,
     lesson: TLessonProps | null,
     quiz_course: TQuizProps | null,
@@ -236,7 +236,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddTopic.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.topics!.push(action.payload);
+            // state.topics!.push(action.payload);
         });
         builder.addCase(actDashAddTopic.rejected, (state, action) => {
             state.loading = "failed";
@@ -267,7 +267,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteTopic.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.topics = state.topics!.filter(topic => topic !== action.payload)
+            // state.topics = state.topics!.filter(topic => topic !== action.payload)
         });
         builder.addCase(actDashDeleteTopic.rejected, (state, action) => {
             state.loading = "failed";
@@ -347,7 +347,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteLevel.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.levels! = state.levels!.filter(level => level !== action.payload)
+            // state.levels! = state.levels!.filter(level => level !== action.payload)
         });
         builder.addCase(actDashDeleteLevel.rejected, (state, action) => {
             state.loading = "failed";
@@ -396,7 +396,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.units!.data.push(action.payload);
+            // state.units!.data.push(action.payload);
         });
         builder.addCase(actDashAddUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -427,7 +427,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.units.data! = state.units.data!.filter(level => level !== action.payload)
+            // state.units.data! = state.units.data!.filter(level => level !== action.payload)
         });
         builder.addCase(actDashDeleteUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -507,7 +507,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteLesson.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.lessons.data! = state.lessons?.data!.filter(level => level !== action.payload)
+            // state.lessons.data! = state.lessons?.data!.filter(level => level !== action.payload)
         });
         builder.addCase(actDashDeleteLesson.rejected, (state, action) => {
             state.loading = "failed";
@@ -556,7 +556,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddVoc.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.vocabularies!.data.push(action.payload);
+            // state.vocabularies!.data.push(action.payload);
         });
         builder.addCase(actDashAddVoc.rejected, (state, action) => {
             state.loading = "failed";
@@ -587,7 +587,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteVoc.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.vocabularies.data! = state.vocabularies.data!.filter(level => level !== action.payload)
+            // state.vocabularies.data! = state.vocabularies.data!.filter(level => level !== action.payload)
         });
         builder.addCase(actDashDeleteVoc.rejected, (state, action) => {
             state.loading = "failed";

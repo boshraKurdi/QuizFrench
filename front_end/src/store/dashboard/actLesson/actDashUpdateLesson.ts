@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TLessonProps } from "@customtypes/lessonType";
+import { TLessonData } from "@customtypes/lessonType";
 type TResponse = ""
 const cookie = Cookie()
 const actDashUpdateLesson = createAsyncThunk(
     "dashboard/actDashUpdateLesson",
-    async (formData: TLessonProps, thunk) => {
+    async (formData: TLessonData, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {

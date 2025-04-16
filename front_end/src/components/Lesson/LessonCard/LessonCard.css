@@ -32,3 +32,13 @@
 .lessonCard.active h4 {
     color: var(--main-color);
 }
+
+.lessonCard button {
+    width: 80px;
+    margin: 4px 10px;
+    height: 30px;
+}
+
+.lessonCard button:last-of-type {
+    background-color: rgb(197, 60, 60);
+}

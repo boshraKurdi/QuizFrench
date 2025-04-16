@@ -3,7 +3,6 @@ import { DataTable } from 'primereact/datatable';
 // import ViewUser from './View/View';
 import AddUser from '@components/Admin/Courses/Add/Add';
 import EditUser from '@components/Admin/Courses/Edit/Edit';
-import { ConfirmDialog } from 'primereact/confirmdialog';
 import { confirmDialog } from 'primereact/confirmdialog';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
@@ -36,10 +35,12 @@ function Operations() {
     const [selectedUserId, setSelectedUserId] = useState<number | null>(null)
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(actDashGetCourses())
 
     }, [dispatch])
+<<<<<<< HEAD
 
     useEffect(() => {
         if (courses?.data) {
@@ -72,6 +73,36 @@ function Operations() {
         }
     }, [courses, language]);
     console.log(courses)
+=======
+    useEffect(() => {
+        if (courses?.data) {
+            const course: TCourse[] = courses?.data.map((course) => {
+                return ({
+                    id: course.id,
+                    title: course.title,
+                    description: course.description,
+                    image: <img src={`${course?.media[0]?.original_url!}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
+
+                })
+            })!
+            const courseAra: TCourseAra[] = courses?.data.map((course) => {
+                return ({
+                    id: course.id,
+                    العنوان: course.title,
+                    الوصف: course.description,
+                    الصورة: <img src={`${course?.media[0]?.original_url!}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
+
+
+                })
+            })!
+            const data = language === 'Arabic' ? courseAra : course
+            setUsersList(data);
+        }
+
+    }, [language, courses])
+
+
+>>>>>>> 0d9e0c3f94f2513f8d816965607284df5e78ce4b
     const actionsTemplate = (rowDate: TCourse) => {
         return (
             <>
@@ -167,18 +198,16 @@ function Operations() {
 
                     <AddUser setUserAdded={() => {
                         setShowAddMode(false);
-                        getAllUsers();
                     }} />
                 </Dialog>
 
-                <Dialog header="Edit Exist User"
+                <Dialog header="modifier"
                     visible={showEditMode}
                     style={{ width: '70vw' }}
                     onHide={() => setShowEditMode(false)}>
 
                     <EditUser userId={selectedUserId!} setUserEdited={() => {
                         setShowEditMode(false);
-                        getAllUsers();
                     }} />
                 </Dialog>
 

@@ -2,6 +2,12 @@
     padding: 100px 0;
 }
 
+.showCourse .btns button {
+    width: 200px;
+    margin: 0 10px;
+    height: 38px;
+}
+
 .showCourse .cont {
     display: flex;
     justify-content: space-around;
@@ -19,13 +25,39 @@
 
 }
 
-.showCourse button {
+.showCourse .btns {
+    margin-bottom: 10px;
+}
+
+.showCourse .btns button {
     width: 300px;
     height: 50px;
     border: none;
     border-radius: 5px;
     font-size: 20px;
 }
+
+.showCourse .btns-ad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.showCourse .btns-ad button {
+    height: 50px;
+    background-color: rgb(76, 165, 76);
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.showCourse .btns-ad button i {
+    margin: 0 10px;
+}
+
 
 .showCourse .left img {
     width: 100%;

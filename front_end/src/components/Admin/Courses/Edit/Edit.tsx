@@ -1,27 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
 
 import actDashUpdateCourse from '@store/dashboard/actCourse/actDashUpdateCourse';
+import actShowCourse from '@store/course/act/actShowCourse';
 
 
 function Edit({ userId }: { userId: number, setUserEdited: () => void }) {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [media, setMedia] = useState('');
-    const [title_ar, setTitleAra] = useState('');
-    const [description_ar, setDescriptionAra] = useState('');
+    const { course } = useAppSelector(state => state.course)
+    const [title, setTitle] = useState(course?.data.title);
+    const [description, setDescription] = useState(course?.data.description);
+    const [media, setMedia] = useState(course?.data.media[0].original_url);
+    const [title_ar, setTitleAra] = useState(course?.data.title_ar);
+    const [description_ar, setDescriptionAra] = useState(course?.data.description_ar);
     const dispatch = useAppDispatch();
     const { language } = useAppSelector(state => state.language)
     const addNewUser = () => {
         const formData = new FormData()
 
-        formData.append('title', title)
-        formData.append('description', description)
-        formData.append('media', media)
-        formData.append('title_ar', title_ar)
-        formData.append('description_ar', description_ar)
+        formData.append('title', title as string)
+        formData.append('description', description as string)
+        formData.append('media', media as string)
+        formData.append('title_ar', title_ar as string)
+        formData.append('description_ar', description_ar as string)
         const data = {
             formData,
             id: userId
@@ -31,7 +33,6 @@ function Edit({ userId }: { userId: number, setUserEdited: () => void }) {
 
         })
     }
-
 
     return (
         <div className='user-view _add-view'>

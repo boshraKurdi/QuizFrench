@@ -2,20 +2,25 @@ import UnitsList from "@components/Unit/UnitsList/UnitsList"
 import { useAppDispatch, useAppSelector } from "@hooks/app"
 import actShowCourse from "@store/course/act/actShowCourse"
 import { actGetUnits } from "@store/unit/unitSlice"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import './Level.css';
+import Add from '@components/Admin/Units/Add/Add';
 import { Container } from "react-bootstrap"
+import { Dialog } from "primereact/dialog"
+import { Button } from "@components/index"
 const Level = () => {
     const { idLevel, id } = useParams()
+    const [showAddMode, setShowAddMode] = useState(false);
+    const { userData } = useAppSelector(state => state.auth)
+
     const levelIndx = parseInt(idLevel as string)
     const indx = parseInt(id as string)
     const { language } = useAppSelector(state => state.language)
     const { course } = useAppSelector(state => state.course)
     const { units } = useAppSelector(state => state.unit)
     const levelInfo = course?.data?.levels?.find((le) => le.id === levelIndx)
-    console.log(levelInfo)
-    console.log(levelIndx)
+
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(actShowCourse(indx))
@@ -45,9 +50,24 @@ const Level = () => {
                     <h3>
                         {language === 'French' ? 'Unités' : "الوحدات"}
                     </h3>
+                    {userData?.user.roles?.length ?
+                        <div className="btns-ad">
+                            <Button onclick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un Unité' : "اضافة وحدة"}</Button>
+                        </div>
+                        : ""}
                     <UnitsList units={units!} />
                 </div>
             </Container>
+            <Dialog header={language === "French" ? "Ajouter " : "اضافة"}
+                visible={showAddMode}
+                style={{ width: '70vw' }}
+                onHide={() => setShowAddMode(false)}>
+
+                <Add setUserAdded={() => {
+                    setShowAddMode(false);
+                    // getAllUsers();
+                }} />
+            </Dialog>
         </div>
     )
 }
