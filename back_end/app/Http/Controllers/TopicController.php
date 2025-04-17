@@ -22,14 +22,14 @@ class TopicController extends Controller
      */
     public function store(StoreTopicRequest $request)
     {
-        Topic::create([
+        $store = Topic::create([
             'title' => $request->title,
             'title_ar' => $request->title_ar,
             'description_ar' => $request->description_ar,
             'description' => $request->description,
             'course_id' => $request->course_id,
         ]);
-        return response()->json(['message' => 'add topic successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add topic successfully!']);
     }
 
     /**

@@ -23,32 +23,34 @@ class MediaSeeder extends Seeder
         $vocabularies = Vocabulary::all();
         $courses = Quizcourse::where('course_id', 5)->get();
         foreach ($courses as $course) {
-            $quizcourse = Quizcourse::where('course_id', 5)->first();
+            $quizcourse = Quizcourse::where('id', $course->id)->first();
             $quizcourse
                 ->addMedia($audio_quiz)
                 ->preservingOriginal()
                 ->toMediaCollection('quizcourses');
         }
-        $lessons = DB::table('lessons')
+        $lessons = DB::table('quizlessons')
+            ->join('lessons', 'lessons.id', '=', 'quizlessons.lesson_id')
             ->join('units', 'lessons.unit_id', '=', 'units.id')
             ->join('levels', 'units.level_id', '=', 'levels.id')
             ->join('courses', 'levels.course_id', '=', 'courses.id')
             ->where('courses.id', 5)
-            ->get();
+            ->pluck('quizlessons.id');
         foreach ($lessons as $lesson) {
-            $quizlesson = Quizlesson::where('lesson_id', $lesson->id)->first();
+            $quizlesson = Quizlesson::find($lesson);
             $quizlesson
                 ->addMedia($audio_quiz)
                 ->preservingOriginal()
                 ->toMediaCollection('quizlessons');
         }
-        $units = DB::table('units')
+        $quizunits = DB::table('quizunits')
+            ->join('units', 'units.id', '=', 'quizunits.unit_id')
             ->join('levels', 'units.level_id', '=', 'levels.id')
             ->join('courses', 'levels.course_id', '=', 'courses.id')
-            ->where('courses.id', 5)
-            ->get();
-        foreach ($units as $unit) {
-            $quizunit = Quizunit::where('unit_id', $unit->id)->first();
+            ->where('levels.course_id', 5)
+            ->pluck('quizunits.id');
+        foreach ($quizunits as $quizunit) {
+            $quizunit = Quizunit::find($quizunit);
             $quizunit
                 ->addMedia($audio_quiz)
                 ->preservingOriginal()

@@ -26,7 +26,7 @@ class UnitController extends Controller
      */
     public function store(StoreUnitRequest $request)
     {
-        Unit::create([
+        $store = Unit::create([
             'title' => $request->title,
             'title_ar' => $request->title_ar,
             'description_ar' => $request->description_ar,
@@ -34,7 +34,7 @@ class UnitController extends Controller
             'level_id' => $request->level_id,
             'number' => $request->number
         ]);
-        return response()->json(['message' => 'add unit successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add unit successfully!']);
     }
 
     /**

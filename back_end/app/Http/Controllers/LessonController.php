@@ -22,7 +22,7 @@ class LessonController extends Controller
      */
     public function store(StoreLessonRequest $request)
     {
-        Lesson::create([
+        $store = Lesson::create([
             'title' => $request->title,
             'title_ar' => $request->title_ar,
             'content' => $request->content,
@@ -32,7 +32,7 @@ class LessonController extends Controller
             'video_url' => $request->video_url,
             'unit_id' => $request->unit_id,
         ]);
-        return response()->json(['message' => 'add lesson successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add lesson successfully!']);
     }
 
     /**

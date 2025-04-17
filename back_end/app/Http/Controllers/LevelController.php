@@ -22,7 +22,7 @@ class LevelController extends Controller
      */
     public function store(StoreLevelRequest $request)
     {
-        Level::create([
+        $store = Level::create([
             'title' => $request->title,
             'title_ar' => $request->title_ar,
             'description_ar' => $request->description_ar,
@@ -30,7 +30,7 @@ class LevelController extends Controller
             'course_id' => $request->course_id,
             'number' => $request->number
         ]);
-        return response()->json(['message' => 'add level successfully!']);
+        return response()->json(['data' => $store, 'message' => 'add level successfully!']);
     }
 
     /**
