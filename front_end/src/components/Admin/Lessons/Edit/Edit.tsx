@@ -1,17 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { TUnitProps } from '@customtypes/unitType';
-import actDashUpdateUnit from '@store/dashboard/actUnit/actDashUpdateUnit';
 import actDashUpdateLesson from '@store/dashboard/actLesson/actDashUpdateLesson';
 import { TLessonData } from '@customtypes/lessonType';
+import actDashShowLesson from '@store/dashboard/actLesson/actDashShowLesson';
 
 
-function Edit(props: { userId: number, setUserAdded: () => void }) {
+function Edit(props: { userId: number, setUserEdited: () => void }) {
     const { lesson } = useAppSelector(state => state.dashboard)
     const [title, setTitle] = useState(lesson?.title);
     const [content, setContent] = useState(lesson?.content);
@@ -46,7 +45,20 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
 
         })
     }
-
+    useEffect(() => {
+        dispatch(actDashShowLesson(props.userId))
+    }, [dispatch])
+    useEffect(() => {
+        if (lesson) {
+            setContent(lesson.content)
+            setContentAra(lesson.content_ar)
+            setObjective(lesson.objective)
+            setObjectiveAra(lesson.objective_ar)
+            setVideo(lesson.video_url)
+            setTitle(lesson.title)
+            setTitleAra(lesson.title_ar)
+        }
+    }, [language, lesson])
 
     return (
         <div className='user-view _add-view'>
@@ -59,6 +71,7 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
                         <p>
                             <span>{language === 'French' ? "titre" : "العنوان "}</span>
                             <input
+                                value={title}
                                 type='text'
                                 className='form-control'
                                 onChange={e => setTitle(e.target.value)}
@@ -69,6 +82,8 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
                         <p>
                             <span>{language === 'French' ? "titre en arabe" : "العنوان بالعربي"}</span>
                             <input
+                                value={title_ar}
+
                                 type='text'
                                 className='form-control'
                                 onChange={e => setTitleAra(e.target.value)}
@@ -80,6 +95,8 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
                         <p>
                             <span>{language === 'French' ? "contenu" : "المحتوى"}</span>
                             <input
+                                value={content}
+
                                 type='text'
                                 className='form-control'
                                 onChange={e => setContent(e.target.value)}
@@ -90,6 +107,8 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
                         <p>
                             <span>{language === 'French' ? "contenu en arabe" : "المحتوى بالعربي"}</span>
                             <input
+                                value={content_ar}
+
                                 type='text'
                                 className='form-control'
                                 onChange={e => setContentAra(e.target.value)}
@@ -101,6 +120,8 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
                         <p>
                             <span>{language === 'French' ? "Objective" : "الهدف"}</span>
                             <input
+                                value={objective}
+
                                 type='text'
                                 className='form-control'
                                 onChange={e => setObjective(e.target.value)}
@@ -111,6 +132,8 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
                         <p>
                             <span>{language === 'French' ? "Objective en arabe" : "الهدف بالعربي"}</span>
                             <input
+                                value={objective_ar}
+
                                 type='text'
                                 className='form-control'
                                 onChange={e => setObjectiveAra(e.target.value)}
@@ -121,6 +144,7 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
                         <p>
                             <span>{language === 'French' ? "lien de la leçon" : "رابط الدرس"}</span>
                             <input
+                                value={video_url!}
                                 type='text'
                                 className='form-control'
                                 onChange={e => setVideo(e.target.value)}

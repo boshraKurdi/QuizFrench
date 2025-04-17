@@ -9,12 +9,12 @@ import actDashShowTopic from '@store/dashboard/actTopic/actDashShowTopic';
 import { TTopic } from '@customtypes/topicType';
 
 
-function Edit(props: { userId: number, setUserAdded: () => void }) {
+function Edit(props: { userId: number, setUserEdited: () => void }) {
     const { topic } = useAppSelector(state => state.dashboard)
-    const [title, setTitle] = useState(topic?.data.title);
-    const [description, setDescription] = useState(topic?.data.description);
-    const [title_ar, setTitleAra] = useState(topic?.data.title_ar);
-    const [description_ar, setDescriptionAra] = useState(topic?.data.description_ar);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [title_ar, setTitleAra] = useState("");
+    const [description_ar, setDescriptionAra] = useState("");
     const dispatch = useAppDispatch();
     const { language } = useAppSelector(state => state.language)
     const { id } = useParams();
@@ -27,6 +27,17 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
         description,
         description_ar
     }
+    useEffect(() => {
+        dispatch(actDashShowTopic(props.userId))
+    }, [dispatch])
+    useEffect(() => {
+        if (topic) {
+            setTitle(topic.title)
+            setTitleAra(topic.title_ar)
+            setDescription(topic.description)
+            setDescriptionAra(topic.description_ar)
+        }
+    }, [language, topic])
     const addNewUser = () => {
 
         dispatch(actDashUpdateTopic(data as TTopic)).unwrap().then(() => {
@@ -34,9 +45,6 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
 
         })
     }
-    useEffect(() => {
-        dispatch(actDashShowTopic(props.userId))
-    }, [])
 
     return (
         <div className='user-view _add-view'>

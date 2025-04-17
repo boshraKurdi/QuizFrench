@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TLevel } from "@customtypes/levelType";
-type TResponse = TLevel[]
 const cookie = Cookie()
 const actDashGetLevels = createAsyncThunk(
     "dashboard/actDashGetLevels",
@@ -11,7 +9,7 @@ const actDashGetLevels = createAsyncThunk(
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.get<TResponse>(`dashboard/level/index/${id}`,
+            const res = await axios.get(`dashboard/level/index/`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -19,7 +17,7 @@ const actDashGetLevels = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return res.data.data.filter((fill: any) => fill.course_id === id);
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

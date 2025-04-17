@@ -54,9 +54,9 @@ const Login = () => {
                 .then((res) => {
                     const token = res.authorisation.token;
                     cookie.set('token', token);
-                    if (res?.user.roles[0].name === 'admin') {
+                    if (res?.user.roles?.length) {
                         console.log('admin')
-                        navigate('/dashboard')
+                        navigate('/dashboard/operations')
                     } else {
                         navigate('/')
                         console.log('user')

@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
 
-import { useNavigate, useParams } from 'react-router-dom';
-import { TLessonData } from '@customtypes/lessonType';
+import { useParams } from 'react-router-dom';
+import { TLesson, TLessonData } from '@customtypes/lessonType';
 import actDashAddLesson from '@store/dashboard/actLesson/actDashAddLesson';
 
 
@@ -32,12 +32,10 @@ function Add(props: { setUserAdded: () => void }) {
         title_ar,
 
     }
-    const navigate = useNavigate()
     const addNewUser = () => {
 
-        dispatch(actDashAddLesson(data as TLessonData)).unwrap().then(() => {
+        dispatch(actDashAddLesson(data as TLesson)).unwrap().then(() => {
             language === 'French' ? toast.success('Nouveau unité ajouté!') : toast.success('تم اضافة وحدة جديدة!')
-            navigate(0)
 
         })
     }

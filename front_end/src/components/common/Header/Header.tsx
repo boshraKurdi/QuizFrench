@@ -57,7 +57,7 @@ const Header = () => {
                                 <div onClick={profile} className="prof">
                                     <ProfileIcon style={{ width: "30px", height: "30px" }} />
                                 </div> :
-                                <Button onclick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}
+                                <Button onClick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

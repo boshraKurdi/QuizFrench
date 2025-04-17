@@ -1,9 +1,10 @@
+import ProfileForm from '@components/Admin/ProfileForm/ProfileForm'
 import './Settings.css'
 const Settings = () => {
     return (
-        <div>
-            Settings
-        </div>
+        <>
+            <ProfileForm />
+        </>
     )
 }
 

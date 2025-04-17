@@ -1,11 +1,11 @@
 import "./Quiz.css";
 import { useEffect, useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "@hooks/app";
-import { actAddProgress, actQuizLevel, setGameState, setScore } from "@store/quiz/quizSlice";
+import { actQuizLevel, setGameState, setScore } from "@store/quiz/quizSlice";
 import { useParams } from "react-router-dom";
 import './Quiz.css'
+import ReactAudioPlayer from "react-audio-player";
 // 
 function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -57,7 +57,11 @@ function Quiz() {
             {quizes?.data.length ? <>
                 <h1>{language === 'French' ? `${quizes?.data[0]?.title} Quiz` : `اختبار ${quizes?.data[0]?.title_ar} `} </h1>
                 <div className="Quiz">
-                    <h4>{`${currentQuestion + 1}. ${quizes?.data[0]?.quiz[currentQuestion].question}`}</h4>
+                    {!quizes.data[0].quiz[currentQuestion].media?.length ?
+                        <h4>{`${currentQuestion + 1}. ${quizes?.data[0].quiz[currentQuestion].question}`}</h4>
+                        :
+                        <ReactAudioPlayer controls src={quizes?.data[0].quiz[currentQuestion].media![0]?.original_url!} />
+                    }
                     <div className="questions">
                         <button
                             className="ans"

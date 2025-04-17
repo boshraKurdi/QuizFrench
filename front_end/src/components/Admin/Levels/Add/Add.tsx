@@ -31,7 +31,6 @@ function Add(props: { setUserAdded: () => void }) {
 
         dispatch(actDashAddLevel(data as TLevel)).unwrap().then(() => {
             language === 'French' ? toast.success('Nouveau cours ajouté!') : toast.success('تم اضافة كورس جديد!')
-            navigate(0)
 
         })
     }

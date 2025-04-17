@@ -14,6 +14,9 @@ import { Dialog } from "primereact/dialog";
 import AddTopic from '@components/Admin/Topics/Add/Add';
 import AddLevel from '@components/Admin/Levels/Add/Add';
 
+import actDashGetTopics from "@store/dashboard/actTopic/actDashGetTopic";
+import actDashGetLevels from "@store/dashboard/actLevel/actDashGetLevel";
+
 const CourseInfo = () => {
     const cookie = Cookie();
     const [showAddMode, setShowAddMode] = useState(false);
@@ -22,10 +25,15 @@ const CourseInfo = () => {
     const { course } = useAppSelector(state => state.course)
     const { language } = useAppSelector(state => state.language)
     const { userData } = useAppSelector(state => state.auth)
+    const { topics, levels } = useAppSelector(state => state.dashboard)
     const indx = parseInt(id as string)
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(actShowCourse(indx))
+        if (userData?.user.roles?.length) {
+            dispatch(actDashGetTopics(indx))
+            dispatch(actDashGetLevels(indx))
+        }
     }, [])
     const navigate = useNavigate()
     const showTest = () => {
@@ -44,36 +52,36 @@ const CourseInfo = () => {
             <Container className="cont">
                 <div className="left">
                     <div className="image">
-                        <img src={course?.data?.media[0]?.original_url!} alt="" />
+                        <img src={course?.media[0]?.original_url!} alt="" />
                     </div>
                     <div className="bottom">
                         <HeadingTitle>{language === "French" ? "Niveaux" : "المستويات"}</HeadingTitle>
                         {userData?.user.roles?.length ?
                             <div className="btns-ad">
-                                <Button onclick={() => setShowAddLevelMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un Niveau' : "اضافة مستوى"}</Button>
+                                <Button onClick={() => setShowAddLevelMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un Niveau' : "اضافة مستوى"}</Button>
                             </div>
                             : ""}
-                        <LevelsList levels={course?.data?.levels!} />
+                        <LevelsList levels={userData?.user.roles?.length ? levels! : course?.levels!} />
                     </div>
                 </div>
                 <div className="right">
                     <h2>{language === 'French' ? "Sujets:" : "المحاور:"}</h2>
                     {userData?.user.roles?.length ?
                         <div className="btns-ad">
-                            <Button onclick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un sujet' : "اضافة محور"}</Button>
+                            <Button onClick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un sujet' : "اضافة محور"}</Button>
                         </div>
                         : ""}
-                    <TopicsList topics={course?.data.topics!} />
+                    <TopicsList topics={userData?.user.roles?.length ? topics! : course?.topics!} />
                     {/* {!cookie.get('token') ?
                         <div className="btn">
                             <Button>{language === "French" ? "Test de niveau" : "اختبار تحديد المستوى"}</Button>
                         </div> : ""} */}
                     <div onClick={showTest} className="btns">
-                        <Button style={course?.data.buttonLevelQuiz ? {
+                        <Button style={course?.buttonLevelQuiz ? {
 
                         } : {
                             backgroundColor: '#acc7dd'
-                        }} onclick={goToTest} disabled={!course?.data.buttonLevelQuiz}>{!course?.data.buttonLevelQuiz && language === 'French' ? 'tu as déjà passé ce test' : !course?.data.buttonLevelQuiz && language === 'Arabic' ? 'لقد خضت هذا الاختبار من قبل' : language === "French" ? "Test de niveau"
+                        }} onClick={goToTest} disabled={!course?.buttonLevelQuiz}>{!course?.buttonLevelQuiz && language === 'French' ? 'tu as déjà passé ce test' : !course?.buttonLevelQuiz && language === 'Arabic' ? 'لقد خضت هذا الاختبار من قبل' : language === "French" ? "Test de niveau"
                             : "اختبار تحديد المستوى"}</Button>
                     </div>
                 </div>

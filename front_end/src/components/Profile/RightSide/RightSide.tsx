@@ -39,8 +39,10 @@ const RightSide = (props: TProfile) => {
 
     const confirm = () => {
         confirmDialog({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
+            message: language === "French" ? 'Voulez-vous supprimer ce compte ?' : "هل أنت متأكد أنك تود حذف هذا الحساب؟",
+            header: 'Confirmation',
+            acceptLabel: language === "French" ? "oui" : "نعم",
+            rejectLabel: language === "French" ? "non" : "لا",
             icon: 'pi pi-info-circle',
             defaultFocus: 'reject',
             acceptClassName: 'p-button-danger',

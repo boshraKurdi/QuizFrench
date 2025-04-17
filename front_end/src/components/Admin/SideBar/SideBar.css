@@ -3,9 +3,20 @@
     height: 100vh;
     width: 348px;
     position: fixed;
-    z-index: 1;
+    z-index: 100;
     transition: .3s;
     background-color: #dcdcfb;
+}
+
+.side .btns {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.side .btns button {
+    background-color: rgb(214, 37, 37);
 }
 
 .side.hide {
@@ -56,22 +67,52 @@
 }
 
 .side .links-menu .menu-item {
-    margin-top: 30px;
-    width: 100%;
+    margin-top: 4px;
+    width: 219px;
+    transition: .3s;
 }
 
 .side .links-menu .menu-item a {
-    width: 100%;
-    text-align: center;
     margin: 0;
-    display: block;
     height: 40px;
-    padding: 10px;
+    padding: 10px 10px 0 36px;
+    position: relative;
+    display: flex;
+    transition: .3s;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.side .links-menu .menu-item a i {
+    color: var(--main-color);
+    font-size: 17px;
+    position: absolute;
+    cursor: pointer;
+    left: 11px;
+}
+
+.side .links-menu .menu-item a.active i {
+    color: #fff;
+}
+
+[data-lang="Arabic"] .side .links-menu .menu-item a {
+    padding: 10px 36px 0 10px;
+}
+
+.side .links-menu .menu-item:hover {
+    transform: translateX(-2px)
+}
+
+[data-lang="Arabic"] .side .links-menu .menu-item a i {
+    left: initial;
+    right: 11px;
 }
 
 .side .links-menu .menu-item a.active {
     background-color: var(--main-color);
     color: #fff;
+    transform: translateX(-2px)
 }
 
 .side i {

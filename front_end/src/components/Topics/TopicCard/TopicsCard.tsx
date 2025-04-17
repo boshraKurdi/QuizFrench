@@ -8,7 +8,6 @@ import { useState } from "react"
 import { Dialog } from "primereact/dialog";
 import { confirmDialog } from "primereact/confirmdialog";
 import actDashDeleteTopic from "@store/dashboard/actTopic/actDashDeleteTopic";
-import { useNavigate, redirect, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 const TopicsCard = (props: TLevel) => {
     const { language } = useAppSelector(state => state.language)
@@ -27,13 +26,10 @@ const TopicsCard = (props: TLevel) => {
             },
         });
     }
-    const { id } = useParams()
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const deleteUser = (userId: number) => {
         dispatch(actDashDeleteTopic(userId)).unwrap().then(() => {
             language === 'French' ? toast.success('Supprimé avec succès! ') : toast.success('تم الحذف بنجاح !')
-            navigate(0)
 
         })
     }
@@ -45,13 +41,13 @@ const TopicsCard = (props: TLevel) => {
             </div>
             {
                 userData?.user.roles?.length ? <div className="btns-op">
-                    <Button onclick={() => {
+                    <Button onClick={() => {
                         setShowEditMode(true)
-                        setselectedUserId(props.id)
+                        setselectedUserId(props?.id!)
                     }
                     }>{language === 'French' ? 'modifier ' : "تعديل"}</Button>
-                    <Button onclick={() => {
-                        deleteUserConfirm(props.id)
+                    <Button onClick={() => {
+                        deleteUserConfirm(props?.id!)
                     }
                     }>{language === 'French' ? 'supprimer' : "حذف"}</Button>
                 </div>

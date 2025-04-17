@@ -9,10 +9,17 @@ import { TLevel } from '@customtypes/levelType';
 import actDashAddUnit from '@store/dashboard/actUnit/actDashAddUnit';
 import { TUnit, TUnitProps } from '@customtypes/unitType';
 
-
+export type TData = {
+    level_id: number,
+    title: string,
+    title_ar: string,
+    description: string,
+    description_ar: string,
+    number: number | null | string
+}
 function Add(props: { setUserAdded: () => void }) {
     const [title, setTitle] = useState('');
-    const [number, setNum] = useState<null | number>(null);
+    const [number, setNum] = useState<null | number | string>(null);
     const [description, setDescription] = useState('');
     const [title_ar, setTitleAra] = useState('');
     const [description_ar, setDescriptionAra] = useState('');
@@ -21,19 +28,19 @@ function Add(props: { setUserAdded: () => void }) {
 
     const { idLevel } = useParams();
     const indx = parseInt(idLevel as string)
-    const data = {
+
+    const data: TData = {
         level_id: indx,
         title,
         title_ar,
         description,
-        description_ar, number
+        description_ar,
+        number
     }
-    const navigate = useNavigate()
     const addNewUser = () => {
 
-        dispatch(actDashAddUnit(data as TUnitProps)).unwrap().then(() => {
+        dispatch(actDashAddUnit(data)).unwrap().then(() => {
             language === 'French' ? toast.success('Nouveau unité ajouté!') : toast.success('تم اضافة وحدة جديدة!')
-            navigate(0)
 
         })
     }

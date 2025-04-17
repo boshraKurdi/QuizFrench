@@ -1,8 +1,8 @@
-import { TLevel } from "@customtypes/levelType"
 import TopicsCard from "../TopicCard/TopicsCard"
 import { useAppSelector } from "@hooks/app"
 import './TopicsList.css'
-const TopicsList = ({ topics }: { topics: TLevel[] }) => {
+import { TTopic } from "@customtypes/topicType"
+const TopicsList = ({ topics }: { topics: TTopic[] }) => {
     const { language } = useAppSelector(state => state.language)
     const Cards = topics?.map(to => <li key={to.id}><TopicsCard {...to} /></li>)
     return (

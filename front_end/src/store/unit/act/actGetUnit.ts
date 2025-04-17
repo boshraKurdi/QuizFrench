@@ -1,10 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
-import { TUnit } from "@customtypes/unitType";
 import Cookie from 'cookie-universal'
 
-type TResponse = TUnit;
 const cookie = Cookie()
 
 const actGetUnits = createAsyncThunk(
@@ -13,7 +11,7 @@ const actGetUnits = createAsyncThunk(
         const { rejectWithValue, signal } = thunk;
 
         try {
-            const res = await axios.get<TResponse>(`/course/GetUnits/${id}`,
+            const res = await axios.get(`/course/GetUnits/${id}`,
                 {
                     signal,
                     headers: {
@@ -23,7 +21,7 @@ const actGetUnits = createAsyncThunk(
                     }
                 },
             );
-            return res.data;
+            return res.data.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

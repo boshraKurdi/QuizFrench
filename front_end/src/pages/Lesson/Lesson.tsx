@@ -17,8 +17,8 @@ import toast from 'react-hot-toast'
 import actDashDeleteVoc from '@store/dashboard/actVocabulary/actDashDeleteVoc'
 import { confirmDialog } from 'primereact/confirmdialog'
 import ReactAudioPlayer from 'react-audio-player'
+import actDashGetVoc from '@store/dashboard/actVocabulary/actDashGetVoc'
 const Lesson = () => {
-    const [showAudio, setShowAudio] = useState(false);
 
     const { lessons } = useAppSelector(state => state.lesson)
     const { language } = useAppSelector(state => state.language)
@@ -26,13 +26,17 @@ const Lesson = () => {
     const [showEditMode, setShowEditMode] = useState(false);
     const [selectedUserId, setselectedUserId] = useState<null | number>(null);
     const { userData } = useAppSelector(state => state.auth)
+    const { vocabularies } = useAppSelector(state => state.dashboard)
     const { idUnit, idLesson } = useParams()
     const unitIndx = parseInt(idUnit as string)
     const lessonIndx = parseInt(idLesson as string)
     const dispatch = useAppDispatch()
-    const lessonInfo = lessons?.data.find(le => le.id === lessonIndx)
+    const lessonInfo = lessons?.find(le => le.id === lessonIndx)
     useEffect(() => {
         dispatch(actGetLessons(unitIndx))
+        if (userData?.user.roles?.length) {
+            dispatch(actDashGetVoc(lessonIndx))
+        }
     }, [])
     const deleteUserConfirm = (userId: number) => {
         confirmDialog({
@@ -46,18 +50,17 @@ const Lesson = () => {
             },
         });
     }
-    const showHandler = () => {
-
-        setShowAudio(true)
+    const showHandler = (e: any) => {
+        (e.target as Element)?.classList.add("active");
     }
     const deleteUser = (userId: number) => {
         dispatch(actDashDeleteVoc(userId)).unwrap().then(() => {
             language === 'French' ? toast.success('Supprimé avec succès! ') : toast.success('تم الحذف بنجاح !')
-            navigate(0)
 
         })
     }
-    const vocalList = lessonInfo?.vocabulary.map(vo => <Fragment key={vo.id}>
+    const datavoc = userData?.user.roles?.length ? vocabularies : lessonInfo?.vocabulary;
+    const vocalList = datavoc?.map(vo => <Fragment key={vo.id}>
         <tr >
             <td >
                 <h5>{vo.word}</h5>
@@ -66,13 +69,12 @@ const Lesson = () => {
                 <h5>{vo.translation}</h5>
             </td>
             <td>
-                {!showAudio ? <div onClick={showHandler} className="bb">
-                    <Button >{language === 'French' ? "écoute " : "استمع "}</Button>
-                </div> : ""}
-                {showAudio ?
-                    <ReactAudioPlayer controls src={vo.media[0]?.original_url} />
-                    : ""
-                }
+                <div className='btns' onClick={showHandler} >
+                    <Button className={"audioBtn"}>{language === 'French' ? "écoute " : "استمع "}</Button>
+                    <ReactAudioPlayer className={"audio"} controls src={vo.media[0]?.original_url} />
+                </div>
+
+
 
             </td>
         </tr>
@@ -86,13 +88,13 @@ const Lesson = () => {
             userData?.user.roles?.length ? <tr >
                 <td colSpan={3}>
                     <div className="btns-op">
-                        <Button onclick={() => {
+                        <Button onClick={() => {
                             dispatch(actDashShowVoc(vo.id!))
                             setselectedUserId(vo.id!)
                             setShowEditMode(true)
                         }
                         }>{language === 'French' ? 'modifier ' : "تعديل "}</Button>
-                        <Button onclick={() => {
+                        <Button onClick={() => {
                             deleteUserConfirm(vo.id!)
                         }
                         }>{language === 'French' ? 'supprimer ' : "حذف "}</Button>
@@ -130,7 +132,7 @@ const Lesson = () => {
                 <h3>{language === 'French' ? "Vocabulaires" : "المفردات"}</h3>
                 {userData?.user.roles?.length ?
                     <div className="btns-ad">
-                        <Button onclick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un Vocabulaires' : "اضافة مفردة"}</Button>
+                        <Button onClick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un Vocabulaires' : "اضافة مفردة"}</Button>
                     </div>
                     : ""}
                 <Table striped bordered hover size="sm">
@@ -147,14 +149,7 @@ const Lesson = () => {
                                 {language === 'French' ? "écoute le mot" : "استمع للكلمة"}
 
                             </th>
-                            {/* {
-                                userData?.user?.roles![0]?.name === 'admin' ?
 
-                                    <th>
-                                        {language === 'French' ? "actes" : "العمليات"}
-
-                                    </th> : ""
-                            } */}
                         </tr>
                     </thead>
                     <tbody>
@@ -163,7 +158,7 @@ const Lesson = () => {
                 </Table>
 
                 <div onClick={showTest} className="btns">
-                    <Button onclick={goToTest} >{
+                    <Button onClick={goToTest} >{
                         language === "French" ? "Test de leçon"
                             : "اختبار الدرس"}</Button>
                 </div>

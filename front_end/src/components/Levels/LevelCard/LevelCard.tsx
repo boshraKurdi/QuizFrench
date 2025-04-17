@@ -34,7 +34,6 @@ const LevelCard = (props: TLevel) => {
     const deleteUser = (userId: number) => {
         dispatch(actDashDeleteLevel(userId)).unwrap().then(() => {
             language === 'French' ? toast.success('Supprimé avec succès! ') : toast.success('تم الحذف بنجاح !')
-            navigate(0)
 
         })
     }
@@ -50,13 +49,13 @@ const LevelCard = (props: TLevel) => {
                 <p>{language === "French" ? props.description : props.description_ar}</p>
                 {
                     userData?.user.roles?.length ? <div className="btns-op">
-                        <Button onclick={() => {
+                        <Button onClick={() => {
                             dispatch(actDashShowLevel(props.id!))
                             setselectedUserId(props.id!)
                             setShowEditMode(true)
                         }
                         }>{language === 'French' ? 'modifier ' : "تعديل المستوى"}</Button>
-                        <Button onclick={() => {
+                        <Button onClick={() => {
                             deleteUserConfirm(props.id!)
                         }
                         }>{language === 'French' ? 'supprimer ' : "حذف المستوى"}</Button>

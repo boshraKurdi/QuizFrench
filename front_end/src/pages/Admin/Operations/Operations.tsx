@@ -40,52 +40,18 @@ function Operations() {
         dispatch(actDashGetCourses())
 
     }, [dispatch])
-<<<<<<< HEAD
-
     useEffect(() => {
-        if (courses?.data) {
-            const course: TCourse[] = courses.data.map((course) => ({
-                id: course.id,
-                title: course.title,
-                description: course.description,
-                image: (
-                    <img
-                        src={`${course?.media[0]?.original_url}`}
-                        style={{ marginTop: '10px', width: '50px', height: '50px' }}
-                    />
-                ),
-            }));
-    
-            const courseAra: TCourseAra[] = courses.data.map((course) => ({
-                id: course.id,
-                العنوان: course.title,
-                الوصف: course.description,
-                الصورة: (
-                    <img
-                        src={`${course?.media[0]?.original_url}`}
-                        style={{ marginTop: '10px', width: '50px', height: '50px' }}
-                    />
-                ),
-            }));
-    
-            const data = language === 'Arabic' ? courseAra : course;
-            setUsersList(data);
-        }
-    }, [courses, language]);
-    console.log(courses)
-=======
-    useEffect(() => {
-        if (courses?.data) {
-            const course: TCourse[] = courses?.data.map((course) => {
+        if (courses) {
+            const course: TCourse[] = courses?.map((course) => {
                 return ({
                     id: course.id,
                     title: course.title,
                     description: course.description,
-                    image: <img src={`${course?.media[0]?.original_url!}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
+                    image: <img src={`${course?.media[0]?.original_url}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
 
                 })
             })!
-            const courseAra: TCourseAra[] = courses?.data.map((course) => {
+            const courseAra: TCourseAra[] = courses?.map((course) => {
                 return ({
                     id: course.id,
                     العنوان: course.title,
@@ -102,7 +68,6 @@ function Operations() {
     }, [language, courses])
 
 
->>>>>>> 0d9e0c3f94f2513f8d816965607284df5e78ce4b
     const actionsTemplate = (rowDate: TCourse) => {
         return (
             <>
@@ -150,7 +115,7 @@ function Operations() {
         dispatch(actDashDeleteCourses(userId)).unwrap().then(() => {
             language === 'French' ? toast.success('Supprimé avec succès! ') : toast.success('تم الحذف بنجاح !')
 
-            navigate(`/dashboard/main`)
+            // navigate(`/dashboard/main`)
         })
     }
 

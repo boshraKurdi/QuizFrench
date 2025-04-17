@@ -15,7 +15,7 @@ const Landing = () => {
                         {language === "French" ? "  Apprenez le français avec nous de la manière la plus simple !" : "تعلم الفرنسية معنا بأسهل طريقة!"}
                     </h2>
                     <div className='btns'>
-                        <Button onclick={() => navigate('/login')}>{language === "French" ? "commencer" : "ابدأ"}</Button>
+                        <Button onClick={() => navigate('/login')}>{language === "French" ? "commencer" : "ابدأ"}</Button>
                     </div>
                 </div>
 

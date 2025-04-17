@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-type TResponse = ""
 const cookie = Cookie()
 const actDashDeleteTopic = createAsyncThunk(
     "dashboard/actDashDeleteTopic",
@@ -10,7 +9,7 @@ const actDashDeleteTopic = createAsyncThunk(
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.delete<TResponse>(`dashboard/topic/destroy/${id}`,
+            const res = await axios.delete(`dashboard/topic/destroy/${id}`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -18,7 +17,7 @@ const actDashDeleteTopic = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return id;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

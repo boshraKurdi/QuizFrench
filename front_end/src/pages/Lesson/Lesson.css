@@ -7,6 +7,19 @@
     margin-bottom: 30px;
 }
 
+.showLesson .audioBtn.active {
+    display: none;
+}
+
+.showLesson .audioBtn+.audio {
+    display: none;
+    box-shadow: 0 0 0px 3px var(--main-color);
+}
+
+.showLesson .audioBtn.active+.audio {
+    display: block;
+}
+
 .showLesson a {
     text-decoration: underline;
 }

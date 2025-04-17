@@ -19,7 +19,7 @@ const actDashAddLevel = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return form;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

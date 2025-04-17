@@ -19,6 +19,9 @@ export type TQuiz = {
                     answer_3: string,
                     answer_4: string,
                     answer_right: string,
+                    media?: [{
+                        original_url: string
+                    }]
                 },
 
             ]
@@ -39,19 +42,25 @@ export type TQuizUnit = {
             answer_3: string,
             answer_4: string,
             answer_right: string,
+            media?: [{
+                original_url: string
+            }]
         }
     ]
 }
 export type TQuizProps = {
-    id: number,
+    id?: number,
     course_id?: number,
     unit_id?: number,
     lesson_id?: number,
-    type: string,
+    type?: string,
     question: string,
     answer_1: string,
     answer_2: string,
     answer_3: string,
     answer_4: string,
     answer_right: string,
+    media?: [{
+        original_url: string
+    }]
 }

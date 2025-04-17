@@ -2,16 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TLesson } from "@customtypes/lessonType";
-type TResponse = TLesson
 const cookie = Cookie()
 const actDashGetLessons = createAsyncThunk(
     "dashboard/actDashGetLessons",
-    async (_, thunk) => {
+    async (id: number, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.get<TResponse>(`dashboard/lesson/index/`,
+            const res = await axios.get(`dashboard/lesson/index/`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -19,7 +17,7 @@ const actDashGetLessons = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return res.data.data.filter((fill: any) => fill.unit_id === id);
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

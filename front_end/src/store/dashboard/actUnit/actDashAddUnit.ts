@@ -2,16 +2,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TUnitProps } from "@customtypes/unitType";
-type TResponse = TUnitProps
+import { TUnit } from "@customtypes/unitType";
 const cookie = Cookie()
 const actDashAddUnit = createAsyncThunk(
     "dashboard/actDashAddUnit",
-    async (form: TUnitProps, thunk) => {
+    async (form: TUnit, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.post<TResponse>(`dashboard/unit/store`, form
+            const res = await axios.post(`dashboard/unit/store`, form
                 , {
                     headers: {
                         'Content-Type': 'application/json',
@@ -19,7 +18,7 @@ const actDashAddUnit = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return form;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

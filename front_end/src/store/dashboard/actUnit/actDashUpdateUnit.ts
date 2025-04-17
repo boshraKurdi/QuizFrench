@@ -19,7 +19,7 @@ const actDashUpdateUnit = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return formData;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

@@ -29,7 +29,6 @@ function Add(props: { setUserAdded: () => void }) {
 
         dispatch(actDashAddTopic(data)).unwrap().then((res) => {
             language === 'French' ? toast.success('Nouveau cours ajouté!') : toast.success('تم اضافة كورس جديد!')
-            navigate(0)
 
         })
     }

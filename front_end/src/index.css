@@ -33,15 +33,7 @@ body {
   src: url('./assets/fonts/alfont_com_BelalBoldBold-BWrl8.ttf');
 }
 
-@font-face {
-  font-family: Binko2Eng;
-  src: url('./assets/fonts/Leckerli_One/LeckerliOne-Regular.ttf');
-}
 
-@font-face {
-  font-family: BinkoAra;
-  src: url('./assets/fonts/Markazi_Text/static/MarkaziText-SemiBold.ttf');
-}
 
 input,
 button {

@@ -1,9 +1,9 @@
 import { useAppSelector } from "@hooks/app"
 import './CourseCard.css'
 import Button from "@components/feedback/Button/Button";
-import { TCoursesProps } from "@customtypes/coursesType";
+import { TCourses } from "@customtypes/coursesType";
 import { useNavigate } from "react-router-dom";
-const CourseCard = (props: TCoursesProps) => {
+const CourseCard = (props: TCourses) => {
     const { language } = useAppSelector(state => state.language);
     const navigate = useNavigate()
     return (
@@ -14,7 +14,7 @@ const CourseCard = (props: TCoursesProps) => {
             <div className="right">
                 <h3>{language === 'French' ? props.title : props.title_ar}</h3>
                 <p>{language === 'French' ? props.description : props.description_ar}</p>
-                <Button onclick={() => navigate(`${props.id}/show`)}>{language === "French" ? "montrer" : "تصفح"}</Button>
+                <Button onClick={() => navigate(`${props.id}/show`)}>{language === "French" ? "montrer" : "تصفح"}</Button>
             </div>
         </div>
     )

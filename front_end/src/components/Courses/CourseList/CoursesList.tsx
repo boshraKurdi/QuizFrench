@@ -14,7 +14,7 @@ const CoursesList = () => {
 
         }
     }, [dispatch])
-    const CoursesCards = courses?.data.map((course) => <CourseCard key={course.id} {...course} />)
+    const CoursesCards = courses?.map((course) => <CourseCard key={course.id} {...course} />)
     return (
         <div className="CourseList">
             {CoursesCards}

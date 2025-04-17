@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { TUnitProps } from '@customtypes/unitType';
 import actDashUpdateUnit from '@store/dashboard/actUnit/actDashUpdateUnit';
+import actDashShowUnit from '@store/dashboard/actUnit/actDashShowUnit';
 
 
-function Edit(props: { userId: number, setUserAdded: () => void }) {
+function Edit(props: { userId: number, setUserEdited: () => void }) {
     const { unit } = useAppSelector(state => state.dashboard)
     const [title, setTitle] = useState(unit?.title);
 
@@ -30,17 +31,27 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
         description,
         description_ar, number
     }
-    const navigate = useNavigate()
     const addNewUser = () => {
 
         dispatch(actDashUpdateUnit(data as TUnitProps)).unwrap().then(() => {
             language === 'French' ? toast.success('modifier!') : toast.success('تم التعديل!')
-            navigate(0)
 
         })
     }
 
-
+    useEffect(() => {
+        dispatch(actDashShowUnit(props.userId))
+    },
+        [dispatch])
+    useEffect(() => {
+        if (unit) {
+            setTitle(unit.title)
+            setTitleAra(unit.title_ar)
+            setDescription(unit.description)
+            setDescriptionAra(unit.description_ar)
+            setNum(unit.number)
+        }
+    }, [language, unit])
     return (
         <div className='user-view _add-view'>
             <h1>{language === 'French' ? "Informations de base" : "المعلومات الأساسية"}</h1> "

@@ -33,7 +33,6 @@ const UnitCard = (props: TUnitProps) => {
     const deleteUser = (userId: number) => {
         dispatch(actDashDeleteUnit(userId)).unwrap().then(() => {
             language === 'French' ? toast.success('Supprimé avec succès! ') : toast.success('تم الحذف بنجاح !')
-            navigate(0)
 
         })
     }
@@ -54,13 +53,13 @@ const UnitCard = (props: TUnitProps) => {
             }
             {
                 userData?.user.roles?.length ? <div className="btns-op">
-                    <Button onclick={() => {
+                    <Button onClick={() => {
                         dispatch(actDashShowVoc(props.id!))
                         setselectedUserId(props.id!)
                         setShowEditMode(true)
                     }
                     }>{language === 'French' ? 'modifier ' : "تعديل "}</Button>
-                    <Button onclick={() => {
+                    <Button onClick={() => {
                         deleteUserConfirm(props.id!)
                     }
                     }>{language === 'French' ? 'supprimer ' : "حذف "}</Button>

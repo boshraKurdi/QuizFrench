@@ -1,17 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
 
 import { useParams } from 'react-router-dom';
 import actDashAddVoc from '@store/dashboard/actVocabulary/actDashAddVoc';
+import actDashShowVoc from '@store/dashboard/actVocabulary/actDashShowVoc';
 
 
-function Add(props: { userId: string, setUserAdded: () => void }) {
+function Add(props: { userId: number, setUserEdited: () => void }) {
     const { vocabulary } = useAppSelector(state => state.dashboard)
     const [word, setWord] = useState(vocabulary?.word);
     const [translation, setTranslation] = useState(vocabulary?.translation);
-    const [media, setMedia] = useState(vocabulary?.media);
+    const [media, setMedia] = useState("");
     const [example_sentence, setExample] = useState(vocabulary?.example_sentence);
     const dispatch = useAppDispatch();
     const { language } = useAppSelector(state => state.language)
@@ -22,7 +23,7 @@ function Add(props: { userId: string, setUserAdded: () => void }) {
     const { idLesson } = useParams()
     const addNewUser = () => {
         const formData = new FormData()
-        formData.append('id', props.userId!)
+        formData.append('id', props?.userId!)
         formData.append('lesson_id', idLesson!)
         formData.append('word', word as string)
         formData.append('translation', translation as string)
@@ -33,7 +34,15 @@ function Add(props: { userId: string, setUserAdded: () => void }) {
 
         })
     }
-
+    useEffect(() => {
+        dispatch(actDashShowVoc(props.userId))
+    }, [dispatch])
+    useEffect(() => {
+        setWord(vocabulary?.word)
+        // setMedia(vocabulary?.media[0]?.original_url!)
+        setExample(vocabulary?.example_sentence)
+        setTranslation(vocabulary?.translation)
+    }, [language, vocabulary])
 
     return (
         <div className='user-view _add-view'>

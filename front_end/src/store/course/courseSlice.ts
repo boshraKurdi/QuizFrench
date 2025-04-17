@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TLoading } from "@customtypes/loadingType";
 import { isString } from "@customtypes/isString";
-import { TCourses } from "@customtypes/coursesType";
-import { TCourse } from "@customtypes/courseType";
 import actGetCourses from "./act/actGetCourses";
 import actShowCourse from "./act/actShowCourse";
+import { TCourses } from "@customtypes/coursesType";
+import { TCourse } from "@customtypes/courseType";
 // import actUpdateProfile from "./act/actUpdateProfile";
 interface IAuthState {
-    courses: TCourses | null,
+    courses: TCourses[] | null,
     course: TCourse | null,
     loading: TLoading;
     error: string | null;
@@ -22,12 +22,19 @@ const authSlice = createSlice({
     name: 'course',
     initialState,
     reducers: {
-        actCLearCourse: (state) => {
+        actCLearCourses: (state) => {
             state.courses = null;
         },
-        actCLearCourses: (state) => {
+        actCLearCourse: (state) => {
             state.course = null;
         },
+        // actAddTopic: (state, action) => {
+        //     state.course?.topics.push(action.payload);
+        // },
+        // actDeleteTopic: (state, action) => {
+        //     state.course!.topics = state.course!.topics.filter(topic => topic.id !== action.payload);
+        // },
+
     }
     ,
     extraReducers: (builder) => {

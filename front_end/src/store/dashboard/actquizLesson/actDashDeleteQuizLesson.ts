@@ -19,7 +19,7 @@ const actDashDeleteQuizLesson = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return id;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

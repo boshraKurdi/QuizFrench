@@ -11,8 +11,9 @@ import { Button } from "@components/index";
 import { setGameState } from "@store/quiz/quizSlice"
 import { Dialog } from "primereact/dialog"
 import Add from '@components/Admin/Lessons/Add/Add'
+import actDashGetLessons from "@store/dashboard/actLesson/actDashGetLesson"
 const Lesson = () => {
-    const { idLevel, id, idUnit } = useParams()
+    const { idLevel, idUnit } = useParams()
     const [showAddMode, setShowAddMode] = useState(false);
     const { userData } = useAppSelector(state => state.auth)
     const unitIndx = parseInt(idUnit as string)
@@ -20,7 +21,8 @@ const Lesson = () => {
     const { language } = useAppSelector(state => state.language)
     const { units } = useAppSelector(state => state.unit)
     const { lessons } = useAppSelector(state => state.lesson)
-    const unitInfo = units?.data.find(unit => unit.id === unitIndx)
+    const lessonsAdmin = useAppSelector(state => state.dashboard.lessons)
+    const unitInfo = units?.find(unit => unit.id === unitIndx)
     const cookie = Cookie();
     const navigate = useNavigate()
 
@@ -28,6 +30,11 @@ const Lesson = () => {
     useEffect(() => {
         dispatch(actGetLessons(unitIndx))
         dispatch(actGetUnits(levelIndx))
+
+        if (userData?.user.roles?.length) {
+            dispatch(actDashGetLessons(unitIndx))
+
+        }
     }, [])
     const showTest = () => {
         if (cookie.get('token')) {
@@ -67,13 +74,13 @@ const Lesson = () => {
                     </h3>
                     {userData?.user.roles?.length ?
                         <div className="btns-ad">
-                            <Button onclick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un leçon' : "اضافة درس"}</Button>
+                            <Button onClick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un leçon' : "اضافة درس"}</Button>
                         </div>
                         : ""}
-                    <LessonsList lessons={lessons!} />
+                    <LessonsList lessons={userData?.user.roles?.length ? lessonsAdmin! : lessons!} />
                 </div>
                 <div onClick={showTest} className="btns">
-                    <Button onclick={goToTest} >{
+                    <Button onClick={goToTest} >{
                         language === "French" ? "Test de unité"
                             : "اختبار الوحدة"}</Button>
                 </div>
@@ -85,7 +92,6 @@ const Lesson = () => {
 
                 <Add setUserAdded={() => {
                     setShowAddMode(false);
-                    // getAllUsers();
                 }} />
             </Dialog>
         </div>

@@ -1,10 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
-import { TLesson } from "@customtypes/lessonType";
 import Cookie from 'cookie-universal'
 
-type TResponse = TLesson;
 const cookie = Cookie()
 
 const actGetLessons = createAsyncThunk(
@@ -13,7 +11,7 @@ const actGetLessons = createAsyncThunk(
         const { rejectWithValue, signal } = thunk;
 
         try {
-            const res = await axios.get<TResponse>(`/course/GetLessons/${id}`,
+            const res = await axios.get(`/course/GetLessons/${id}`,
                 {
                     signal,
                     headers: {
@@ -23,8 +21,7 @@ const actGetLessons = createAsyncThunk(
                     }
                 },
             );
-            console.log(res.data)
-            return res.data;
+            return res.data.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

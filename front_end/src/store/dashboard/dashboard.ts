@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TLoading } from "@customtypes/loadingType";
 import { isString } from "@customtypes/isString";
-import { TCourses } from "@customtypes/coursesType";
 import { TCourse } from "@customtypes/courseType";
 import { TLevel } from "@customtypes/levelType";
-import { TTopic, TTopicData } from "@customtypes/topicType";
+import { TTopic, } from "@customtypes/topicType";
 import { TUnit, TUnitProps } from "@customtypes/unitType";
-import { TLesson, TLessonProps } from "@customtypes/lessonType";
-import { TVoc } from "@customtypes/vocabularyType";
-import { TQuiz, TQuizProps, TQuizUnit } from "@customtypes/QuizType";
+import { TLesson } from "@customtypes/lessonType";
+import { TVocbulary } from "@customtypes/vocabularyType";
+import { TQuizProps } from "@customtypes/QuizType";
 import actDashGetCourses from "./actCourse/actDashGetCourse";
 import actDashShowCourse from "./actCourse/actDashShowCourse";
 import actDashAddCourses from "./actCourse/actDashAddCourse";
@@ -44,11 +43,11 @@ import actDashUpdateQuizCourse from "./actquizCourse/actDashUpdateQuizCourse";
 import actDashAddQuizCourse from "./actquizCourse/actDashAddQuizCourse";
 import actDashShowQuizCourse from "./actquizCourse/actDashShowQuizCourse";
 import actDashGetQuizCourse from "./actquizCourse/actDashGetQuizCourse";
-import actDashDeleteQuizUnit from "./actquizUnit/actDashDeleteQuizCourse";
-import actDashUpdateQuizUnit from "./actquizUnit/actDashUpdateQuizCourse";
-import actDashAddQuizUnit from "./actquizUnit/actDashAddQuizCourse";
-import actDashShowQuizUnit from "./actquizUnit/actDashShowQuizCourse";
-import actDashGetQuizUnit from "./actquizUnit/actDashGetQuizCourse";
+import actDashDeleteQuizUnit from "./actquizUnit/actDashDeleteQuizUnit";
+import actDashUpdateQuizUnit from "./actquizUnit/actDashUpdateQuizUnit";
+import actDashAddQuizUnit from "./actquizUnit/actDashAddQuizUnit";
+import actDashShowQuizUnit from "./actquizUnit/actDashShowQuizUnit";
+import actDashGetQuizUnit from "./actquizUnit/actDashGetQuizUnit";
 import actDashDeleteQuizLesson from "./actquizLesson/actDashDeleteQuizLesson";
 import actDashUpdateQuizLesson from "./actquizLesson/actDashUpdateQuizLesson";
 import actDashAddQuizLesson from "./actquizLesson/actDashAddQuizLesson";
@@ -56,26 +55,26 @@ import actDashShowQuizLesson from "./actquizLesson/actDashShowQuizLesson";
 import actDashGetQuizLesson from "./actquizLesson/actDashGetQuizLesson";
 // import actUpdateProfile from "./act/actUpdateProfile";
 interface IAuthState {
-    courses: TCourses | null,
+    courses: TCourse[] | null,
     course: TCourse | null,
     levels: TLevel[] | null,
     level: TLevel | null,
-    units: TUnit | null,
+    units: TUnit[] | null,
     unit: TUnitProps | null,
     topics: TTopic[] | null,
-    vocabularies: TVoc[] | null,
-    vocabulary: TVoc | null,
-    topic: TTopicData | null,
-    lessons: TLesson | null,
-    lesson: TLessonProps | null,
+    vocabularies: TVocbulary[] | null,
+    vocabulary: TVocbulary | null,
+    topic: TTopic | null,
+    lessons: TLesson[] | null,
+    lesson: TLesson | null,
     quiz_course: TQuizProps | null,
-    quiz_courses: TQuizUnit | null,
+    quiz_courses: TQuizProps[] | null,
 
     quiz_unit: TQuizProps | null,
-    quiz_units: TQuizUnit | null,
+    quiz_units: TQuizProps[] | null,
 
     quiz_lesson: TQuizProps | null,
-    quiz_lessons: TQuizUnit | null,
+    quiz_lessons: TQuizProps[] | null,
 
     loading: TLoading;
     error: string | null;
@@ -155,8 +154,7 @@ const authSlice = createSlice({
         });
         builder.addCase(actDashAddCourses.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            // state.course = action.payload;
-            state.courses?.data.push(action.payload);
+            state.courses?.push(action.payload.data);
         });
         builder.addCase(actDashAddCourses.rejected, (state, action) => {
             state.loading = "failed";
@@ -169,7 +167,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateCourse.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateCourse.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -187,7 +185,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteCourses.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.courses!.data = state.courses!.data.filter(course => course !== action.payload)
+            state.courses! = state.courses!.filter((course: TCourse) => course.id !== action.payload)
         });
         builder.addCase(actDashDeleteCourses.rejected, (state, action) => {
             state.loading = "failed";
@@ -235,8 +233,7 @@ const authSlice = createSlice({
         });
         builder.addCase(actDashAddTopic.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            // state.course = action.payload;
-            // state.topics!.push(action.payload);
+            state.topics!.push(action.payload);
         });
         builder.addCase(actDashAddTopic.rejected, (state, action) => {
             state.loading = "failed";
@@ -249,7 +246,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateTopic.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateTopic.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -267,7 +264,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteTopic.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            // state.topics = state.topics!.filter(topic => topic !== action.payload)
+            state.topics = state.topics!.filter(topic => topic.id !== action.payload)
         });
         builder.addCase(actDashDeleteTopic.rejected, (state, action) => {
             state.loading = "failed";
@@ -329,7 +326,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateLevel.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateLevel.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -347,7 +344,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteLevel.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            // state.levels! = state.levels!.filter(level => level !== action.payload)
+            state.levels! = state.levels!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteLevel.rejected, (state, action) => {
             state.loading = "failed";
@@ -396,7 +393,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            // state.units!.data.push(action.payload);
+            state.units!.push(action.payload);
         });
         builder.addCase(actDashAddUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -409,7 +406,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateUnit.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateUnit.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -427,7 +424,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            // state.units.data! = state.units.data!.filter(level => level !== action.payload)
+            state.units = state.units!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -476,7 +473,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddLesson.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.lessons?.data?.push(action.payload);
+            state.lessons?.push(action.payload);
         });
         builder.addCase(actDashAddLesson.rejected, (state, action) => {
             state.loading = "failed";
@@ -489,7 +486,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateLesson.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateLesson.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -507,7 +504,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteLesson.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            // state.lessons.data! = state.lessons?.data!.filter(level => level !== action.payload)
+            state.lessons = state.lessons!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteLesson.rejected, (state, action) => {
             state.loading = "failed";
@@ -556,7 +553,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddVoc.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            // state.vocabularies!.data.push(action.payload);
+            state.vocabularies!.push(action.payload.data);
         });
         builder.addCase(actDashAddVoc.rejected, (state, action) => {
             state.loading = "failed";
@@ -569,7 +566,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateVoc.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateVoc.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -587,7 +584,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteVoc.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            // state.vocabularies.data! = state.vocabularies.data!.filter(level => level !== action.payload)
+            state.vocabularies = state.vocabularies!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteVoc.rejected, (state, action) => {
             state.loading = "failed";
@@ -637,7 +634,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddQuizCourse.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_courses!.data.push(action.payload);
+            state.quiz_courses!.push(action.payload);
         });
         builder.addCase(actDashAddQuizCourse.rejected, (state, action) => {
             state.loading = "failed";
@@ -650,7 +647,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateQuizCourse.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateQuizCourse.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -668,7 +665,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteQuizCourse.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_courses.data! = state.quiz_courses.data!.filter(level => level !== action.payload)
+            state.quiz_courses! = state.quiz_courses!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteQuizCourse.rejected, (state, action) => {
             state.loading = "failed";
@@ -684,7 +681,7 @@ const authSlice = createSlice({
         });
         builder.addCase(actDashGetQuizUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            state.quiz_courses = action.payload;
+            state.quiz_units = action.payload;
 
         });
         builder.addCase(actDashGetQuizUnit.rejected, (state, action) => {
@@ -718,7 +715,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddQuizUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_units!.data.push(action.payload);
+            state.quiz_units!.push(action.payload);
         });
         builder.addCase(actDashAddQuizUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -731,7 +728,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateQuizUnit.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateQuizUnit.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -749,7 +746,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteQuizUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_units.data! = state.quiz_units.data!.filter(level => level !== action.payload)
+            state.quiz_units! = state.quiz_units!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteQuizUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -799,7 +796,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddQuizLesson.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_lessons!.data.push(action.payload);
+            state.quiz_lessons!.push(action.payload);
         });
         builder.addCase(actDashAddQuizLesson.rejected, (state, action) => {
             state.loading = "failed";
@@ -812,7 +809,7 @@ const authSlice = createSlice({
             state.loading = "pending";
             state.error = null;
         });
-        builder.addCase(actDashUpdateQuizLesson.fulfilled, (state, action) => {
+        builder.addCase(actDashUpdateQuizLesson.fulfilled, (state) => {
             state.loading = "succeeded";
             // state.course = action.payload;
         });
@@ -830,7 +827,7 @@ const authSlice = createSlice({
         builder.addCase(actDashDeleteQuizLesson.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_lessons.data! = state.quiz_lessons.data!.filter(level => level !== action.payload)
+            state.quiz_lessons! = state.quiz_lessons!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteQuizLesson.rejected, (state, action) => {
             state.loading = "failed";

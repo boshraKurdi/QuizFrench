@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TCourse } from "@customtypes/courseType";
-type TResponse = TCourse
+import { TAddResponseType } from "@customtypes/addResponseType";
+type TResponse = TAddResponseType
 const cookie = Cookie()
 const actDashAddCourses = createAsyncThunk(
     "dashboard/actDashAddCourses",
@@ -19,6 +19,7 @@ const actDashAddCourses = createAsyncThunk(
                     },
                 }
             );
+            console.log(res.data.data)
             return res.data;
         } catch (error) {
             console.log(error)

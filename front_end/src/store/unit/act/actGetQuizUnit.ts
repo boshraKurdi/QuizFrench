@@ -1,9 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
-import { TQuizUnit } from "@customtypes/QuizType";
 import Cookie from 'cookie-universal'
-type TResponse = TQuizUnit;
 const cookie = Cookie()
 const actGetQuizUnit = createAsyncThunk(
     "unit/actGetQuizUnit",
@@ -11,7 +9,7 @@ const actGetQuizUnit = createAsyncThunk(
         const { rejectWithValue, signal } = thunk;
 
         try {
-            const res = await axios.get<TResponse>(`unit/QuizUnit/${id}`,
+            const res = await axios.get(`unit/QuizUnit/${id}`,
                 {
                     signal,
                     headers: {

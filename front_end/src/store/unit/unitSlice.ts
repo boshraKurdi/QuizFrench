@@ -4,9 +4,10 @@ import { isString } from "@customtypes/isString";
 import actGetUnits from "./act/actGetUnit";
 import { TUnit } from "@customtypes/unitType";
 import actGetQuizUnit from "./act/actGetQuizUnit";
-import { TQuizUnit } from "@customtypes/QuizType";
+import { TQuizUnit, } from "@customtypes/QuizType";
+import actGetAllUnits from "./act/actGetAllUnits";
 interface IAuthState {
-    units: TUnit | null,
+    units: TUnit[] | null,
     loading: TLoading;
     error: string | null;
     quizes: TQuizUnit | null
@@ -28,7 +29,7 @@ const authSlice = createSlice({
     }
     ,
     extraReducers: (builder) => {
-        //register
+        //get units by level
         builder.addCase(actGetUnits.pending, (state) => {
             state.loading = "pending";
             state.error = null;
@@ -44,7 +45,23 @@ const authSlice = createSlice({
                 state.error = action.payload;
             }
         });
+        //get all unit
+        builder.addCase(actGetAllUnits.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actGetAllUnits.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            state.units = action.payload;
 
+        });
+        builder.addCase(actGetAllUnits.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+        //get quiz unit
         builder.addCase(actGetQuizUnit.pending, (state) => {
             state.loading = "pending";
             state.error = null;

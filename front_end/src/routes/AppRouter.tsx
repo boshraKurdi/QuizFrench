@@ -20,6 +20,9 @@ const Main = lazy(() => import('@pages/Admin/Main/Main'));
 const Operations = lazy(() => import('@pages/Admin/Operations/Operations'));
 const Settings = lazy(() => import('@pages/Admin/Settings/Settings'));
 const Statestics = lazy(() => import('@pages/Admin/Statestics/Statestics'));
+const QuizLevelPage = lazy(() => import('@pages/Admin/QuizLevelPage/QuizLevelPage'));
+const QuizUnitPage = lazy(() => import('@pages/Admin/QuizUnitPage/QuizUnitPage'));
+const QuizLessonPage = lazy(() => import('@pages/Admin/QuizLessonPage/QuizLessonPage'));
 QuizUnit
 function App() {
   const { language } = useAppSelector(state => state.language)
@@ -98,10 +101,29 @@ function App() {
     {
       path: 'settings',
       element: <SuspendPage ><Settings /></SuspendPage>,
+    }
+      ,
+    {
+      path: 'quiz_course',
+      element: <SuspendPage ><QuizLevelPage /></SuspendPage>,
+    },
+      ,
+    {
+      path: 'quiz_unit',
+      element: <SuspendPage ><QuizUnitPage /></SuspendPage>,
+    },
+      ,
+    {
+      path: 'quiz_lesson',
+      element: <SuspendPage ><QuizLessonPage /></SuspendPage>,
     },
     {
       path: 'states',
       element: <SuspendPage ><Statestics /></SuspendPage>,
+    }, {
+      path: 'profile',
+      element: <SuspendPage> <Settings /></SuspendPage>
+
     }
       , {
       path: 'courses/:id/show',
@@ -134,7 +156,8 @@ function App() {
     }
 
     ]
-  }])
+  }
+  ])
     ;
 
   return <RouterProvider router={router} />

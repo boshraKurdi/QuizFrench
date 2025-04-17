@@ -1,8 +1,8 @@
 import { TButton } from '@customtypes/buttonType'
 import './Button.css'
-const Button = ({ children, style, onclick, disabled }: TButton) => {
+const Button = ({ children, style, onClick, disabled, className }: TButton) => {
     return (
-        <button disabled={disabled} className='main-btn' style={style} onClick={onclick}>
+        <button disabled={disabled} className={`main-btn ${className}`} style={style} onClick={onClick}>
             {children}
         </button>
     )

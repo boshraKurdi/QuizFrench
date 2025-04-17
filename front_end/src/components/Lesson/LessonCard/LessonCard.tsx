@@ -1,7 +1,7 @@
 import './LessonCard.css'
 import Lock from '@assets/svgs/lock-svgrepo-com.svg?react'
 import { useAppDispatch, useAppSelector } from "@hooks/app"
-import { TLessonProps } from '@customtypes/lessonType'
+import { TLesson } from '@customtypes/lessonType'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Dialog } from 'primereact/dialog'
 import actDashDeleteLesson from '@store/dashboard/actLesson/actDashDeleteLesson'
@@ -11,7 +11,7 @@ import actDashShowLesson from '@store/dashboard/actLesson/actDashShowLesson'
 import Button from '@components/feedback/Button/Button'
 import Edit from '@components/Admin/Lessons/Edit/Edit'
 import { useState } from 'react'
-const UnitCard = (props: TLessonProps) => {
+const UnitCard = (props: TLesson) => {
     const { language } = useAppSelector(state => state.language)
     const navigate = useNavigate()
     const [showEditMode, setShowEditMode] = useState(false);
@@ -33,7 +33,6 @@ const UnitCard = (props: TLessonProps) => {
     const deleteUser = (userId: number) => {
         dispatch(actDashDeleteLesson(userId)).unwrap().then(() => {
             language === 'French' ? toast.success('Supprimé avec succès! ') : toast.success('تم الحذف بنجاح !')
-            navigate(0)
 
         })
     }
@@ -55,13 +54,13 @@ const UnitCard = (props: TLessonProps) => {
             }
             {
                 userData?.user.roles?.length ? <div className="btns-op">
-                    <Button onclick={() => {
+                    <Button onClick={() => {
                         dispatch(actDashShowLesson(props.id!))
                         setselectedUserId(props.id!)
                         setShowEditMode(true)
                     }
                     }>{language === 'French' ? 'modifier ' : "تعديل "}</Button>
-                    <Button onclick={() => {
+                    <Button onClick={() => {
                         deleteUserConfirm(props.id!)
                     }
                     }>{language === 'French' ? 'supprimer ' : "حذف "}</Button>

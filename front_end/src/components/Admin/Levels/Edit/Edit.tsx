@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
@@ -6,9 +6,10 @@ import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import actDashUpdateLevel from '@store/dashboard/actLevel/actDashUpdateLevel';
 import { TLevel } from '@customtypes/levelType';
+import actDashShowLevel from '@store/dashboard/actLevel/actDashShowLevel';
 
 
-function Edit(props: { userId: number, setUserAdded: () => void }) {
+function Edit(props: { userId: number, setUserEdited: () => void }) {
     const { level } = useAppSelector(state => state.dashboard)
     const [title, setTitle] = useState(level?.title);
     const [number, setNum] = useState(level?.number);
@@ -31,11 +32,22 @@ function Edit(props: { userId: number, setUserAdded: () => void }) {
     const addNewUser = () => {
 
         dispatch(actDashUpdateLevel(data as TLevel)).unwrap().then(() => {
-            language === 'French' ? toast.success('Nouveau cours ajouté!') : toast.success('تم اضافة كورس جديد!')
+            language === 'French' ? toast.success('édité!') : toast.success('تم التعديل!')
 
         })
     }
-
+    useEffect(() => {
+        dispatch(actDashShowLevel(props.userId))
+    }, [dispatch])
+    useEffect(() => {
+        if (level) {
+            setTitle(level.title)
+            setTitleAra(level.title_ar)
+            setDescription(level.description)
+            setDescriptionAra(level.description_ar)
+            setNum(level.number)
+        }
+    }, [language, level])
     return (
         <div className='user-view _add-view'>
             <h1>{language === 'French' ? "Informations de base" : "المعلومات الأساسية"}</h1> "

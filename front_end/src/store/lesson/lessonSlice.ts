@@ -5,8 +5,9 @@ import actGetLessons from "./act/actGetLessons";
 import { TLesson } from "@customtypes/lessonType";
 import { TQuizUnit } from "@customtypes/QuizType";
 import actGetQuizLesson from "./act/actGetQuizLesson";
+import actGetAllLessons from "./act/actGetAllLesson";
 interface IAuthState {
-    lessons: TLesson | null,
+    lessons: TLesson[] | null,
     loading: TLoading;
     error: string | null;
     quizes: TQuizUnit | null
@@ -28,7 +29,7 @@ const authSlice = createSlice({
     }
     ,
     extraReducers: (builder) => {
-        //register
+        //get lesson by unit
         builder.addCase(actGetLessons.pending, (state) => {
             state.loading = "pending";
             state.error = null;
@@ -44,7 +45,23 @@ const authSlice = createSlice({
                 state.error = action.payload;
             }
         });
+        //get all lesson
+        builder.addCase(actGetAllLessons.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actGetAllLessons.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            state.lessons = action.payload;
 
+        });
+        builder.addCase(actGetAllLessons.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+        //get quiz unit
         builder.addCase(actGetQuizLesson.pending, (state) => {
             state.loading = "pending";
             state.error = null;

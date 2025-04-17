@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/app';
 import { actLogout, authLogout } from '@store/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Cookie from 'cookie-universal'
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { confirmDialog } from 'primereact/confirmdialog';
 const LeftSide = (props: TProfile) => {
     const { language } = useAppSelector(state => state.language)
     const dispatch = useAppDispatch()
@@ -28,8 +28,10 @@ const LeftSide = (props: TProfile) => {
 
     const confirm = () => {
         confirmDialog({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
+            message: language === "French" ? 'Voulez-vous vous déconnecter ?' : "هل أنت متأكد أنك تود تسجيل الخروج؟",
+            acceptLabel: language === "French" ? "oui" : "نعم",
+            rejectLabel: language === "French" ? "non" : "لا",
+            header: 'Confirmation',
             icon: 'pi pi-info-circle',
             defaultFocus: 'reject',
             acceptClassName: 'p-button-danger',

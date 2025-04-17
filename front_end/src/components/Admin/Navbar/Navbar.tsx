@@ -19,7 +19,7 @@ const Header = ({ show, showHandler }: { show: boolean, showHandler: () => void 
     }
     const profile = () => {
 
-        navigate('/profile')
+        navigate('/dashboard/profile')
     }
     const cookie = Cookie()
     return (
@@ -41,7 +41,7 @@ const Header = ({ show, showHandler }: { show: boolean, showHandler: () => void 
                 <Navbar.Toggle className="toggle" aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto links">
-                        <NavLink to="/dashboard">
+                        <NavLink to="/dashboard/operations">
                             {language === "French" ? "Accueil" : "الرئيسية"}
                         </NavLink>
                         <NavLink to="/dashboard/courses">

@@ -3,7 +3,6 @@ import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
 import { TQuizProps } from "@customtypes/QuizType";
-type TResponse = TQuizProps
 const cookie = Cookie()
 const actDashAddQuizLesson = createAsyncThunk(
     "dashboard/actDashAddQuizLesson",
@@ -11,7 +10,7 @@ const actDashAddQuizLesson = createAsyncThunk(
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.post<TResponse>(`dashboard/quiz_lesson/store`, form
+            const res = await axios.post(`dashboard/quiz_lesson/store`, form
                 , {
                     headers: {
                         'Content-Type': 'application/json',
@@ -19,7 +18,7 @@ const actDashAddQuizLesson = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return form;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

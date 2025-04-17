@@ -2,16 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TQuizProps } from "@customtypes/QuizType";
-type TResponse = TQuizProps
 const cookie = Cookie()
-const actDashShowQuizUnit = createAsyncThunk(
-    "dashboard/actDashShowQuizUnit",
-    async (id: number, thunk) => {
+const actGetAllLessons = createAsyncThunk(
+    "lesson/actGetAllLessons",
+    async (_, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.get<TResponse>(`dashboard/quiz_unit/show/${id}`,
+            const res = await axios.get(`dashboard/lesson/index/`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -19,7 +17,7 @@ const actDashShowQuizUnit = createAsyncThunk(
                     },
                 }
             );
-            return res.data;
+            return res.data.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));
@@ -27,4 +25,4 @@ const actDashShowQuizUnit = createAsyncThunk(
     }
 );
 
-export default actDashShowQuizUnit;
+export default actGetAllLessons;
