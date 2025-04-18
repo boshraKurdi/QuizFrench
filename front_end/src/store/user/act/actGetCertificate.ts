@@ -2,23 +2,24 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal'
-const cookie = Cookie()
-const actQuizLevel = createAsyncThunk(
-    "quiz/actQuizLevel",
-    async (id: number, thunk) => {
-        const { rejectWithValue, signal } = thunk;
 
+
+const actGetCertificate = createAsyncThunk(
+    "user/actGetCertificate",
+    async (id: number, thunk) => {
+        const { rejectWithValue } = thunk;
+        const cookie = Cookie()
         try {
-            const res = await axios.get(`/course/QuizLevel/${id}`,
+            const res = await axios.get(`user/certificate/${id}`,
                 {
-                    signal,
                     headers: {
-                        // 'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                         Authorization: `Bearer ${cookie.get('token')}`
                     },
                 }
             );
-            return res.data;
+            console.log(res.data.data)
+            return res.data.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));
@@ -26,4 +27,4 @@ const actQuizLevel = createAsyncThunk(
     }
 );
 
-export default actQuizLevel;
+export default actGetCertificate;

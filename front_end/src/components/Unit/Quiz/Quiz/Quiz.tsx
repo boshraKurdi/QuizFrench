@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import './Quiz.css'
 import actGetQuizUnit from "@store/unit/act/actGetQuizUnit";
 import ReactAudioPlayer from "react-audio-player";
-// 
+
 function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [optionChosen, setOptionChosen] = useState("");

@@ -6,7 +6,7 @@ import { actQuizLevel, setGameState, setScore } from "@store/quiz/quizSlice";
 import { useParams } from "react-router-dom";
 import './Quiz.css'
 import ReactAudioPlayer from "react-audio-player";
-// 
+
 function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [optionChosen, setOptionChosen] = useState("");

@@ -23,27 +23,39 @@ const EndScreen = () => {
     const data = {
         course_id: indx,
         degree: score,
-        type: 'unit'
+        type: 'unit',
+        check: unitIndx
     }
     const navigate = useNavigate()
     useEffect(() => {
+        if (score) {
+            dispatch(actAddProgress(data)).unwrap()
+                .then((res) => {
+                    if (score > 5) {
+                        toast.success(res?.message!);
+                    }
+                    else {
+                        toast.error(res?.message!);
 
-        dispatch(actAddProgress(data)).unwrap()
-            .then((res) => {
-                if (score > 5)
-                    toast.success(res?.message!);
-                else
-                    toast.error(res?.message!);
-            })
+                    }
+
+                })
+        }
         dispatch(actGetQuizUnit(unitIndx))
+        return () => {
+            dispatch(setScore(0))
 
+        }
     }, [])
-    useEffect(() => {
-
-    }, [])
+    console.log("score: " + score)
+    console.log("length: " + quizes?.data.length)
     const goToLevel = () => {
         // navigate(`/courses/${indx}/unit/${result?.data.level_id}`)
         navigate(-1)
+    }
+    const goToCert = () => {
+        navigate(`/certificate/${result?.data.certificate}`)
+
     }
     // const restartQuiz = () => {
     //     setScore(0);
@@ -51,16 +63,28 @@ const EndScreen = () => {
     // };
     return (
         <div className="EndScreen">
-
             <h1>{language === 'French' ? 'Quiz terminé' : "انتهى الاختبار"}</h1>
             <h3>{userData?.user.name}</h3>
-            <h3>{result?.data.status}</h3>
-            {/* <h3>{language === 'French' ? 'ton niveau est ' : "مستواك هو "}{result?.data.level}</h3> */}
-            <h3>
-                {language === 'French' ? 'votre résultat: ' : 'نتيجتك:'}
-                {score + "/" + quizes?.data.length!}
+            {score === 0 ? "" : <>
+                <h3>{result?.data.status}</h3>
+                {/* <h3>{language === 'French' ? 'ton niveau est ' : "مستواك هو "}{result?.data.level}</h3> */}
+                <h3>
+                    {language === 'French' ? 'votre résultat: ' : 'نتيجتك:'}
+                    {score + "/" + quizes?.data.length!}
 
-            </h3>
+                </h3>
+                {result?.data.certificate ?
+                    <div className="certi">
+                        <h3>
+                            {language === "French" ? "félicitations, vous avez obtenu un certificat pour ce niveau de cours!" : "مبارك لقد حصلت على شهادة اجتياز لهذا المستوى من الكورس!"}
+                        </h3>
+                        <button onClick={goToCert}>{language === 'French' ? 'retour aux unités ' : 'العودة الى الوحدات'}</button>
+
+                    </div> : ""
+                }
+            </>
+
+            }
             <button onClick={goToLevel}>{language === 'French' ? 'retour aux unités ' : 'العودة الى الوحدات'}</button>
         </div>
     );

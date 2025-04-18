@@ -23,6 +23,7 @@ const Statestics = lazy(() => import('@pages/Admin/Statestics/Statestics'));
 const QuizLevelPage = lazy(() => import('@pages/Admin/QuizLevelPage/QuizLevelPage'));
 const QuizUnitPage = lazy(() => import('@pages/Admin/QuizUnitPage/QuizUnitPage'));
 const QuizLessonPage = lazy(() => import('@pages/Admin/QuizLessonPage/QuizLessonPage'));
+const Certificate = lazy(() => import('@pages/Certificate/Certificate'));
 QuizUnit
 function App() {
   const { language } = useAppSelector(state => state.language)
@@ -82,6 +83,10 @@ function App() {
       path: '/courses/:id/levels/:idLevel/units/:idUnit/lessons/:idLesson/quiz',
       element: <SuspendPage> <QuizLesson /></SuspendPage>
     }
+      , {
+      path: 'certificate/:id',
+      element: <SuspendPage> <Certificate /></SuspendPage>
+    }
 
 
     ]
@@ -89,7 +94,7 @@ function App() {
     path: '/dashboard',
     element: <SuspendPage ><Dashboard /></SuspendPage>,
     children: [{
-      index: true, element: <Main />,
+      index: true, element: <Dashboard />,
     }, {
       path: 'operations',
       element: <SuspendPage ><Operations /></SuspendPage>,

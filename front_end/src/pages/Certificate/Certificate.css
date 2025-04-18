@@ -1,0 +1,20 @@
+.certificate {
+    padding: 100px 0;
+    text-align: center;
+}
+
+.certificate .cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.certificate .box {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid var(--main-color)
+}
+
+.certificate .box h3 {
+    color: var(--main-color);
+}

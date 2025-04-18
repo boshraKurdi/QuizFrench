@@ -13,7 +13,7 @@ import actGetQuizLesson from "@store/lesson/act/actGetQuizLesson";
 const EndScreen = () => {
 
     const { score, result } = useAppSelector(state => state.quiz)
-    const { quizes } = useAppSelector(state => state.unit)
+    const { quizes } = useAppSelector(state => state.lesson)
     const { userData } = useAppSelector(state => state.auth)
     const { language } = useAppSelector(state => state.language)
     const dispatch = useAppDispatch()
@@ -24,24 +24,32 @@ const EndScreen = () => {
     const data = {
         course_id: indx,
         degree: score,
-        type: 'lesson'
+        type: 'lesson', check: lessonIndx
     }
     const navigate = useNavigate()
     useEffect(() => {
+        if (score) {
+            dispatch(actAddProgress(data)).unwrap()
+                .then((res) => {
+                    if (score > 5) {
+                        toast.success(res?.message!);
 
-        dispatch(actAddProgress(data)).unwrap()
-            .then((res) => {
-                if (score > 5)
-                    toast.success(res?.message!);
-                else
-                    toast.error(res?.message!);
-            })
+                    }
+                    else {
+                        toast.error(res?.message!);
+
+                    }
+
+                })
+        }
         dispatch(actGetQuizLesson(lessonIndx))
+        return () => {
+            dispatch(setScore(0))
 
+        }
     }, [])
-    useEffect(() => {
-
-    }, [])
+    console.log("score: " + score)
+    console.log("length: " + quizes?.data.length)
     const goToLevel = () => {
         // navigate(`/courses/${indx}/unit/${result?.data.level_id}`)
         navigate(-1)
@@ -52,16 +60,19 @@ const EndScreen = () => {
     // };
     return (
         <div className="EndScreen">
-
             <h1>{language === 'French' ? 'Quiz terminé' : "انتهى الاختبار"}</h1>
             <h3>{userData?.user.name}</h3>
-            <h3>{result?.data.status}</h3>
-            {/* <h3>{language === 'French' ? 'ton niveau est ' : "مستواك هو "}{result?.data.level}</h3> */}
-            <h3>
-                {language === 'French' ? 'votre résultat: ' : 'نتيجتك:'}
-                {score + "/" + quizes?.data.length!}
+            {score === 0 ? "" : <>
+                <h3>{result?.data.status}</h3>
+                {/* <h3>{language === 'French' ? 'ton niveau est ' : "مستواك هو "}{result?.data.level}</h3> */}
+                <h3>
+                    {language === 'French' ? 'votre résultat: ' : 'نتيجتك:'}
+                    {score + "/" + quizes?.data.length!}
 
-            </h3>
+                </h3>
+            </>
+
+            }
             <button onClick={goToLevel}>{language === 'French' ? 'retour aux leçons ' : 'العودة الى الدروس '}</button>
         </div>
     );
