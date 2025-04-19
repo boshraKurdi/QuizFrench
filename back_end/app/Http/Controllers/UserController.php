@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Level;
@@ -18,6 +19,9 @@ class UserController extends Controller
     public function profile()
     {
         $user = User::where('id', auth()->id())->first();
+        $certificate = Certificate::whereHas('target', function ($q) {
+            $q->where('user_id', auth()->id());
+        })->with('target.course')->get();
         // 1️⃣ عدد الوحدات التي أكملها المستخدم
         $completedUnits = Target::where('user_id', $user->id)
             ->where('type', 'unit')
@@ -138,7 +142,7 @@ class UserController extends Controller
         $user->levels = $levels;
         $user->rate = $rate;
         $user->user_rank = $rank;
-
+        $user->certificate = $certificate;
         // 🔹 تجميع الإحصائيات في مصفوفة وإرسالها للعرض
         return response()->json(['data' => $user]);
     }
