@@ -31,7 +31,7 @@ class VocabularyController extends Controller
         if ($request->media) {
             $store->addMediaFromRequest('media')->toMediaCollection('vocabularies');
         }
-        return response()->json(['data' => $store, 'message' => 'add vocabulary successfully!']);
+        return response()->json(['data' => $store->load('media'), 'message' => 'add vocabulary successfully!']);
     }
 
     /**

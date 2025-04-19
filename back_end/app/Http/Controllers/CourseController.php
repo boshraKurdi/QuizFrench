@@ -48,7 +48,7 @@ class CourseController extends Controller
         if ($request->media) {
             $store->addMediaFromRequest('media')->toMediaCollection('courses');
         }
-        return response()->json(['data' => $store, 'message' => 'add course successfully!']);
+        return response()->json(['data' => $store->load('media'), 'message' => 'add course successfully!']);
     }
 
     /**
@@ -87,17 +87,17 @@ class CourseController extends Controller
     }
     public function get_lesson($id)
     {
-        $level = DB::table('levels')
-            ->where('levels.id', $id)
-            ->first();
         $unit = DB::table('units')
-            ->where('level_id', $id)
+            ->where('id', $id)
+            ->first();
+        $level = DB::table('levels')
+            ->where('levels.id',  $unit->level_id)
             ->first();
         $courseId = DB::table('lessons')
             ->join('units', 'lessons.unit_id', '=', 'units.id')
             ->join('levels', 'units.level_id', '=', 'levels.id')
             ->join('courses', 'levels.course_id', '=', 'courses.id')
-            ->where('lessons.id', $id)
+            ->where('units.id', $id)
             ->value('courses.id');
         $check = Target::where('user_id', auth()->id())
             ->where('course_id', $courseId)

@@ -51,7 +51,7 @@ class UserController extends Controller
                 ->where('course_id', $c->id)
                 ->first();
 
-            $my_level_in_course = $level ? $level->level : 0;
+            $my_level_in_course = $level ? $level->level : 1;
 
             $levels_in_course = Level::where('course_id', $c->id)->orderBy('number')->get();
             $levels_count = $levels_in_course->count();
@@ -68,8 +68,16 @@ class UserController extends Controller
                 }
 
                 $units = Unit::where('level_id', $level->id)->get();
+                $units_id = Unit::where('level_id', $level->id)->pluck('units.id');
                 $total_units += $units->count();
-
+                $total_unit = $units->count();
+                $unit_completed_level = Target::where('user_id', $user->id)
+                    ->where('type', 'unit')
+                    ->whereIn('check', $units_id)
+                    ->count();
+                if ($total_unit == $unit_completed_level) {
+                    $my_level_in_course++;
+                }
                 foreach ($units as $unit) {
                     // تحقق من اختبار الوحدة
                     $unit_completed = Target::where('user_id', $user->id)
