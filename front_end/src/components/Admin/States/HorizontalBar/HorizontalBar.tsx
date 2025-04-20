@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 import { TLineProps } from '@customtypes/stateType';
-
+import './HorizontalBar.css';
 export default function HorizontalBar(props: TLineProps) {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});

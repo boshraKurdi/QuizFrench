@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 import { TState } from '@customtypes/stateType';
 import { useAppSelector } from '@hooks/app';
-
+import './VerticalBar.css'
 export default function VerticalBar(props: TState) {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
@@ -18,8 +18,8 @@ export default function VerticalBar(props: TState) {
             datasets: [
                 {
                     label: language === "French" ? 'Activité' : "النشاط ",
-                    backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
+                    backgroundColor: documentStyle.getPropertyValue('--pink-500'),
+                    borderColor: documentStyle.getPropertyValue('--pink-500'),
                     data: [props.active_today, props.active_week, props.active_month, props.inactive_users, props.average_progress],
 
                 },
@@ -63,10 +63,10 @@ export default function VerticalBar(props: TState) {
 
         setChartData(data);
         setChartOptions(options);
-    }, []);
+    }, [props]);
 
     return (
-        <div className="card">
+        <div className="ver">
             <Chart type="bar" data={chartData} options={chartOptions} />
         </div>
     )
