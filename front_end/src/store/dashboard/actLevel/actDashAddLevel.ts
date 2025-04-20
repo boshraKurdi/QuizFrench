@@ -3,7 +3,6 @@ import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
 import { TLevel } from "@customtypes/levelType";
-type TResponse = TLevel
 const cookie = Cookie()
 const actDashAddLevel = createAsyncThunk(
     "dashboard/actDashAddLevel",
@@ -11,7 +10,7 @@ const actDashAddLevel = createAsyncThunk(
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.post<TResponse>(`dashboard/level/store`, form
+            const res = await axios.post(`dashboard/level/store`, form
                 , {
                     headers: {
                         'Content-Type': 'application/json',
@@ -19,7 +18,7 @@ const actDashAddLevel = createAsyncThunk(
                     },
                 }
             );
-            return form;
+            return res.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

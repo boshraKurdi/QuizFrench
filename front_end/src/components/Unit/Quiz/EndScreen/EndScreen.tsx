@@ -54,7 +54,7 @@ const EndScreen = () => {
         navigate(-1)
     }
     const goToCert = () => {
-        navigate(`/certificate/${result?.data.certificate}`)
+        navigate(`/certificate/${result?.data.certificate?.id}`)
 
     }
     // const restartQuiz = () => {
@@ -73,19 +73,20 @@ const EndScreen = () => {
                     {score + "/" + quizes?.data.length!}
 
                 </h3>
-                {result?.data.certificate ?
-                    <div className="certi">
-                        <h3>
-                            {language === "French" ? "félicitations, vous avez obtenu un certificat pour ce niveau de cours!" : "مبارك لقد حصلت على شهادة اجتياز لهذا المستوى من الكورس!"}
-                        </h3>
-                        <button onClick={goToCert}>{language === 'French' ? 'retour aux unités ' : 'العودة الى الوحدات'}</button>
 
-                    </div> : ""
-                }
             </>
 
             }
             <button onClick={goToLevel}>{language === 'French' ? 'retour aux unités ' : 'العودة الى الوحدات'}</button>
+            {result?.data.certificate ?
+                <div className="certi">
+                    <h3>
+                        {language === "French" ? "félicitations, vous avez obtenu un certificat pour ce niveau de cours!" : "مبارك لقد حصلت على شهادة اجتياز لهذا المستوى من الكورس!"}
+                    </h3>
+                    <button onClick={goToCert}>{language === 'French' ? 'certificat' : 'الشهادة'}</button>
+
+                </div> : ""
+            }
         </div>
     );
 };

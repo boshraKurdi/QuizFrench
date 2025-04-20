@@ -34,6 +34,10 @@ body {
 }
 
 
+@font-face {
+  font-family: certi;
+  src: url('./assets/fonts/StyleScript-Regular.ttf');
+}
 
 input,
 button {

@@ -67,7 +67,8 @@ function App() {
       path: '/courses/:id/levels/:idLevel',
       element: <SuspendPage> <Level /></SuspendPage>
 
-    }, {
+    }
+      , {
       path: '/courses/:id/levels/:idLevel/units/:idUnit',
       element: <SuspendPage> <Unit /></SuspendPage>
     }

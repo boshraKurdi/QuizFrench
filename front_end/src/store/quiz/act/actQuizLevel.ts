@@ -18,6 +18,7 @@ const actQuizLevel = createAsyncThunk(
                     },
                 }
             );
+            console.log(res.data.data)
             return res.data;
         } catch (error) {
             console.log(error)

@@ -8,10 +8,23 @@
     padding: 20px;
 }
 
+.rightSide .box {
+    border: 1px solid var(--main-color);
+    padding: 20px;
+}
+
+.rightSide .box h2 {
+    color: var(--main-color);
+}
+
 .p-dialog-content span {
     font-size: 22px;
     margin: 0 10px;
 
+}
+
+.rightSide .box .btns button {
+    background-color: var(--main-color);
 }
 
 .p-dialog-footer {

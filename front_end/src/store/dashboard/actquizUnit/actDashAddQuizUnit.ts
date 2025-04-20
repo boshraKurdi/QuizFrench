@@ -18,8 +18,7 @@ const actDashAddQuizUnit = createAsyncThunk(
                     },
                 }
             );
-            console.log(res.data)
-            return form;
+            return res.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

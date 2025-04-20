@@ -1,7 +1,7 @@
 import UnitsList from "@components/Unit/UnitsList/UnitsList"
 import { useAppDispatch, useAppSelector } from "@hooks/app"
 import actShowCourse from "@store/course/act/actShowCourse"
-import { actGetUnits } from "@store/unit/unitSlice"
+import { actCLearUnit, actGetUnits } from "@store/unit/unitSlice"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import './Level.css';
@@ -29,7 +29,12 @@ const Level = () => {
         dispatch(actGetUnits(levelIndx))
         if (userData?.user.roles?.length)
             dispatch(actDashGetUnits(levelIndx))
+        return () => {
+            dispatch(actCLearUnit())
+        }
     }, [])
+
+
     return (
         <div className="levelInfo">
             <Container>
@@ -60,6 +65,7 @@ const Level = () => {
                         </div>
                         : ""}
                     <UnitsList units={userData?.user.roles?.length ? unitsAdmin! : units!} />
+
                 </div>
             </Container>
             <Dialog header={language === "French" ? "Ajouter " : "اضافة"}

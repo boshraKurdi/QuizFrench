@@ -3,6 +3,17 @@
 
 }
 
+.levelInfo .btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.levelInfo .btns button {
+    width: 200px;
+}
+
 /* 
 .levelInfo .cont {
     display: flex;

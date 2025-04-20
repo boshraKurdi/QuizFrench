@@ -233,7 +233,7 @@ const authSlice = createSlice({
         });
         builder.addCase(actDashAddTopic.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            state.topics!.push(action.payload);
+            state.topics!.push(action.payload.data);
         });
         builder.addCase(actDashAddTopic.rejected, (state, action) => {
             state.loading = "failed";
@@ -313,7 +313,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddLevel.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.levels?.push(action.payload);
+            state.levels?.push(action.payload.data);
         });
         builder.addCase(actDashAddLevel.rejected, (state, action) => {
             state.loading = "failed";
@@ -393,7 +393,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.units!.push(action.payload);
+            state.units!.push(action.payload.data);
         });
         builder.addCase(actDashAddUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -473,7 +473,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddLesson.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.lessons?.push(action.payload);
+            state.lessons?.push(action.payload.data);
         });
         builder.addCase(actDashAddLesson.rejected, (state, action) => {
             state.loading = "failed";
@@ -634,7 +634,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddQuizCourse.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_courses!.push(action.payload);
+            state.quiz_courses!.push(action.payload.data);
         });
         builder.addCase(actDashAddQuizCourse.rejected, (state, action) => {
             state.loading = "failed";
@@ -715,7 +715,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddQuizUnit.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_units!.push(action.payload);
+            state.quiz_units!.push(action.payload.data);
         });
         builder.addCase(actDashAddQuizUnit.rejected, (state, action) => {
             state.loading = "failed";
@@ -796,7 +796,7 @@ const authSlice = createSlice({
         builder.addCase(actDashAddQuizLesson.fulfilled, (state, action) => {
             state.loading = "succeeded";
             // state.course = action.payload;
-            state.quiz_lessons!.push(action.payload);
+            state.quiz_lessons!.push(action.payload.data);
         });
         builder.addCase(actDashAddQuizLesson.rejected, (state, action) => {
             state.loading = "failed";

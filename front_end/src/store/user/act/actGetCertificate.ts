@@ -18,7 +18,6 @@ const actGetCertificate = createAsyncThunk(
                     },
                 }
             );
-            console.log(res.data.data)
             return res.data.data;
         } catch (error) {
             console.log(error)

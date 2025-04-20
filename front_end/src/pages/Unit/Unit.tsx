@@ -5,7 +5,7 @@ import Cookie from 'cookie-universal'
 import { useNavigate, useParams } from "react-router-dom"
 import './Unit.css';
 import { Container } from "react-bootstrap"
-import { actGetLessons } from "@store/lesson/lessonSlice"
+import { actCLearLessons, actGetLessons } from "@store/lesson/lessonSlice"
 import LessonsList from "@components/Lesson/LessonsList/LessonsList"
 import { Button } from "@components/index";
 import { setGameState } from "@store/quiz/quizSlice"
@@ -34,6 +34,9 @@ const Lesson = () => {
         if (userData?.user.roles?.length) {
             dispatch(actDashGetLessons(unitIndx))
 
+        }
+        return () => {
+            dispatch(actCLearLessons())
         }
     }, [])
     const showTest = () => {

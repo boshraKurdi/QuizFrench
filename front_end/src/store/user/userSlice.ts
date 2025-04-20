@@ -6,12 +6,12 @@ import actGetProfile from "@store/user/act/actGetProfile";
 import { TProfile } from "@customtypes/profileType";
 import actChangeProfile from "@store/user/act/actChangeProfile";
 import actDeleteAccount from "@store/user/act/actDeleteAccount";
-import { TCertificate } from "@customtypes/certificate";
+import { TCetrtificate } from "@customtypes/certificate";
 import actGetCertificate from "./act/actGetCertificate";
 // import actUpdateProfile from "./act/actUpdateProfile";
 interface IAuthState {
     user: TProfile | null,
-    certificates: TCertificate | null,
+    certificates: TCetrtificate | null,
     loading: TLoading;
     error: string | null;
 }

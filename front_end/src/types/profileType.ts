@@ -1,3 +1,5 @@
+import { TCetrtificate } from "./certificate"
+
 export type TProfile = {
     data: {
         id?: number,
@@ -41,6 +43,8 @@ export type TProfile = {
                 "Compréhension orale": number
             }
         ],
-        user_rank?: number
+        user_rank?: number,
+        certificate?: TCetrtificate[]
     }
+
 }

@@ -4,6 +4,8 @@ export type TProgress = {
         level: number,
         status?: string,
         level_id: number
-        certificate: number
+        certificate: {
+            id: number
+        }
     }
-} 
+}

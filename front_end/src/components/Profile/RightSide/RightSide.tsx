@@ -7,36 +7,29 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import Cookie from 'cookie-universal'
-import { useRef, useState } from 'react'
-// import { Toast } from 'primereact/toast';
+import { useState } from 'react'
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom'
 import { actChangeProfile, actDeleteAccount } from '@store/user/userSlice'
-// import MainBtn from '@components/feedback/Button/Button'
-import { confirmDialog, ConfirmDialog } from 'primereact/confirmdialog';
+import { confirmDialog, } from 'primereact/confirmdialog';
 import { authLogout } from '@store/auth/authSlice'
 const schema = z.object({
     email: z.string({ required_error: 'required field', invalid_type_error: 'email is required!' }).email(),
     name: z.string({ required_error: 'required field', invalid_type_error: 'name is required!' }),
 
 });
-
+type Inputs = z.infer<typeof schema>;
+type TUser = {
+    email: string,
+    name: string
+}
 const RightSide = (props: TProfile) => {
     const { language } = useAppSelector(state => state.language)
-    // const toast = useRef<any>(null);
-    // const accept = () => {
-    //     toast?.current?.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-    // }
-
-    // const reject = () => {
-    //     toast?.current?.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-    // }
 
     const accept = () => {
         deleteAccountHandler();
-        // toast?.current?.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
     }
-
+    console.log("right")
     const confirm = () => {
         confirmDialog({
             message: language === "French" ? 'Voulez-vous supprimer ce compte ?' : "هل أنت متأكد أنك تود حذف هذا الحساب؟",
@@ -50,11 +43,7 @@ const RightSide = (props: TProfile) => {
             // reject
         });
     };
-    type Inputs = z.infer<typeof schema>;
-    type TUser = {
-        email: string,
-        name: string
-    }
+
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
 
@@ -109,9 +98,22 @@ const RightSide = (props: TProfile) => {
                 dispatch(authLogout())
             })
     }
+    const Show = (id: number) => {
+        navigate(`/certificate/${id}`)
+    }
+    const certificates = props.data?.certificate?.map(ce =>
+
+        <div className="box">
+            <h2>{ce.target.course.title}</h2>
+            <p>{ce.target.course.description}</p>
+            <div className="btns">
+                <Button onClick={() => Show(ce.id)}>{language === "French" ? "montrer" : "عرض"}</Button>
+
+            </div>
+        </div>
+    )
     return (
         <div className='rightSide'>
-            {/* <Toast ref={toast} /> */}
             <div className="details">
                 <Tabs
                     defaultActiveKey="accueil"
@@ -134,6 +136,12 @@ const RightSide = (props: TProfile) => {
                         <ul>
                             {rate}
                         </ul>
+                    </Tab>
+                    <Tab eventKey="certificat" title={language === "French" ? "certificats" : "الشهادات"}>
+
+                        {props.data?.certificate?.length ?
+                            certificates
+                            : language === "French" ? "il n'y a pas de certificats" : "لا يوجد شهادات بعد"}
                     </Tab>
                     <Tab eventKey="profil" title={language === "French" ? "Profil" : "البروفايل"}>
                         <div className="form-details">
@@ -172,6 +180,7 @@ const RightSide = (props: TProfile) => {
             </div>
         </div>
     )
-}
 
+
+}
 export default RightSide

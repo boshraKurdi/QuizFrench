@@ -56,7 +56,7 @@ function Operations() {
                     id: course.id,
                     العنوان: course.title,
                     الوصف: course.description,
-                    الصورة: <img src={`${course?.media[0]?.original_url!}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
+                    الصورة: <img src={`${course?.media[0]?.original_url}`} style={{ marginTop: '10px', width: '50px', height: '50px' }} />,
 
 
                 })

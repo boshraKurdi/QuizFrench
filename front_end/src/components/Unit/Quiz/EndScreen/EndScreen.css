@@ -13,6 +13,12 @@
     align-items: center;
 }
 
+.EndScreen .certi {
+    text-align: center;
+    margin-top: 20px;
+    width: 344px;
+}
+
 .EndScreen button {
     padding: 10px 20px;
     transition: .3s;

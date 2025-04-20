@@ -18,7 +18,7 @@ const actDashAddQuizLesson = createAsyncThunk(
                     },
                 }
             );
-            return form;
+            return res.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

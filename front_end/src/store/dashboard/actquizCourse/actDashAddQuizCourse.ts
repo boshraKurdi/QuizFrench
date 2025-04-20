@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
-import { TQuizProps } from "@customtypes/QuizType";
-type TResponse = TQuizProps
 const cookie = Cookie()
 type TQuiz = {
     course_id: number,
@@ -20,7 +18,7 @@ const actDashAddQuizCourse = createAsyncThunk(
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.post<TResponse>(`dashboard/quiz_course/store`, form
+            const res = await axios.post(`dashboard/quiz_course/store`, form
                 , {
                     headers: {
                         'Content-Type': 'application/json',
@@ -28,7 +26,7 @@ const actDashAddQuizCourse = createAsyncThunk(
                     },
                 }
             );
-            return form;
+            return res.data;
         } catch (error) {
             console.log(error)
             return rejectWithValue(axiosErrorHandler(error));

@@ -52,7 +52,7 @@ const LeftSide = (props: TProfile) => {
             <div className="bottom">
                 <h2>{props?.data?.name!}</h2>
                 <p>{props?.data?.email!}</p>
-                <p>{props?.data?.user_rank!}</p>
+                <p>{language === 'French' ? "classement de l'utilisateur :" : "رتبة المستخدم :"} {props?.data?.user_rank!}</p>
                 <div className="top">
                     <h5>{language === 'French' ? "amélioration" : "التطور "}</h5>
                     <h6> {language === 'French' ? "classement utilisateur : " : " تطور الطالب :"}   {props.data?.user_rank}</h6>
