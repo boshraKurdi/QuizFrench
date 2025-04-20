@@ -53,8 +53,10 @@ import actDashUpdateQuizLesson from "./actquizLesson/actDashUpdateQuizLesson";
 import actDashAddQuizLesson from "./actquizLesson/actDashAddQuizLesson";
 import actDashShowQuizLesson from "./actquizLesson/actDashShowQuizLesson";
 import actDashGetQuizLesson from "./actquizLesson/actDashGetQuizLesson";
-// import actUpdateProfile from "./act/actUpdateProfile";
+import { TState } from "@customtypes/stateType";
+import actGetStates from "./actGetStates/actGetStates";
 interface IAuthState {
+    states: TState | null,
     courses: TCourse[] | null,
     course: TCourse | null,
     levels: TLevel[] | null,
@@ -80,6 +82,7 @@ interface IAuthState {
     error: string | null;
 }
 const initialState: IAuthState = {
+    states: null,
     courses: null,
     course: null,
     levels: null,
@@ -830,6 +833,23 @@ const authSlice = createSlice({
             state.quiz_lessons! = state.quiz_lessons!.filter(level => level.id !== action.payload)
         });
         builder.addCase(actDashDeleteQuizLesson.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+
+
+        // get states
+        builder.addCase(actGetStates.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actGetStates.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            state.states = action.payload;
+        });
+        builder.addCase(actGetStates.rejected, (state, action) => {
             state.loading = "failed";
             if (isString(action.payload)) {
                 state.error = action.payload;
