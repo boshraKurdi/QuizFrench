@@ -187,12 +187,17 @@ class UserController extends Controller
             $completed = 0;
 
             foreach ($users as $user) {
-                $level = Target::where('user_id', $user->id)
-                    ->where('type', 'level')
+                $units = DB::table('units')
+                    ->join('levels', 'units.level_id', '=', 'levels.id')
+                    ->join('courses', 'courses.id', '=', 'levels.course_id')
+                    ->where('courses.id', $course->id)
+                    ->count();
+                $units_complate = Target::where('user_id', $user->id)
+                    ->where('type', 'unit')
                     ->where('course_id', $course->id)
-                    ->first();
+                    ->count();
 
-                if ($level && $level->level == 3) {
+                if ($units_complate == $units) {
                     $completed++;
                 }
             }
