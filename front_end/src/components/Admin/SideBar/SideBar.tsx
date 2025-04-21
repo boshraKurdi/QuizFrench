@@ -46,7 +46,7 @@ const SideBar = ({ show, showHandler }: { show: boolean, showHandler: () => void
                 <Logo />
                 <div className="details">
                     <h4>{userData?.user.name}</h4>
-                    <p>{userData?.user.email}</p>
+                    <p className='email'>{userData?.user.email}</p>
                 </div>
 
                 <div className="links-menu">

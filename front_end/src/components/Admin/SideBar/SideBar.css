@@ -8,6 +8,10 @@
     background-color: #dcdcfb;
 }
 
+.side .email {
+    font-family: fantasy;
+}
+
 .side .btns {
     display: flex;
     align-items: center;
