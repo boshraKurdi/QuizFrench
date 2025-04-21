@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { actChangeProfile, actDeleteAccount } from '@store/user/userSlice'
 import { confirmDialog, } from 'primereact/confirmdialog';
 import { authLogout } from '@store/auth/authSlice'
+import Progress from '@components/feedback/Progress/Progress'
 const schema = z.object({
     email: z.string({ required_error: 'required field', invalid_type_error: 'email is required!' }).email(),
     name: z.string({ required_error: 'required field', invalid_type_error: 'name is required!' }),
@@ -33,7 +34,7 @@ const RightSide = (props: TProfile) => {
     const confirm = () => {
         confirmDialog({
             message: language === "French" ? 'Voulez-vous supprimer ce compte ?' : "هل أنت متأكد أنك تود حذف هذا الحساب؟",
-            header: 'Confirmation',
+            header: language === "French" ? 'Confirmation' : "التأكيد",
             acceptLabel: language === "French" ? "oui" : "نعم",
             rejectLabel: language === "French" ? "non" : "لا",
             icon: 'pi pi-info-circle',
@@ -84,10 +85,18 @@ const RightSide = (props: TProfile) => {
         {Object.keys(le)} :    {Object.values(le)}
 
     </li>)
-    const rate = props.data?.rate?.map((ra, indx) => <li key={indx}>
-        {Object.keys(ra)} :    {Object.values(ra)}
+    const rate = props.data?.rate?.map((ra, indx) => {
+        const value = Number(Object.values(ra).join(''));
+        return (<li key={indx}>
+            {Object.keys(ra)} :
+            <div className="prog">
+                <Progress
+                    valueProg={value}
+                />
+            </div>
 
-    </li>)
+        </li>)
+    })
     const cookie = Cookie()
     const deleteAccountHandler = () => {
 
@@ -104,8 +113,8 @@ const RightSide = (props: TProfile) => {
     const certificates = props.data?.certificate?.map(ce =>
 
         <div className="box">
-            <h2>{ce.target.course.title}</h2>
-            <p>{ce.target.course.description}</p>
+            <h2>{language === "French" ? ce.target.course.title : ce.target.course.title_ar}</h2>
+            <p>{language === "French" ? ce.target.course.description : ce.target.course.description_ar}</p>
             <div className="btns">
                 <Button onClick={() => Show(ce.id)}>{language === "French" ? "montrer" : "عرض"}</Button>
 

@@ -1,5 +1,5 @@
 .leftSide {
-    margin: 0 100px;
+    margin: 0 79px;
 }
 
 .leftSide .btns button {
@@ -16,4 +16,16 @@
     .leftSide .bottom {
         margin: 0 40px;
     }
+}
+
+.leftSide .prog {
+    margin-bottom: 10px;
+}
+
+.leftSide h6 {
+    font-weight: bold;
+}
+
+.leftSide .email {
+    font-family: fantasy;
 }

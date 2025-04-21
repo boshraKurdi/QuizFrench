@@ -1,40 +1,7 @@
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
-import { useState, useEffect, useRef } from 'react';
-import { ProgressBar } from 'primereact/progressbar';
-import { Toast } from 'primereact/toast';
-
-export default function Progress({ valueProg }: { valueProg: number }) {
-    const [value, setValue] = useState<number>(0);
-    const toast = useRef<Toast | null>(null);
-    const interval = useRef<number | null>(null);
-
-    useEffect(() => {
-        let _val = valueProg;
-
-        interval.current = setInterval(() => {
-            _val += Math.floor(Math.random() * 10) + 1;
-
-            if (_val >= 100) {
-                _val = 100;
-                toast?.current?.show({ severity: 'info', summary: 'Success', detail: 'Process Completed' });
-                clearInterval(interval?.current!);
-            }
-
-            setValue(_val);
-        }, 2000);
-
-        return () => {
-            if (interval.current) {
-                clearInterval(interval.current);
-                interval.current = null;
-            }
-        };
-    }, []);
-
-    return (
-        <div className="card">
-            <Toast ref={toast}></Toast>
-            <ProgressBar value={value}></ProgressBar>
-        </div>
-    );
+function Progress({ valueProg }: { valueProg: number }) {
+    return <ProgressBar now={valueProg} label={`${valueProg}%`} />;
 }
+
+export default Progress;

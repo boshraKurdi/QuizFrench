@@ -25,7 +25,7 @@ const Certificate = () => {
                     <h3 className="name">{userData?.user.name}</h3>
                     <div className="title">{language === "French" ? certificates?.target.course.title : certificates?.target.course.title_ar}</div>
                     <div className="description">{language === "French" ? certificates?.target.course.description : certificates?.target.course.description_ar}</div>
-                    <div className="avarage">{language === "French" ? "moyenne :" : ": المعدل"} {certificates?.average}%</div>
+                    <div className="avarage">{language === "French" ? `moyenne :${certificates?.average}%` : `:المعدل %${certificates?.average} `} </div>
                 </div>
             </Container>
         </div>

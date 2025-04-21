@@ -8,6 +8,7 @@ import { actLogout, authLogout } from '@store/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Cookie from 'cookie-universal'
 import { confirmDialog } from 'primereact/confirmdialog';
+import Progress from '@components/feedback/Progress/Progress';
 const LeftSide = (props: TProfile) => {
     const { language } = useAppSelector(state => state.language)
     const dispatch = useAppDispatch()
@@ -31,7 +32,7 @@ const LeftSide = (props: TProfile) => {
             message: language === "French" ? 'Voulez-vous vous déconnecter ?' : "هل أنت متأكد أنك تود تسجيل الخروج؟",
             acceptLabel: language === "French" ? "oui" : "نعم",
             rejectLabel: language === "French" ? "non" : "لا",
-            header: 'Confirmation',
+            header: language === "French" ? 'Confirmation' : "التأكيد",
             icon: 'pi pi-info-circle',
             defaultFocus: 'reject',
             acceptClassName: 'p-button-danger',
@@ -51,11 +52,17 @@ const LeftSide = (props: TProfile) => {
             </div> */}
             <div className="bottom">
                 <h2>{props?.data?.name!}</h2>
-                <p>{props?.data?.email!}</p>
-                <p>{language === 'French' ? "classement de l'utilisateur :" : "رتبة المستخدم :"} {props?.data?.user_rank!}</p>
+                <p className='email'>{props?.data?.email!}</p>
+
+                <div className="prog">
+                    <p>{language === 'French' ? "classement de l'utilisateur :" : "رتبة المستخدم :"} </p>
+                    <Progress
+                        valueProg={props.data?.user_rank!}
+                    />
+                </div>
                 <div className="top">
-                    <h5>{language === 'French' ? "amélioration" : "التطور "}</h5>
-                    <h6> {language === 'French' ? "classement utilisateur : " : " تطور الطالب :"}   {props.data?.user_rank}</h6>
+                    <h5>{language === 'French' ? "Amélioration" : "التطور "}</h5>
+
                     <p> {language === 'French' ? "niveaux terminées : " : "المستويات المنتهية:"}   {props.data?.completed_levels}</p>
                     <p>{language === 'French' ? "unités terminées : " : "الوحدات المنتهية:"}    {props.data?.completed_units}</p>
                     <p>{language === 'French' ? "leçons terminées : " : "الدروس المنتهية:"}   {props.data?.completed_lessons}</p>

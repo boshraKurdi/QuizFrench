@@ -20,6 +20,10 @@
     margin: 0 -38px;
 }
 
+[data-lang="Arabic"] .certificate .logo {
+    margin: 0;
+}
+
 .certificate .box {
     width: 400px;
     padding: 20px;
