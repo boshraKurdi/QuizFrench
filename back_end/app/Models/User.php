@@ -35,6 +35,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Target::class);
     }
+    public function books()
+    {
+        return $this->belongsToMany(Book::class, 'payments')->withPivot(['status', 'price']);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

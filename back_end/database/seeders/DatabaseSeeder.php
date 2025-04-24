@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             LevelSeeder::class,
             QuizunitSeeder::class,
             QuizlessonSeeder::class,
+            BookSeeder::class,
             MediaSeeder::class,
             RolesAndPermissionsSeeder::class
         ]);

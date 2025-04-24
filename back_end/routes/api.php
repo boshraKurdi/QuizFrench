@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QuizcourseController;
 use App\Http\Controllers\QuizlessonController;
 use App\Http\Controllers\QuizunitController;
@@ -27,6 +29,8 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'home'], function () {
     Route::get('GetCourses', [CourseController::class, 'index']);
     Route::get('ShowCourse/{id}', [CourseController::class, 'show']);
+    Route::get('GetBook', [BookController::class, 'index']);
+    Route::get('ShowBook/{book}', [BookController::class, 'show']);
 });
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'course'], function () {
@@ -48,6 +52,11 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('update', [UserController::class, 'update']);
         Route::delete('delete', [UserController::class, 'delete']);
         Route::get('certificate/{certificate}', [CertificateController::class, 'show']);
+    });
+    Route::group(['prefix' => 'payment'], function () {
+        Route::post('store', [PaymentController::class, 'store']);
+        Route::get('show/{payment}', [PaymentController::class, 'show']);
+        Route::get('index', [PaymentController::class, 'index']);
     });
 });
 Route::group(['middleware' => ['role:admin']], function () {
@@ -94,6 +103,17 @@ Route::group(['middleware' => ['role:admin']], function () {
             Route::get('show/{topic}', [TopicController::class, 'show']);
             Route::post('update/{topic}', [TopicController::class, 'update']);
             Route::delete('destroy/{topic}', [TopicController::class, 'destroy']);
+        });
+        Route::group(['prefix' => 'book'], function () {
+            Route::get('index', [BookController::class, 'index']);
+            Route::get('show/{book}', [BookController::class, 'show']);
+            Route::post('store', [BookController::class, 'store']);
+            Route::post('update/{book}', [BookController::class, 'update']);
+            Route::delete('destroy/{book}', [BookController::class, 'destroy']);
+        });
+        Route::group(['prefix' => 'payment'], function () {
+            Route::post('update/{payment}', [PaymentController::class, 'update']);
+            Route::get('index', [PaymentController::class, 'GetPayment']);
         });
         Route::group(['prefix' => 'quiz_course'], function () {
             Route::get('index/{id}', [QuizcourseController::class, 'index']);

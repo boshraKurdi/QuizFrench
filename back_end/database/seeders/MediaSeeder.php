@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
 use App\Models\Course;
 use App\Models\Quizcourse;
 use App\Models\Quizlesson;
@@ -93,5 +94,35 @@ class MediaSeeder extends Seeder
             ->addMedia($image_c_5)
             ->preservingOriginal()
             ->toMediaCollection('course');
+        $image_b_1 = storage_path('images\book_1.jpg');
+        $image_b_2 = storage_path('images\book_2.jpg');
+        $image_b_3 = storage_path('images\book_3.jpg');
+        $image_b_4 = storage_path('images\book_4.jpg');
+        $image_b_5 = storage_path('images\book_5.jpg');
+        $Book_1 = Book::find(1);
+        $Book_1
+            ->addMedia($image_b_1)
+            ->preservingOriginal()
+            ->toMediaCollection('books');
+        $Book_2 = Book::find(2);
+        $Book_2
+            ->addMedia($image_b_2)
+            ->preservingOriginal()
+            ->toMediaCollection('books');
+        $Book_3 = Book::find(3);
+        $Book_3
+            ->addMedia($image_b_3)
+            ->preservingOriginal()
+            ->toMediaCollection('books');
+        $Book_4 = Book::find(4);
+        $Book_4
+            ->addMedia($image_b_4)
+            ->preservingOriginal()
+            ->toMediaCollection('books');
+        $Book_5 = Book::find(5);
+        $Book_5
+            ->addMedia($image_b_5)
+            ->preservingOriginal()
+            ->toMediaCollection('books');
     }
 }
