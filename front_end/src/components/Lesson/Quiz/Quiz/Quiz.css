@@ -60,3 +60,15 @@
     display: flex;
     flex-direction: column;
 }
+
+.Quiz .ans.wrong {
+    background-color: #fc6969;
+    color: #fff;
+    font-size: 16.5px;
+}
+
+.Quiz .ans.correct {
+    background-color: #93fc69;
+    color: #fff;
+    font-size: 16.5px;
+}

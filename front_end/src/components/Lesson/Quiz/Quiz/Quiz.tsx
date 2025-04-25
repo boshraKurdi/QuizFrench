@@ -23,6 +23,37 @@ function Quiz() {
 
     }, [])
 
+    // const chooseOption = (option: string, e: any) => {
+    //     const options = document.querySelectorAll('.ans');
+    //     options.forEach(op => {
+    //         op.classList.remove('active')
+    //     });
+    //     (e.target as Element).classList.add('active');
+    //     setOptionChosen(option);
+
+    // };
+
+    // const nextQuestion = () => {
+    //     const options = document.querySelectorAll('.ans');
+    //     options.forEach(op => {
+    //         op.classList.remove('active')
+    //     });
+    //     if (quizes?.data[currentQuestion].answer_right == optionChosen) {
+    //         dispatch(setScore(score + 1));
+
+    //     }
+    //     setCurrentQuestion(currentQuestion + 1);
+    // };
+
+    // const finishQuiz = () => {
+
+    //     if (quizes?.data[currentQuestion].answer_right == optionChosen) {
+    //         dispatch(setScore(score + 1));
+
+    //     }
+    //     dispatch(setGameState("finished"));
+    // };
+
     const chooseOption = (option: string, e: any) => {
         const options = document.querySelectorAll('.ans');
         options.forEach(op => {
@@ -32,27 +63,66 @@ function Quiz() {
         setOptionChosen(option);
 
     };
-
     const nextQuestion = () => {
         const options = document.querySelectorAll('.ans');
         options.forEach(op => {
-            op.classList.remove('active')
+
+            if (op.dataset.choose === quizes?.data[currentQuestion].answer_right) {
+                op.classList.add('correct');
+
+            } else {
+                op.classList.add('wrong');
+
+            }
         });
+
         if (quizes?.data[currentQuestion].answer_right == optionChosen) {
             dispatch(setScore(score + 1));
 
         }
-        setCurrentQuestion(currentQuestion + 1);
+        setTimeout(() => {
+
+            setCurrentQuestion(currentQuestion + 1);
+            options.forEach(op => {
+                op.classList.remove('active')
+                op.classList.remove('correct')
+                op.classList.remove('wrong')
+            });
+        }, 1000);
+
     };
 
     const finishQuiz = () => {
 
+        const options = document.querySelectorAll('.ans');
+        options.forEach(op => {
+
+            if (op.dataset.choose === quizes?.data[currentQuestion].answer_right) {
+                op.classList.add('correct');
+
+            } else {
+                op.classList.add('wrong');
+
+            }
+        });
+
         if (quizes?.data[currentQuestion].answer_right == optionChosen) {
             dispatch(setScore(score + 1));
 
         }
-        dispatch(setGameState("finished"));
+
+
+        setTimeout(() => {
+            dispatch(setGameState("finished"));
+
+            options.forEach(op => {
+                op.classList.remove('active')
+                op.classList.remove('correct')
+                op.classList.remove('wrong')
+            });
+        }, 1000);
     };
+
     return (
         <div>
 
@@ -66,6 +136,8 @@ function Quiz() {
                     }
                     <div className="questions">
                         <button
+                            data-choose={quizes?.data[currentQuestion].answer_1}
+
                             className="ans"
                             onClick={(e) => {
                                 // chooseOption("optionA");
@@ -76,6 +148,7 @@ function Quiz() {
                         </button>
                         <button
                             className="ans"
+                            data-choose={quizes?.data[currentQuestion].answer_2}
 
                             onClick={(e) => {
                                 // chooseOption("optionB");
@@ -89,6 +162,7 @@ function Quiz() {
                         </button>
                         <button
                             className="ans"
+                            data-choose={quizes?.data[currentQuestion].answer_3}
 
                             onClick={(e) => {
                                 // chooseOption("optionC");
@@ -102,6 +176,7 @@ function Quiz() {
                         </button>
                         <button
                             className="ans"
+                            data-choose={quizes?.data[currentQuestion].answer_4}
 
                             onClick={(e) => {
                                 // chooseOption("optionD");
