@@ -2,7 +2,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { lazy } from 'react';
 import SuspendPage from '@components/feedback/SuspendPage/SuspendPage';
 import { useAppSelector } from '@hooks/app';
+const BookInfo = lazy(() => import('@pages/BookInfo/BookInfo'));
 const Login = lazy(() => import('@pages/Login/Login'));
+const Books = lazy(() => import('@pages/Admin/Books/Books'));
 const HomePage = lazy(() => import('@pages/HomePage'));
 const Home = lazy(() => import('@pages/Home/Home'));
 const Register = lazy(() => import('@pages/Register/Register'));
@@ -19,11 +21,13 @@ const Dashboard = lazy(() => import('@pages/Admin/Dashboard/Dashboard'));
 const Main = lazy(() => import('@pages/Admin/Main/Main'));
 const Operations = lazy(() => import('@pages/Admin/Operations/Operations'));
 const Settings = lazy(() => import('@pages/Admin/Settings/Settings'));
+const Book = lazy(() => import('@pages/Book/Book'));
 const Statestics = lazy(() => import('@pages/Admin/Statestics/Statestics'));
 const QuizLevelPage = lazy(() => import('@pages/Admin/QuizLevelPage/QuizLevelPage'));
 const QuizUnitPage = lazy(() => import('@pages/Admin/QuizUnitPage/QuizUnitPage'));
 const QuizLessonPage = lazy(() => import('@pages/Admin/QuizLessonPage/QuizLessonPage'));
 const Certificate = lazy(() => import('@pages/Certificate/Certificate'));
+const Payment = lazy(() => import('@pages/Admin/Payments/Payments'));
 QuizUnit
 function App() {
   const { language } = useAppSelector(state => state.language)
@@ -47,6 +51,21 @@ function App() {
     }, {
       path: '/courses',
       element: <SuspendPage> <Courses /></SuspendPage>
+
+    }
+      , {
+      path: '/books',
+      element: <SuspendPage> <Book /></SuspendPage>
+
+    }
+      , {
+      path: '/books/:id/show',
+      element: <SuspendPage> <BookInfo /></SuspendPage>
+
+    }
+      , {
+      path: '/books/:id/show/buy',
+      element: <SuspendPage> <Payment /></SuspendPage>
 
     }
       , {
@@ -110,6 +129,11 @@ function App() {
     }
       ,
     {
+      path: 'books',
+      element: <SuspendPage ><Books /></SuspendPage>,
+    }
+      ,
+    {
       path: 'quiz_course',
       element: <SuspendPage ><QuizLevelPage /></SuspendPage>,
     },
@@ -126,6 +150,11 @@ function App() {
     {
       path: 'states',
       element: <SuspendPage ><Statestics /></SuspendPage>,
+    },
+    {
+
+      path: 'payments',
+      element: <SuspendPage ><Payment /></SuspendPage>,
     }, {
       path: 'profile',
       element: <SuspendPage> <Settings /></SuspendPage>

@@ -8,7 +8,6 @@ import Cookie from 'cookie-universal';
 import ProfileIcon from '@assets/svgs/profile-user-svgrepo-com.svg?react'
 const Header = ({ show, showHandler }: { show: boolean, showHandler: () => void }) => {
     const { language } = useAppSelector(state => state.language)
-    const { userData } = useAppSelector(state => state.auth)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const turnFrenchHandler = () => {
@@ -47,6 +46,9 @@ const Header = ({ show, showHandler }: { show: boolean, showHandler: () => void 
                         <NavLink to="/dashboard/courses">
                             {language === "French" ? "Cours" : "الكورسات"}
                         </NavLink>
+                        <NavLink to="/dashboard/books">
+                            {language === "French" ? "Livres" : "الكتب"}
+                        </NavLink>
                         <NavDropdown title={language === "French" ? "langue" : "اللغة"} id="basic-nav-dropdown">
                             <NavDropdown.Item className="drop" >
                                 <p onClick={turnFrenchHandler}>
@@ -65,7 +67,7 @@ const Header = ({ show, showHandler }: { show: boolean, showHandler: () => void 
                             <div onClick={profile} className="prof">
                                 <ProfileIcon style={{ width: "30px", height: "30px" }} />
                             </div> :
-                            <Button onclick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}
+                            <Button onClick={() => navigate('/login')}>{language === "Arabic" ? "تسجيل الدخول" : "se connecter"}</Button>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

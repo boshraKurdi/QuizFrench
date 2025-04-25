@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
 
-import actDashAddCourses from '@store/dashboard/actCourse/actDashAddCourse';
+import actDashAddBook from '@store/dashboard/actBook/actDashAddBook';
 
 
 function Add(props: { setUserAdded: () => void }) {
@@ -12,9 +12,13 @@ function Add(props: { setUserAdded: () => void }) {
     const [media, setMedia] = useState('');
     const [title_ar, setTitleAra] = useState('');
     const [description_ar, setDescriptionAra] = useState('');
+    const [price, setPrice] = useState('');
+    const [author, setAuthor] = useState('');
+    const [metaphor, setMetaphor] = useState('');
     const dispatch = useAppDispatch();
     const { language } = useAppSelector(state => state.language)
     const fileHandler = (e: any) => {
+        // setAudioFile(URL.createObjectURL(e.target.files[0]));
         setMedia(e.target.files[0]);
     }
     const addNewUser = () => {
@@ -24,9 +28,19 @@ function Add(props: { setUserAdded: () => void }) {
         formData.append('media', media)
         formData.append('title_ar', title_ar)
         formData.append('description_ar', description_ar)
-        dispatch(actDashAddCourses(formData)).unwrap().then(() => {
-            language === 'French' ? toast.success('Nouveau cours ajouté!') : toast.success('تم اضافة كورس جديد!')
-
+        formData.append('price', price)
+        formData.append('metaphor', metaphor)
+        formData.append('author', author)
+        dispatch(actDashAddBook(formData)).unwrap().then(() => {
+            language === 'French' ? toast.success(' ajouté!') : toast.success('تم اضافة!')
+            setMetaphor('')
+            setTitle('')
+            setTitleAra('')
+            setDescription('')
+            setDescriptionAra('')
+            setPrice('')
+            setMedia('')
+            setAuthor('')
         })
     }
 
@@ -35,49 +49,54 @@ function Add(props: { setUserAdded: () => void }) {
         <div className='user-view _add-view'>
             <h1>{language === 'French' ? "Informations de base" : "المعلومات الأساسية"}</h1> "
             <div className='col-sm-12 col-md-6'>
-                <p >
-                    <span>{language === 'French' ? "Image" : "الصورة"}</span>
+                <span>{language === 'French' ? "Image" : "الصورة"}</span>
 
-                    <div style={{ position: "relative" }}>
-                        <input
-                            name="media"
-                            type="file"
-                            className='form-control'
-                            placeholder='Enter Password'
-                            onChange={fileHandler}
-                        />
+                <div style={{ position: "relative" }}>
+                    <input
+                        name="media"
+                        type="file"
+                        className='form-control'
+                        placeholder='Enter Password'
+                        onChange={fileHandler}
+                    />
 
-                    </div>
-                </p>
+                </div>
             </div>
 
             <div className='box'>
                 <div className='row'>
                     <div className='col-sm-12 col-md-6'>
+
                         <span>{language === 'French' ? "titre" : "العنوان "}</span>
                         <input
                             type='text'
                             className='form-control'
                             onChange={e => setTitle(e.target.value)}
                         />
+
                     </div>
                     <div className='col-sm-12 col-md-6'>
+
                         <span>{language === 'French' ? "titre en arabe" : "العنوان بالعربي"}</span>
                         <input
                             type='text'
                             className='form-control'
                             onChange={e => setTitleAra(e.target.value)}
                         />
+
                     </div>
                     <div className='col-sm-12 col-md-6'>
+
                         <span>{language === 'French' ? "desctription" : "الوصف "}</span>
                         <input
                             type='text'
                             className='form-control'
                             onChange={e => setDescription(e.target.value)}
                         />
+
                     </div>
                     <div className='col-sm-12 col-md-6'>
+
                         <span>{language === 'French' ? "desctription en arabe" : "الوصف بالعربي"}</span>
                         <input
                             type='text'
@@ -85,7 +104,36 @@ function Add(props: { setUserAdded: () => void }) {
                             onChange={e => setDescriptionAra(e.target.value)}
                         />
                     </div>
+                    <div className='col-sm-12 col-md-6'>
 
+                        <span>{language === 'French' ? "prix" : "السعر"}</span>
+                        <input
+                            type='text'
+                            className='form-control'
+                            onChange={e => setPrice(e.target.value)}
+                        />
+
+                    </div>
+                    <div className='col-sm-12 col-md-6'>
+
+                        <span>{language === 'French' ? "auteur" : "الكاتب"}</span>
+                        <input
+                            type='text'
+                            className='form-control'
+                            onChange={e => setAuthor(e.target.value)}
+                        />
+
+                    </div>
+                    <div className='col-sm-12 col-md-6'>
+
+                        <span>{language === 'French' ? "prix d'emprunt" : "سعر الاستعارة"}</span>
+                        <input
+                            type='text'
+                            className='form-control'
+                            onChange={e => setMetaphor(e.target.value)}
+                        />
+
+                    </div>
 
 
 
@@ -93,7 +141,7 @@ function Add(props: { setUserAdded: () => void }) {
                 </div>
             </div>
 
-            <button className='btn btn-success' onClick={() => addNewUser()}>{language === "French" ? "Ajouter un nouveau cours" : "اضافة كورس جديد"}</button>
+            <button className='btn btn-success' onClick={() => addNewUser()}>{language === "French" ? "Ajouter" : "اضافة"}</button>
         </div>
     )
 }

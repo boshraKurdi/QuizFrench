@@ -2,28 +2,27 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal'
-const cookie = Cookie()
 type TFormData = {
-    email: string;
-    name: string;
+    cvc: string;
+    number: number;
+    type: string;
+    book_id: number;
+    price: number
 };
+const cookie = Cookie()
 
-// type TResponse = TProfile
-type TResponse = ""
-
-const actChangeProfile = createAsyncThunk(
-    "user/actChangeProfile",
+const actAddPayment = createAsyncThunk(
+    "payment/actAddPayment",
     async (formData: TFormData, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.post<TResponse>("user/update", formData, {
+            const res = await axios.post("/payment/store", JSON.stringify(formData), {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${cookie.get('token')}`
-
-                },
-
+                }
+                ,
             }
             );
             console.log(res.data)
@@ -35,4 +34,4 @@ const actChangeProfile = createAsyncThunk(
     }
 );
 
-export default actChangeProfile;
+export default actAddPayment;

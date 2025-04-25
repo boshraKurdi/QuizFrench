@@ -51,10 +51,12 @@ const SideBar = ({ show, showHandler }: { show: boolean, showHandler: () => void
 
                 <div className="links-menu">
                     <div className='menu-item'><NavLink to={'operations'}><i className='pi pi-clipboard'></i>{language === "French" ? "Cours" : "الكورسات "}</NavLink></div>
+                    <div className='menu-item'><NavLink to={'books'}><i className='pi pi-book'></i>{language === "French" ? "Livres" : "الكتب"}</NavLink></div>
                     <div className='menu-item'><NavLink to={'quiz_course'}><i className='pi pi-pen-to-square'></i>{language === "French" ? "Test de niveau" : "اختبار تحديد المستوى"}</NavLink></div>
                     <div className='menu-item'><NavLink to={'quiz_unit'}><i className='pi pi-file-edit'></i>{language === "French" ? "quiz d'unité" : "اختبارات الوحدة"}</NavLink></div>
-                    <div className='menu-item'><NavLink to={'quiz_lesson'}>{language === "French" ? "quiz d'leçon" : "اختبارات  الدرس"}<i className='pi pi-book'></i></NavLink></div>
+                    <div className='menu-item'><NavLink to={'quiz_lesson'}>{language === "French" ? "quiz d'leçon" : "اختبارات  الدرس"}<i className='pi pi-file'></i></NavLink></div>
                     <div className='menu-item'><NavLink to={'states'}>{language === "French" ? "Statistiques" : "الاحصائيات"}<i className='pi pi-chart-line'></i></NavLink></div>
+                    <div className='menu-item'><NavLink to={'payments'}>{language === "French" ? "Paiements" : "المدفوعات"}<i className='pi pi-wallet'></i></NavLink></div>
                     <div className='menu-item'><NavLink to={'profile'}>{language === "French" ? "Paramètres" : "الاعدادات"}<i className='pi pi-wrench'></i></NavLink></div>
 
                     <div className="btns">

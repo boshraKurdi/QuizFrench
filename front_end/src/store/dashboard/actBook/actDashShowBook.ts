@@ -3,13 +3,13 @@ import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
 import Cookie from 'cookie-universal';
 const cookie = Cookie()
-const actDashShowCourse = createAsyncThunk(
-    "dashboard/actDashShowCourse",
+const actDashShowBook = createAsyncThunk(
+    "dashboard/actDashShowBook",
     async (id: number, thunk) => {
         const { rejectWithValue } = thunk;
 
         try {
-            const res = await axios.get(`dashboard/course/show/${id}`,
+            const res = await axios.get(`dashboard/book/show/${id}`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -25,4 +25,4 @@ const actDashShowCourse = createAsyncThunk(
     }
 );
 
-export default actDashShowCourse;
+export default actDashShowBook;

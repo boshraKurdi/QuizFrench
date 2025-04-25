@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { actChangeProfile, actDeleteAccount } from '@store/user/userSlice'
 import { confirmDialog } from 'primereact/confirmdialog';
 import { authLogout } from '@store/auth/authSlice'
+import toast from 'react-hot-toast'
 const schema = z.object({
     email: z.string({ required_error: 'required field', invalid_type_error: 'email is required!' }).email(),
     name: z.string({ required_error: 'required field', invalid_type_error: 'name is required!' }),
@@ -42,8 +43,6 @@ const ProfileForm = () => {
     const { userData } = useAppSelector(state => state.auth)
     const [email, setEmail] = useState(userData?.user.email!);
     const [name, setName] = useState(userData?.user.name!);
-    console.log(name)
-    console.log(email)
 
     const navigate = useNavigate()
     const {
@@ -67,7 +66,7 @@ const ProfileForm = () => {
             dispatch(actChangeProfile(data))
                 .unwrap()
                 .then(() => {
-                    navigate('/dashboard/profile')
+                    toast.success(language === "French" ? 'changer!' : "تم التغيير")
                 })
             setEmail('')
             setName('')

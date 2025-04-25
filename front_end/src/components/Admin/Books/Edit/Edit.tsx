@@ -3,18 +3,21 @@ import { useAppDispatch, useAppSelector } from '@hooks/app';
 
 import toast from 'react-hot-toast';
 
-import actDashUpdateCourse from '@store/dashboard/actCourse/actDashUpdateCourse';
-import actDashShowCourse from '@store/dashboard/actCourse/actDashShowCourse';
+import actDashShowBook from '@store/dashboard/actBook/actDashShowBook';
+import actDashUpdateBook from '@store/dashboard/actBook/actDashUpdateBook';
 import { useNavigate } from 'react-router-dom';
 
 
-function Edit({ userId }: { userId: number, setUserEdited: () => void }) {
-    const { course } = useAppSelector(state => state.dashboard)
-    const [title, setTitle] = useState(course?.title);
-    const [description, setDescription] = useState(course?.description);
-    const [media, setMedia] = useState(course?.media[0]?.original_url);
-    const [title_ar, setTitleAra] = useState(course?.title_ar);
-    const [description_ar, setDescriptionAra] = useState(course?.description_ar);
+function Edit(props: { userId: number, setUserEdited: () => void }) {
+    const { book } = useAppSelector(state => state.dashboard)
+    const [title, setTitle] = useState(book?.title);
+    const [description, setDescription] = useState(book?.description);
+    const [media, setMedia] = useState('');
+    const [title_ar, setTitleAra] = useState(book?.title_ar);
+    const [description_ar, setDescriptionAra] = useState(book?.description_ar);
+    const [price, setPrice] = useState<number | null>(book?.price!);
+    const [author, setAuthor] = useState(book?.author);
+    const [metaphor, setMetaphor] = useState<null | number>(book?.metaphor!);
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
 
@@ -27,29 +30,34 @@ function Edit({ userId }: { userId: number, setUserEdited: () => void }) {
         formData.append('media', media as string)
         formData.append('title_ar', title_ar as string)
         formData.append('description_ar', description_ar as string)
+        formData.append('price', price)
+        formData.append('author', author as string)
+        formData.append('metaphor', metaphor)
         const data = {
             formData,
-            id: userId
+            id: props?.userId
         }
-        dispatch(actDashUpdateCourse(data)).unwrap().then(() => {
-            language === 'French' ? toast.success('Modifié avec succès!') : toast.success('تم تعديل الكورس !')
+        dispatch(actDashUpdateBook(data)).unwrap().then(() => {
+            language === 'French' ? toast.success('Modifié!') : toast.success('تم تعديل  !')
             navigate(0)
         })
     }
 
     useEffect(() => {
-        dispatch(actDashShowCourse(userId))
+        dispatch(actDashShowBook(props.userId))
     }, [dispatch])
     useEffect(() => {
-        if (course) {
-            setTitle(course.title)
-            setTitleAra(course.title_ar)
-            setDescription(course.description)
-            setDescriptionAra(course.description_ar)
-            setMedia(course?.media[0]?.original_url)
+        if (book) {
+            setTitle(book.title)
+            setTitleAra(book.title_ar)
+            setDescription(book.description)
+            setDescriptionAra(book.description_ar)
+            setAuthor(book.author)
+            setPrice(book.price)
+            setMetaphor(book.metaphor)
 
         }
-    }, [language, course])
+    }, [language, book])
 
     return (
         <div className='user-view _add-view'>
@@ -110,6 +118,36 @@ function Edit({ userId }: { userId: number, setUserEdited: () => void }) {
                             onChange={e => setDescriptionAra(e.target.value)}
                         />
                     </div>
+
+
+                    <div className='col-sm-12 col-md-6'>
+                        <span>{language === 'French' ? "prix" : "السعر"}</span>
+                        <input
+                            value={price!}
+                            type='text'
+                            className='form-control'
+                            onChange={e => setPrice(e.target.value)}
+                        />
+                    </div>
+                    <div className='col-sm-12 col-md-6'>
+                        <span>{language === 'French' ? "auteur" : "الكاتب"}</span>
+                        <input
+                            value={author}
+                            type='text'
+                            className='form-control'
+                            onChange={e => setAuthor(e.target.value)}
+                        />
+                    </div>
+                    <div className='col-sm-12 col-md-6'>
+                        <span>{language === 'French' ? "prix d'emprunt" : "سعر الاستعارة"}</span>
+                        <input
+                            value={metaphor!}
+                            type='text'
+                            className='form-control'
+                            onChange={e => setMetaphor(e.target.value)}
+                        />
+                    </div>
+
 
                 </div>
             </div>

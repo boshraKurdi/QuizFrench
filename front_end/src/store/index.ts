@@ -18,6 +18,8 @@ import unit from './unit/unitSlice';
 import lesson from './lesson/lessonSlice';
 import user from './user/userSlice';
 import dashboard from './dashboard/dashboard'
+import book from './book/bookSlice'
+import payment from './payment/paymentSlice'
 // import favorite from "./Favorite/favoriteSlice";
 // import theme from "./themeSlice/themeSlice";
 // import chapters from "./chaptersSlice/chaptersSlice";
@@ -43,39 +45,17 @@ const authPersistConfig = {
     whitelist: ["userData"],
 };
 
-// const cartPersistConfig = {
-//     key: "cart",
-//     storage,
-//     whitelist: ["items"],
-// };
-
-// const rootReducer = combineReducers({
-//     auth: persistReducer(authPersistConfig, auth),
-//     categories,
-//     products,
-//     cart: persistReducer(cartPersistConfig, cart),
-//     wishlist: wishlist,
-//     orders,
-// });
 
 const rootReducer = combineReducers({
     language,
     course,
     quiz,
     unit,
-    lesson,
+    lesson, payment,
     user,
     dashboard,
-    // theme: theme,
-    // categories,
+    book,
     auth: persistReducer(authPersistConfig, auth),
-    // books,
-    // favorite,
-    // chapters,
-    // comments,
-    // supervisors,
-    // replies,
-    // users
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

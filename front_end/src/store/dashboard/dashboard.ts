@@ -55,8 +55,16 @@ import actDashShowQuizLesson from "./actquizLesson/actDashShowQuizLesson";
 import actDashGetQuizLesson from "./actquizLesson/actDashGetQuizLesson";
 import { TState } from "@customtypes/stateType";
 import actGetStates from "./actGetStates/actGetStates";
+import { TBook } from "@customtypes/bookType";
+import actDashAddBook from "./actBook/actDashAddBook";
+import actDashGetBook from "./actBook/actDashGetBook";
+import actDashShowBook from "./actBook/actDashShowBook";
+import actDashUpdateBook from "./actBook/actDashUpdateBook";
+import actDashDeleteBook from "./actBook/actDashDeleteBook";
 interface IAuthState {
     states: TState | null,
+    book: TBook | null,
+    books: TBook[] | null,
     courses: TCourse[] | null,
     course: TCourse | null,
     levels: TLevel[] | null,
@@ -82,6 +90,8 @@ interface IAuthState {
     error: string | null;
 }
 const initialState: IAuthState = {
+    books: null,
+    book: null,
     states: null,
     courses: null,
     course: null,
@@ -855,6 +865,90 @@ const authSlice = createSlice({
                 state.error = action.payload;
             }
         });
+
+
+
+
+        // Get books
+        builder.addCase(actDashGetBook.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actDashGetBook.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            state.books = action.payload;
+
+        });
+        builder.addCase(actDashGetBook.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+
+
+        // show book
+        builder.addCase(actDashShowBook.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actDashShowBook.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            state.book = action.payload;
+        });
+        builder.addCase(actDashShowBook.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+        // add book
+        builder.addCase(actDashAddBook.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actDashAddBook.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            // state.course = action.payload;
+            state.books!.push(action.payload.data);
+        });
+        builder.addCase(actDashAddBook.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+        // update book
+        builder.addCase(actDashUpdateBook.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actDashUpdateBook.fulfilled, (state) => {
+            state.loading = "succeeded";
+        });
+        builder.addCase(actDashUpdateBook.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+        // delete book
+        builder.addCase(actDashDeleteBook.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actDashDeleteBook.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            // state.course = action.payload;
+            state.books! = state.books!.filter(level => level.id !== action.payload)
+        });
+        builder.addCase(actDashDeleteBook.rejected, (state, action) => {
+            state.loading = "failed";
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+        });
+
     },
 })
 

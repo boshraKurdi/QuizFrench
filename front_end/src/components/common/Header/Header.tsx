@@ -9,7 +9,6 @@ import Cookie from 'cookie-universal';
 import ProfileIcon from '@assets/svgs/profile-user-svgrepo-com.svg?react'
 const Header = () => {
     const { language } = useAppSelector(state => state.language)
-    const { userData } = useAppSelector(state => state.auth)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const turnFrenchHandler = () => {
@@ -38,6 +37,9 @@ const Header = () => {
                             </NavLink>
                             <NavLink to="/courses">
                                 {language === "French" ? "Cours" : "الكورسات"}
+                            </NavLink>
+                            <NavLink to="/books">
+                                {language === "French" ? "Livres" : "الكتب"}
                             </NavLink>
                             <NavDropdown title={language === "French" ? "langue" : "اللغة"} id="basic-nav-dropdown">
                                 <NavDropdown.Item className="drop" >
