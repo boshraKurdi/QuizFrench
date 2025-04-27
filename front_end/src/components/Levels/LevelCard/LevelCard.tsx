@@ -54,11 +54,11 @@ const LevelCard = (props: TLevel) => {
                             setselectedUserId(props.id!)
                             setShowEditMode(true)
                         }
-                        }>{language === 'French' ? 'modifier ' : "تعديل المستوى"}</Button>
+                        }>{language === 'French' ? 'modifier ' : "تعديل"}</Button>
                         <Button onClick={() => {
                             deleteUserConfirm(props.id!)
                         }
-                        }>{language === 'French' ? 'supprimer ' : "حذف المستوى"}</Button>
+                        }>{language === 'French' ? 'supprimer ' : "حذف "}</Button>
                     </div>
                         : ""
                 }

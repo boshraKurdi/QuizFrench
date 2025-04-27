@@ -38,36 +38,46 @@ const Level = () => {
     return (
         <div className="levelInfo">
             <Container>
-                <div className="left">
-                    <h2>
-                        {language === 'French' ? 'Informations de niveau' : "معلومات المستوى"}
-                    </h2>
-                    <div className="text">
-                        <h3>
-                            - {language === 'French' ? levelInfo?.title : levelInfo?.title_ar}
-                        </h3>
+                <div className="unit-page">
+                    <div className="unit-container">
+                        {/* Unit Information Section */}
+                        <div className="unit-header">
 
-                        <p>
-                            {language === 'French' ? levelInfo?.description : levelInfo?.description_ar}
+                            <div className="left">
+                                <h2>
+                                    {language === 'French' ? 'Informations de niveau' : "معلومات المستوى"}
+                                </h2>
+                                <div className="text">
+                                    <h3>
+                                        - {language === 'French' ? levelInfo?.title : levelInfo?.title_ar}
+                                    </h3>
 
-                        </p>
-                    </div>
+                                    <p>
+                                        {language === 'French' ? levelInfo?.description : levelInfo?.description_ar}
 
-                </div>
+                                    </p>
+                                </div>
 
-                <div className="right">
-                    <h3>
-                        {language === 'French' ? 'Unités' : "الوحدات"}
-                    </h3>
-                    {userData?.user.roles?.length ?
-                        <div className="btns-ad">
-                            <Button onClick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un Unité' : "اضافة وحدة"}</Button>
+                            </div>
+
+                            <div className="right">
+                                <h3>
+                                    {language === 'French' ? 'Unités' : "الوحدات"}
+                                </h3>
+
+                                {userData?.user.roles?.length ?
+                                    <div className="btns-ad">
+                                        <Button onClick={() => setShowAddMode(true)}><i className='pi pi-plus'></i> {language === 'French' ? 'ajouter un Unité' : "اضافة وحدة"}</Button>
+                                    </div>
+                                    : ""}
+                                <UnitsList units={userData?.user.roles?.length ? unitsAdmin! : units!} />
+
+                            </div>
                         </div>
-                        : ""}
-                    <UnitsList units={userData?.user.roles?.length ? unitsAdmin! : units!} />
-
+                    </div>
                 </div>
             </Container>
+
             <Dialog header={language === "French" ? "Ajouter " : "اضافة"}
                 visible={showAddMode}
                 style={{ width: '70vw' }}
@@ -77,7 +87,7 @@ const Level = () => {
                     setShowAddMode(false);
                 }} />
             </Dialog>
-        </div>
+        </div >
     )
 }
 

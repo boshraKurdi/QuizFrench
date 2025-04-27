@@ -110,7 +110,7 @@ function Add(props: { setUserAdded: () => void }) {
                 </div>
             </div>
 
-            <button className='btn btn-success' onClick={() => addNewUser()}>{language === "French" ? "Ajouter un nouveau niveau" : "اضافة مستوى جديد"}</button>
+            <button className='btn btn-success' onClick={() => addNewUser()}>{language === "French" ? "Ajouter" : "اضافة "}</button>
         </div>
     )
 }

@@ -23,8 +23,8 @@
 .levelInfo .left,
 .levelInfo .right {
     padding: 10px;
-    border: 1px solid var(--main-color);
-    box-shadow: 0 0 2px 2px var(--main-color);
+    /* border: 1px solid var(--main-color); */
+    /* box-shadow: 0 0 2px 2px var(--main-color); */
 }
 
 .levelInfo h3,

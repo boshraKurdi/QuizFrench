@@ -1,5 +1,4 @@
 import './UnitCard.css'
-import Lock from '@assets/svgs/lock-svgrepo-com.svg?react'
 import { useAppDispatch, useAppSelector } from "@hooks/app"
 import { TUnitProps } from "@customtypes/unitType"
 import { useNavigate, useParams } from 'react-router-dom'
@@ -39,44 +38,128 @@ const UnitCard = (props: TUnitProps) => {
     const { id, idLevel, } = useParams()
     const indx = parseInt(id as string)
     return (
-        <div
-            className={props?.is_locked ? `unitCard` : `unitCard active`}>
-            <div onClick={() =>
-                navigate(userData?.user.roles?.length ? `/dashboard/courses/${indx}/levels/${idLevel}/units/${props.id}` : `/courses/${indx}/levels/${idLevel}/units/${props.id}`)} className="text">
-                <h4> {language === "French" ? props.title : props.title_ar}</h4>
-                <p>{language === "French" ? props.description : props.description_ar}</p>
+        <div key={props.id} className="lesson-card">
+            <div className="lesson-content">
+                <div className="lesson-header">
+                    <div
+                        className={`lesson-icon ${props?.is_locked
+                            ? "locked"
+                            : props?.id === 100
+                                ? "completed"
+                                : "active"
+                            }`}
+                    >
+                        {props?.is_locked
+                            ? "🔒"
+                            : props?.id === 100
+                                ? "✓"
+                                : "📖"}
+                    </div>
+                    <h3 className="lesson-title">
+                        {language === "French" ? props.title : props.title_ar}
+                    </h3>
+                </div>
+
+                {!props?.is_locked && (
+                    <>
+                        {!userData?.user.roles?.length ? <div className="progress-bar">
+                            <div
+                                className="progress-fill"
+                                style={{ width: `10%` }}
+                            ></div>
+                        </div> : ""}
+                        <div
+                            style={!!userData?.user.roles?.length ? {
+                                justifyContent: 'center'
+                            } : {}}
+                            className="lesson-footer">
+                            {!userData?.user.roles?.length ? <span className="progress-text">
+                                {"10"}%{" "}
+                                {language === "French" ? "complété" : "مكتمل"}
+                            </span> : ""}
+                            <button
+                                onClick={() =>
+                                    navigate(userData?.user.roles?.length ? `/dashboard/courses/${indx}/levels/${idLevel}/units/${props.id}` : `/courses/${indx}/levels/${idLevel}/units/${props.id}`)}
+                                className="start-btn">
+                                {language === "French" ? "Commencer" : "ابدأ"}
+                            </button>
+                        </div>
+                    </>
+                )}
+                {
+                    userData?.user.roles?.length ?
+                        <div className="btns-op">
+                            <Button onClick={() => {
+                                dispatch(actDashShowVoc(props.id!))
+                                setselectedUserId(props.id!)
+                                setShowEditMode(true)
+                            }
+                            }>{language === 'French' ? 'modifier ' : "تعديل "}</Button>
+                            <Button onClick={() => {
+                                deleteUserConfirm(props.id!)
+                            }
+                            }>{language === 'French' ? 'supprimer ' : "حذف "}</Button>
+                        </div>
+                        : ""
+                }
+
+
+                {props?.is_locked && (
+                    <div className="locked-message">
+                        {language === "French"
+                            ? "Leçon verrouillée"
+                            : "الدرس مقفل"}
+                    </div>
+                )}
+                <Dialog header={language === "French" ? "modifier " : "تعديل "}
+                    visible={showEditMode}
+                    style={{ width: '70vw' }}
+                    onHide={() => setShowEditMode(false)}>
+
+                    <Edit userId={selectedUserId!} setUserEdited={() => {
+                        setShowEditMode(false);
+                    }} />
+                </Dialog>
             </div>
-            {props?.is_locked &&
-                <div className="lock">
-                    <Lock style={{ width: '30px', height: '30px' }} />
-                </div>
-            }
-            {
-                userData?.user.roles?.length ? <div className="btns-op">
-                    <Button onClick={() => {
-                        dispatch(actDashShowVoc(props.id!))
-                        setselectedUserId(props.id!)
-                        setShowEditMode(true)
-                    }
-                    }>{language === 'French' ? 'modifier ' : "تعديل "}</Button>
-                    <Button onClick={() => {
-                        deleteUserConfirm(props.id!)
-                    }
-                    }>{language === 'French' ? 'supprimer ' : "حذف "}</Button>
-                </div>
-                    : ""
-            }
-
-            <Dialog header={language === "French" ? "modifier " : "تعديل "}
-                visible={showEditMode}
-                style={{ width: '70vw' }}
-                onHide={() => setShowEditMode(false)}>
-
-                <Edit userId={selectedUserId!} setUserEdited={() => {
-                    setShowEditMode(false);
-                }} />
-            </Dialog>
         </div>
+        // <div
+        //     className={props?.is_locked ? `unitCard` : `unitCard active`}>
+        //     <div onClick={() =>
+        //         navigate(userData?.user.roles?.length ? `/dashboard/courses/${indx}/levels/${idLevel}/units/${props.id}` : `/courses/${indx}/levels/${idLevel}/units/${props.id}`)} className="text">
+        //         <h4> {language === "French" ? props.title : props.title_ar}</h4>
+        //         <p>{language === "French" ? props.description : props.description_ar}</p>
+        //     </div>
+        //     {props?.is_locked &&
+        //         <div className="lock">
+        //             <Lock style={{ width: '30px', height: '30px' }} />
+        //         </div>
+        //     }
+        //     {
+        //         userData?.user.roles?.length ? <div className="btns-op">
+        //             <Button onClick={() => {
+        //                 dispatch(actDashShowVoc(props.id!))
+        //                 setselectedUserId(props.id!)
+        //                 setShowEditMode(true)
+        //             }
+        //             }>{language === 'French' ? 'modifier ' : "تعديل "}</Button>
+        //             <Button onClick={() => {
+        //                 deleteUserConfirm(props.id!)
+        //             }
+        //             }>{language === 'French' ? 'supprimer ' : "حذف "}</Button>
+        //         </div>
+        //             : ""
+        //     }
+
+        //     <Dialog header={language === "French" ? "modifier " : "تعديل "}
+        //         visible={showEditMode}
+        //         style={{ width: '70vw' }}
+        //         onHide={() => setShowEditMode(false)}>
+
+        //         <Edit userId={selectedUserId!} setUserEdited={() => {
+        //             setShowEditMode(false);
+        //         }} />
+        //     </Dialog>
+        // </div>
     )
 }
 
