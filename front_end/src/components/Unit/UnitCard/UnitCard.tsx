@@ -70,7 +70,7 @@ const UnitCard = (props: TUnitProps) => {
                         </div> : ""}
                         <div
                             style={!!userData?.user.roles?.length ? {
-                                justifyContent: 'center'
+                                justifyContent: 'space-between'
                             } : {}}
                             className="lesson-footer">
                             {!userData?.user.roles?.length ? <span className="progress-text">
