@@ -17,7 +17,7 @@ const BooksList = () => {
 
         }
     }, [dispatch])
-    const BooksCards = books?.map((book) => <Col lg={3} md={6} sm={1} key={book.id}>
+    const BooksCards = books?.map((book) => <Col lg={3} md={6} sm={12} key={book.id}>
         <BookCard  {...book} />
     </Col>
     )
