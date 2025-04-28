@@ -27,7 +27,8 @@ const QuizLevelPage = lazy(() => import('@pages/Admin/QuizLevelPage/QuizLevelPag
 const QuizUnitPage = lazy(() => import('@pages/Admin/QuizUnitPage/QuizUnitPage'));
 const QuizLessonPage = lazy(() => import('@pages/Admin/QuizLessonPage/QuizLessonPage'));
 const Certificate = lazy(() => import('@pages/Certificate/Certificate'));
-const Payment = lazy(() => import('@pages/Admin/Payments/Payments'));
+const Payment = lazy(() => import('@pages/Payment/Payment'));
+const Payments = lazy(() => import('@pages/Admin/Payments/Payments'));
 QuizUnit
 function App() {
   const { language } = useAppSelector(state => state.language)
@@ -154,7 +155,7 @@ function App() {
     {
 
       path: 'payments',
-      element: <SuspendPage ><Payment /></SuspendPage>,
+      element: <SuspendPage ><Payments /></SuspendPage>,
     }, {
       path: 'profile',
       element: <SuspendPage> <Settings /></SuspendPage>
